@@ -80,3 +80,38 @@ class YouTubeRecommendation(Base):
     id = Column(Integer, primary_key=True, index=True)
     topic = Column(String, index=True)
     video_details = Column(JSON) # Array of {title, url, thumbnail}
+
+
+class Quiz(Base):
+    __tablename__ = "quizzes"
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, nullable=False)
+    subject = Column(String, nullable=False)
+    created_at = Column(String)
+
+    questions = relationship("QuizQuestion", back_populates="quiz")
+
+
+class QuizQuestion(Base):
+    __tablename__ = "quiz_questions"
+    id = Column(Integer, primary_key=True, index=True)
+    quiz_id = Column(Integer, ForeignKey("quizzes.id"))
+    question_text = Column(String, nullable=False)
+    option_a = Column(String, nullable=False)
+    option_b = Column(String, nullable=False)
+    option_c = Column(String, nullable=False)
+    option_d = Column(String, nullable=False)
+    correct_option = Column(String, nullable=False)  # A/B/C/D
+
+    quiz = relationship("Quiz", back_populates="questions")
+
+
+class QuizAttempt(Base):
+    __tablename__ = "quiz_attempts"
+    id = Column(Integer, primary_key=True, index=True)
+    quiz_id = Column(Integer, ForeignKey("quizzes.id"))
+    student_id = Column(String, index=True)
+    score = Column(Float)
+    total_questions = Column(Integer)
+    correct_answers = Column(Integer)
+    submitted_at = Column(String)

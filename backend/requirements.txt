@@ -15,3 +15,6 @@ pandas
 scikit-learn
 xgboost
 youtube-data-api
+beautifulsoup4
+firebase-admin
+openai

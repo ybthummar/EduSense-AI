@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import models
 from database.connection import engine
-from api import admin, auth, chatbot, datasets, faculty, students
+from api import admin, auth, chatbot, datasets, faculty, quizzes, students
 
 # Create database tables (gracefully skip if DB unavailable)
 try:
@@ -31,6 +31,7 @@ app.include_router(faculty.router, prefix="/api/faculty", tags=["Faculty"])
 app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
 app.include_router(chatbot.router, prefix="/api/chat", tags=["AI Chatbot"])
 app.include_router(datasets.router, prefix="/api/datasets", tags=["Datasets"])
+app.include_router(quizzes.router, prefix="/api/quizzes", tags=["Quizzes"])
 
 @app.get("/")
 def health_check():
