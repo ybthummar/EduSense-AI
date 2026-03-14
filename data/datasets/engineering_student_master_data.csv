@@ -12,7 +12,7 @@ Student_ID,Enrollment_Year,Department,Department_Code,First_Name,Last_Name,Gende
 23CV001,2023,Civil Engineering,CV,Aditya,Jain,Male,01/05/05,23CV001@charusat.edu.in,9313817756,Mumbai,Maharashtra,Regular,4,8,Active
 23CV002,2023,Civil Engineering,CV,Sneha,Gohil,Female,07/01/06,23CV002@charusat.edu.in,7622074467,Mumbai,Maharashtra,Lateral Entry,4,8,Active
 23CV003,2023,Civil Engineering,CV,Parth,Reddy,Male,02/11/05,23CV003@charusat.edu.in,7383242583,Mumbai,Maharashtra,Regular,4,7,Active
-24CV001,2024,Civil Engineering,CV,Ishita,Rathod,Female,25/04/05,24CV001@charusat.edu.in,9313817756,Pune,Maharashtra,Regular,3,6,Active
+24CV001,2024,Civil Engineering,CV,Ishita,Rathod,Female,25/04/05,-24CV001@charusat.edu.in,9313817756,Pune,Maharashtra,Regular,3,6,Active
 24CV002,2024,Civil Engineering,CV,Aarav,Solanki,Male,03/05/05,24CV002@charusat.edu.in,7622074467,Rajkot,Gujarat,Regular,3,5,Active
 24CV003,2024,Civil Engineering,CV,Arjun,Chauhan,Male,25/03/07,24CV003@charusat.edu.in,7383242583,Vadodara,Gujarat,Regular,3,6,Active
 25CV001,2025,Civil Engineering,CV,Rohan,Trivedi,Male,27/04/08,25CV001@charusat.edu.in,9313817756,Indore,Madhya Pradesh,Regular,2,4,Active

@@ -5,6 +5,9 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import AdminDashboard from './pages/AdminDashboard';
 import FacultyDashboard from './pages/FacultyDashboard';
+import FacultyStudentsPage from './pages/FacultyStudentsPage';
+import FacultyAttendancePage from './pages/FacultyAttendancePage';
+import FacultyPerformancePage from './pages/FacultyPerformancePage';
 import StudentDashboard from './pages/StudentDashboard';
 import ChatPage from './pages/ChatPage';
 import DashboardLayout from './layouts/DashboardLayout';
@@ -66,9 +69,9 @@ export default function App() {
         }
       >
         <Route path="/faculty" element={<FacultyDashboard />} />
-        <Route path="/faculty/students" element={<FacultyDashboard />} />
-        <Route path="/faculty/performance" element={<FacultyDashboard />} />
-        <Route path="/faculty/attendance" element={<FacultyDashboard />} />
+        <Route path="/faculty/students" element={<FacultyStudentsPage />} />
+        <Route path="/faculty/performance" element={<FacultyPerformancePage />} />
+        <Route path="/faculty/attendance" element={<FacultyAttendancePage />} />
       </Route>
 
       {/* Student Routes */}
