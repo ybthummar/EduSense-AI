@@ -3,6 +3,7 @@ import { TrendingUp, Users, AlertTriangle, Search, Filter, BarChart3, BookOpen, 
 import Card, { CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
+import Modal from '../components/ui/Modal';
 import MetricCard from '../components/MetricCard';
 import { BarChartCard, PieChartCard } from '../components/charts';
 import { facultyAPI } from '../services/api';
@@ -16,6 +17,7 @@ export default function FacultyPerformancePage() {
   const [sortBy, setSortBy] = useState('student_id');
   const [sortOrder, setSortOrder] = useState('asc');
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const [showSubjectModal, setShowSubjectModal] = useState(false);
 
   useEffect(() => {
     loadPerformanceData();
@@ -33,6 +35,16 @@ export default function FacultyPerformancePage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const openSubjectModal = (student) => {
+    setSelectedStudent(student);
+    setShowSubjectModal(true);
+  };
+
+  const closeSubjectModal = () => {
+    setShowSubjectModal(false);
+    setSelectedStudent(null);
   };
 
   const departments = [...new Set(students.map(s => s.department))].filter(Boolean).sort();
@@ -239,6 +251,7 @@ export default function FacultyPerformancePage() {
                 <th className="px-1 md:px-3 py-2 md:py-3 text-center font-semibold text-slate-300"><FolderGit2 className="h-3.5 w-3.5 mx-auto" title="Project" /></th>
                 <th className="px-1 md:px-3 py-2 md:py-3 text-center font-semibold text-slate-300"><Briefcase className="h-3.5 w-3.5 mx-auto" title="Internship" /></th>
                 <th className="px-1 md:px-3 py-2 md:py-3 text-center font-semibold text-slate-300"><Award className="h-3.5 w-3.5 mx-auto" title="Extracurricular" /></th>
+                <th className="px-3 py-3 text-center font-semibold text-slate-300">Subjects</th>
                 <SortableHeader label="Risk" column="risk_level" sortBy={sortBy} sortOrder={sortOrder} onSort={handleSort} />
               </tr>
             </thead>
@@ -290,6 +303,16 @@ export default function FacultyPerformancePage() {
                         {student.extracurricular_level?.substring(0, 1) || '-'}
                       </Badge>
                     </td>
+                    <td className="px-2 md:px-3 py-2 text-center">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={(e) => { e.stopPropagation(); openSubjectModal(student); }}
+                        className="text-xs px-2 py-1"
+                      >
+                        View
+                      </Button>
+                    </td>
                     <td className="px-2 md:px-3 py-2 text-center">{getRiskBadge(student.risk_level)}</td>
                   </tr>
                 ))
@@ -298,6 +321,24 @@ export default function FacultyPerformancePage() {
           </table>
         </div>
       </Card>
+
+      {showSubjectModal && selectedStudent && (
+        <Modal open onClose={closeSubjectModal} title={`Subject-wise marks: ${selectedStudent.name}`} size="xl">
+          <div className="space-y-3">
+            <p className="text-sm text-slate-300">This list is sourced from the current semester subject marks in enriched dataset.</p>
+            <div className="grid gap-2">
+              {selectedStudent.current_subjects?.length ? selectedStudent.current_subjects.map((sub, idx) => (
+                <div key={`${sub.subject_code}-${idx}`} className="flex items-center justify-between bg-slate-900/70 rounded-lg p-2 border border-slate-700">
+                  <span className="text-slate-200 font-medium">{sub.subject_code}</span>
+                  <span className="text-cyan-300 font-semibold">{sub.marks != null ? `${sub.marks}` : 'N/A'}</span>
+                </div>
+              )) : (
+                <div className="text-slate-400">No subject marks available.</div>
+              )}
+            </div>
+          </div>
+        </Modal>
+      )}
 
       {/* Data Source Info */}
       <Card className="p-4 bg-slate-800/50 border border-slate-700/50">

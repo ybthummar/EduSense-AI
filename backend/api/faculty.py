@@ -95,11 +95,27 @@ def get_students_performance(
         
         students = []
         for _, row in merged.iterrows():
-            # Parse marks
+            # Parse marks and subjects
             marks_str = str(row.get("Current_Subject_Marks", ""))
+            codes_str = str(row.get("Current_Subject_Codes", ""))
             marks = [int(m.strip()) for m in marks_str.split("|") if m.strip()]
+            codes = [c.strip() for c in codes_str.split("|") if c.strip()]
             avg_marks = sum(marks) / len(marks) if marks else 0
-            
+
+            subject_marks = []
+            for i in range(min(len(codes), len(marks))):
+                subject_marks.append({
+                    "subject_code": codes[i],
+                    "marks": marks[i],
+                })
+            # if there are extra marks or codes, include them gracefully
+            if len(marks) > len(codes):
+                for i in range(len(codes), len(marks)):
+                    subject_marks.append({"subject_code": f"MISC-{i+1}", "marks": marks[i]})
+            elif len(codes) > len(marks):
+                for i in range(len(marks), len(codes)):
+                    subject_marks.append({"subject_code": codes[i], "marks": None})
+
             # Calculate SGPA from average marks (10-point scale)
             current_sem_sgpa = round((avg_marks / 10), 2)
             previous_sem_sgpa = float(row.get("Previous_Sem_SGPA", 0)) if not pd.isna(row.get("Previous_Sem_SGPA")) else 0
@@ -134,6 +150,7 @@ def get_students_performance(
                 "average_marks": round(avg_marks, 2),
                 "previous_sem_sgpa": round(previous_sem_sgpa, 2),
                 "current_sem_sgpa": current_sem_sgpa,  # Calculated from current marks
+                "current_subjects": subject_marks,
                 "extracurricular_level": _clean_value(row.get("Extracurricular_Level", "")),
                 "internship": _clean_value(row.get("Internship", "")),
                 "devops_status": _clean_value(row.get("DevOps_Engineering_Status", "")),
