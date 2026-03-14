@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Users, GraduationCap, Building2, AlertTriangle, Plus, TrendingUp } from 'lucide-react';
+import { Users, GraduationCap, Building2, AlertTriangle, Plus, Activity, BarChart3 } from 'lucide-react';
 import MetricCard from '../components/MetricCard';
 import DataTable from '../components/DataTable';
 import { BarChartCard } from '../components/charts';
@@ -91,7 +91,7 @@ export default function AdminDashboard() {
     : '0%';
 
   const studentColumns = [
-    { header: 'Name', accessor: 'Name', render: (v) => <span className="font-medium text-zinc-100">{v || 'N/A'}</span> },
+    { header: 'Name', accessor: 'Name', render: (v) => <span className="font-medium text-slate-100">{v || 'N/A'}</span> },
     { header: 'Department', accessor: 'Department' },
     { header: 'Semester', accessor: 'Semester' },
     { header: 'CGPA', accessor: 'CGPA', render: (v) => <span className="font-mono">{v ? Number(v).toFixed(2) : 'N/A'}</span> },
@@ -127,8 +127,8 @@ export default function AdminDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold text-zinc-100">Admin Dashboard</h1>
-          <p className="text-sm text-zinc-500 mt-1">System overview and management</p>
+          <h1 className="text-xl font-semibold text-slate-100">Admin Dashboard</h1>
+          <p className="mt-1 text-sm text-slate-400">System overview and management</p>
         </div>
         <Button onClick={() => setShowCreateFaculty(true)}>
           <Plus className="w-4 h-4" /> Add Faculty
@@ -146,38 +146,43 @@ export default function AdminDashboard() {
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <PieChartCard title="Students by Department" description="Distribution across departments" data={deptChartData} height={280} />
-        <BarChartCard title="Risk Distribution" description="Student risk level breakdown" data={riskChartData} dataKey="value" color="#f59e0b" height={280} />
+        <BarChartCard title="Risk Distribution" description="Student risk level breakdown" data={riskChartData} dataKey="value" color="#fb923c" height={280} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <AreaChartCard title="Students by Semester" description="Enrollment per semester" data={semChartData} dataKey="count" height={280} />
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-          <h3 className="text-sm font-medium text-zinc-100 mb-1">Quick Stats</h3>
-          <p className="text-xs text-zinc-500 mb-4">Key performance indicators</p>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between py-3 border-b border-zinc-800">
-              <span className="text-sm text-zinc-400">Average CGPA</span>
-              <span className="text-sm font-semibold text-zinc-100">{avgGPA}</span>
+        <AreaChartCard title="Students by Semester" description="Enrollment per semester" data={semChartData} dataKey="count" color="#22d3ee" height={280} />
+        <div className="surface-card surface-card-hover rounded-2xl p-6">
+          <div className="mb-5 flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan-400/30 bg-cyan-500/12 text-cyan-300">
+              <Activity className="h-4 w-4" />
             </div>
-            <div className="flex items-center justify-between py-3 border-b border-zinc-800">
-              <span className="text-sm text-zinc-400">Average Attendance</span>
-              <span className="text-sm font-semibold text-zinc-100">{avgAttendance}</span>
+            <div>
+              <h3 className="text-base font-semibold text-slate-100">Quick Stats</h3>
+              <p className="text-xs text-slate-400">Key performance indicators</p>
             </div>
-            <div className="flex items-center justify-between py-3 border-b border-zinc-800">
-              <span className="text-sm text-zinc-400">Total Departments</span>
-              <span className="text-sm font-semibold text-zinc-100">{Object.keys(departmentCounts).length}</span>
-            </div>
-            <div className="flex items-center justify-between py-3">
-              <span className="text-sm text-zinc-400">At-Risk Rate</span>
-              <span className="text-sm font-semibold text-red-400">{((atRiskCount / Math.max(students.length, 1)) * 100).toFixed(1)}%</span>
-            </div>
+          </div>
+          <div className="space-y-1">
+            {[
+              { label: 'Average CGPA', value: avgGPA, color: 'text-cyan-300' },
+              { label: 'Average Attendance', value: avgAttendance, color: 'text-emerald-300' },
+              { label: 'Total Departments', value: Object.keys(departmentCounts).length, color: 'text-orange-300' },
+              { label: 'At-Risk Rate', value: `${((atRiskCount / Math.max(students.length, 1)) * 100).toFixed(1)}%`, color: 'text-red-300' },
+            ].map((stat, i) => (
+              <div key={i} className="flex items-center justify-between rounded-xl px-3 py-3 transition-colors hover:bg-slate-800/40">
+                <span className="text-sm text-slate-300">{stat.label}</span>
+                <span className={`text-sm font-semibold ${stat.color}`}>{stat.value}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Students Table */}
       <div>
-        <h2 className="text-sm font-medium text-zinc-100 mb-3">All Students</h2>
+        <div className="mb-3 flex items-center gap-2">
+          <BarChart3 className="h-4 w-4 text-slate-400" />
+          <h2 className="text-sm font-semibold text-slate-200">All Students</h2>
+        </div>
         <DataTable columns={studentColumns} data={students} pageSize={10} />
       </div>
 

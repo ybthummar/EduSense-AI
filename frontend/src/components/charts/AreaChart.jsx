@@ -4,10 +4,10 @@ import Card, { CardHeader, CardTitle, CardDescription } from '../ui/Card';
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 shadow-xl">
-      <p className="text-xs text-zinc-400 mb-1">{label}</p>
+    <div className="glass-panel rounded-lg border border-slate-600/75 px-3 py-2 shadow-xl">
+      <p className="mb-1 text-xs text-slate-400">{label}</p>
       {payload.map((entry, i) => (
-        <p key={i} className="text-sm font-medium" style={{ color: entry.color }}>
+        <p key={i} className="text-sm font-semibold" style={{ color: entry.color }}>
           {entry.name}: {entry.value}
         </p>
       ))}
@@ -15,9 +15,9 @@ const CustomTooltip = ({ active, payload, label }) => {
   );
 };
 
-export default function AreaChartCard({ title, description, data, dataKey, xKey = 'name', color = '#6366f1', height = 300, className = '' }) {
+export default function AreaChartCard({ title, description, data, dataKey, xKey = 'name', color = '#22d3ee', height = 300, className = '' }) {
   return (
-    <Card className={className}>
+    <Card hover className={className}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         {description && <CardDescription>{description}</CardDescription>}
@@ -30,11 +30,11 @@ export default function AreaChartCard({ title, description, data, dataKey, xKey 
               <stop offset="100%" stopColor={color} stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
-          <XAxis dataKey={xKey} tick={{ fontSize: 12, fill: '#71717a' }} axisLine={false} tickLine={false} />
-          <YAxis tick={{ fontSize: 12, fill: '#71717a' }} axisLine={false} tickLine={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+          <XAxis dataKey={xKey} tick={{ fontSize: 12, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
+          <YAxis tick={{ fontSize: 12, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
           <Tooltip content={<CustomTooltip />} />
-          <Area type="monotone" dataKey={dataKey} stroke={color} strokeWidth={2} fill={`url(#gradient-${dataKey})`} />
+          <Area type="monotone" dataKey={dataKey} stroke={color} strokeWidth={2.3} fill={`url(#gradient-${dataKey})`} />
         </AreaChart>
       </ResponsiveContainer>
     </Card>

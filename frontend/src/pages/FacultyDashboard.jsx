@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Users, TrendingUp, AlertTriangle, BookOpen, Plus, UserCheck } from 'lucide-react';
+import { Users, TrendingUp, AlertTriangle, BookOpen, Plus, GraduationCap } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import MetricCard from '../components/MetricCard';
 import DataTable from '../components/DataTable';
@@ -85,7 +85,7 @@ export default function FacultyDashboard() {
   ].filter(d => d.value > 0);
 
   const columns = [
-    { header: 'Name', accessor: 'name', render: (v) => <span className="font-medium text-zinc-100">{v}</span> },
+    { header: 'Name', accessor: 'name', render: (v) => <span className="font-medium text-slate-100">{v}</span> },
     { header: 'Department', accessor: 'department' },
     { header: 'Semester', accessor: 'semester' },
     { header: 'GPA', accessor: 'gpa', render: (v) => <span className="font-mono">{v ? Number(v).toFixed(2) : 'N/A'}</span> },
@@ -118,8 +118,8 @@ export default function FacultyDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold text-zinc-100">Faculty Dashboard</h1>
-          <p className="text-sm text-zinc-500 mt-1">Track and manage your students</p>
+          <h1 className="text-xl font-semibold text-slate-100">Faculty Dashboard</h1>
+          <p className="mt-1 text-sm text-slate-400">Track and manage your students</p>
         </div>
         <Button onClick={() => setShowAddStudent(true)}>
           <Plus className="w-4 h-4" /> Add Student
@@ -135,15 +135,18 @@ export default function FacultyDashboard() {
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <BarChartCard title="GPA by Semester" description="Average GPA per semester" data={gpaData} dataKey="gpa" color="#10b981" height={260} />
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <BarChartCard title="GPA by Semester" description="Average GPA per semester" data={gpaData} dataKey="gpa" color="#34d399" height={260} />
         <PieChartCard title="Risk Distribution" description="Student risk levels" data={riskData} height={260} />
-        <PieChartCard title="Attendance Distribution" description="Attendance ranges" data={attendanceDistribution} height={260} colors={['#10b981', '#6366f1', '#f59e0b', '#ef4444']} />
+        <PieChartCard title="Attendance Distribution" description="Attendance ranges" data={attendanceDistribution} height={260} colors={['#34d399', '#22d3ee', '#fb923c', '#f87171']} />
       </div>
 
       {/* Students Table */}
       <div>
-        <h2 className="text-sm font-medium text-zinc-100 mb-3">My Students</h2>
+        <div className="mb-3 flex items-center gap-2">
+          <GraduationCap className="h-4 w-4 text-slate-400" />
+          <h2 className="text-sm font-semibold text-slate-200">My Students</h2>
+        </div>
         <DataTable
           columns={columns}
           data={students}
@@ -155,34 +158,24 @@ export default function FacultyDashboard() {
       {/* Student Detail Modal */}
       <Modal open={!!selectedStudent} onClose={() => setSelectedStudent(null)} title="Student Details" size="lg">
         {selectedStudent && (
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-xs text-zinc-500">Name</p>
-                <p className="text-sm font-medium text-zinc-100">{selectedStudent.name}</p>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { label: 'Name', value: selectedStudent.name },
+              { label: 'Department', value: selectedStudent.department },
+              { label: 'GPA', value: selectedStudent.gpa?.toFixed(2) || 'N/A' },
+              { label: 'Attendance', value: selectedStudent.attendance ? `${selectedStudent.attendance.toFixed(1)}%` : 'N/A' },
+              { label: 'Semester', value: selectedStudent.semester },
+            ].map((item) => (
+              <div key={item.label} className="rounded-xl border border-slate-700/50 bg-slate-800/30 px-3 py-2.5">
+                <p className="text-[11px] uppercase tracking-[0.09em] text-slate-500">{item.label}</p>
+                <p className="mt-0.5 text-sm font-semibold text-slate-100">{item.value}</p>
               </div>
-              <div>
-                <p className="text-xs text-zinc-500">Department</p>
-                <p className="text-sm font-medium text-zinc-100">{selectedStudent.department}</p>
-              </div>
-              <div>
-                <p className="text-xs text-zinc-500">GPA</p>
-                <p className="text-sm font-medium text-zinc-100">{selectedStudent.gpa?.toFixed(2) || 'N/A'}</p>
-              </div>
-              <div>
-                <p className="text-xs text-zinc-500">Attendance</p>
-                <p className="text-sm font-medium text-zinc-100">{selectedStudent.attendance?.toFixed(1) || 'N/A'}%</p>
-              </div>
-              <div>
-                <p className="text-xs text-zinc-500">Semester</p>
-                <p className="text-sm font-medium text-zinc-100">{selectedStudent.semester}</p>
-              </div>
-              <div>
-                <p className="text-xs text-zinc-500">Risk Level</p>
-                <Badge variant={selectedStudent.risk?.toLowerCase() === 'high' || selectedStudent.risk?.toLowerCase() === 'critical' ? 'danger' : selectedStudent.risk?.toLowerCase() === 'medium' ? 'warning' : 'success'}>
-                  {selectedStudent.risk || 'Low'}
-                </Badge>
-              </div>
+            ))}
+            <div className="rounded-xl border border-slate-700/50 bg-slate-800/30 px-3 py-2.5">
+              <p className="mb-1 text-[11px] uppercase tracking-[0.09em] text-slate-500">Risk Level</p>
+              <Badge variant={selectedStudent.risk?.toLowerCase() === 'high' || selectedStudent.risk?.toLowerCase() === 'critical' ? 'danger' : selectedStudent.risk?.toLowerCase() === 'medium' ? 'warning' : 'success'}>
+                {selectedStudent.risk || 'Low'}
+              </Badge>
             </div>
           </div>
         )}

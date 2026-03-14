@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Search, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 
 export default function DataTable({ columns, data, onRowClick, searchable = true, pageSize = 8 }) {
@@ -7,80 +7,94 @@ export default function DataTable({ columns, data, onRowClick, searchable = true
   const [sortCol, setSortCol] = useState(null);
   const [sortDir, setSortDir] = useState('asc');
 
-  const filtered = data.filter(row => {
-    if (!search) return true;
-    return columns.some(col => {
-      const val = row[col.accessor];
-      return val != null && String(val).toLowerCase().includes(search.toLowerCase());
-    });
-  });
+  const filtered = useMemo(
+    () =>
+      data.filter((row) => {
+        if (!search) return true;
+        return columns.some((col) => {
+          const value = row[col.accessor];
+          return value != null && String(value).toLowerCase().includes(search.toLowerCase());
+        });
+      }),
+    [columns, data, search]
+  );
 
-  const sorted = sortCol != null
-    ? [...filtered].sort((a, b) => {
-        const col = columns[sortCol];
-        const av = a[col.accessor], bv = b[col.accessor];
-        const cmp = typeof av === 'number' ? av - bv : String(av).localeCompare(String(bv));
-        return sortDir === 'asc' ? cmp : -cmp;
-      })
-    : filtered;
+  const sorted =
+    sortCol != null
+      ? [...filtered].sort((a, b) => {
+          const col = columns[sortCol];
+          const av = a[col.accessor];
+          const bv = b[col.accessor];
+          const cmp = typeof av === 'number' ? av - bv : String(av).localeCompare(String(bv));
+          return sortDir === 'asc' ? cmp : -cmp;
+        })
+      : filtered;
 
   const totalPages = Math.max(1, Math.ceil(sorted.length / pageSize));
   const safePage = Math.min(page, totalPages - 1);
   const paged = sorted.slice(safePage * pageSize, (safePage + 1) * pageSize);
 
-  const handleSort = (i) => {
-    if (columns[i].render && !columns[i].accessor) return;
-    if (sortCol === i) {
-      setSortDir(d => d === 'asc' ? 'desc' : 'asc');
+  const handleSort = (index) => {
+    if (!columns[index].accessor) return;
+    if (sortCol === index) {
+      setSortDir((value) => (value === 'asc' ? 'desc' : 'asc'));
     } else {
-      setSortCol(i);
+      setSortCol(index);
       setSortDir('asc');
     }
   };
 
   return (
-    <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
+    <div className="surface-card overflow-hidden rounded-2xl">
       {searchable && (
-        <div className="p-4 border-b border-zinc-800">
+        <div className="border-b border-slate-700/65 p-4">
           <div className="relative max-w-xs">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
             <input
               type="text"
               value={search}
-              onChange={e => { setSearch(e.target.value); setPage(0); }}
+              onChange={(event) => {
+                setSearch(event.target.value);
+                setPage(0);
+              }}
               placeholder="Search..."
-              className="w-full pl-9 pr-3 py-2 bg-zinc-800/50 border border-zinc-700 rounded-lg text-zinc-100 text-sm placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-colors"
+              className="glass-panel-soft w-full rounded-xl border border-slate-600/70 py-2 pl-9 pr-3 text-sm text-slate-100 placeholder:text-slate-500 transition-colors focus:border-cyan-400/50 focus:outline-none focus:ring-2 focus:ring-cyan-400/35"
             />
           </div>
         </div>
       )}
+
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
             <tr>
-              {columns.map((col, i) => (
+              {columns.map((col, index) => (
                 <th
-                  key={i}
+                  key={index}
                   style={{ width: col.width }}
-                  onClick={() => handleSort(i)}
-                  className={`px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-500 border-b border-zinc-800 bg-zinc-900/50 ${col.accessor ? 'cursor-pointer select-none hover:text-zinc-300 transition-colors' : ''}`}
+                  onClick={() => handleSort(index)}
+                  className={[
+                    'border-b border-slate-700/65 bg-slate-900/55 px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.09em] text-slate-400',
+                    col.accessor ? 'cursor-pointer select-none transition-colors hover:text-slate-200' : '',
+                  ].join(' ')}
                 >
                   <span className="inline-flex items-center gap-1.5">
                     {col.header}
-                    {sortCol === i && (
-                      <span className="text-indigo-400 text-[10px]">{sortDir === 'asc' ? '▲' : '▼'}</span>
+                    {sortCol === index && (
+                      <span className="text-[10px] text-cyan-300">{sortDir === 'asc' ? '^' : 'v'}</span>
                     )}
                   </span>
                 </th>
               ))}
             </tr>
           </thead>
+
           <tbody>
             {paged.length === 0 ? (
               <tr>
-                <td colSpan={columns.length} className="text-center py-12 text-zinc-500">
+                <td colSpan={columns.length} className="py-12 text-center text-slate-400">
                   <div className="flex flex-col items-center gap-2">
-                    <Search className="w-8 h-8 text-zinc-600" />
+                    <Search className="h-8 w-8 text-slate-500" />
                     <p>{search ? 'No matching results' : 'No data available'}</p>
                   </div>
                 </td>
@@ -90,10 +104,13 @@ export default function DataTable({ columns, data, onRowClick, searchable = true
                 <tr
                   key={rowIndex}
                   onClick={() => onRowClick?.(row)}
-                  className={`border-b border-zinc-800/50 last:border-0 hover:bg-zinc-800/30 transition-colors ${onRowClick ? 'cursor-pointer' : ''}`}
+                  className={[
+                    'border-b border-slate-800/65 last:border-b-0 transition-colors hover:bg-slate-800/45',
+                    onRowClick ? 'cursor-pointer' : '',
+                  ].join(' ')}
                 >
                   {columns.map((col, colIndex) => (
-                    <td key={colIndex} className="px-4 py-3 text-sm text-zinc-300">
+                    <td key={colIndex} className="px-4 py-3 text-sm text-slate-200">
                       {col.render ? col.render(row[col.accessor], row) : row[col.accessor]}
                     </td>
                   ))}
@@ -103,24 +120,44 @@ export default function DataTable({ columns, data, onRowClick, searchable = true
           </tbody>
         </table>
       </div>
+
       {sorted.length > pageSize && (
-        <div className="px-4 py-3 border-t border-zinc-800 flex items-center justify-between">
-          <p className="text-xs text-zinc-500">
-            {safePage * pageSize + 1}–{Math.min((safePage + 1) * pageSize, sorted.length)} of {sorted.length}
+        <div className="flex items-center justify-between border-t border-slate-700/65 px-4 py-3">
+          <p className="text-xs text-slate-400">
+            {safePage * pageSize + 1}-{Math.min((safePage + 1) * pageSize, sorted.length)} of {sorted.length}
           </p>
+
           <div className="flex items-center gap-1">
-            <button onClick={() => setPage(0)} disabled={safePage === 0} className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
-              <ChevronsLeft className="w-4 h-4" />
+            <button
+              onClick={() => setPage(0)}
+              disabled={safePage === 0}
+              className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-700/55 hover:text-slate-200 disabled:cursor-not-allowed disabled:opacity-35"
+            >
+              <ChevronsLeft className="h-4 w-4" />
             </button>
-            <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={safePage === 0} className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
-              <ChevronLeft className="w-4 h-4" />
+            <button
+              onClick={() => setPage((value) => Math.max(0, value - 1))}
+              disabled={safePage === 0}
+              className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-700/55 hover:text-slate-200 disabled:cursor-not-allowed disabled:opacity-35"
+            >
+              <ChevronLeft className="h-4 w-4" />
             </button>
-            <span className="px-3 py-1 text-xs text-zinc-400 font-medium">{safePage + 1} / {totalPages}</span>
-            <button onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))} disabled={safePage >= totalPages - 1} className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
-              <ChevronRight className="w-4 h-4" />
+            <span className="px-3 py-1 text-xs font-medium text-slate-300">
+              {safePage + 1} / {totalPages}
+            </span>
+            <button
+              onClick={() => setPage((value) => Math.min(totalPages - 1, value + 1))}
+              disabled={safePage >= totalPages - 1}
+              className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-700/55 hover:text-slate-200 disabled:cursor-not-allowed disabled:opacity-35"
+            >
+              <ChevronRight className="h-4 w-4" />
             </button>
-            <button onClick={() => setPage(totalPages - 1)} disabled={safePage >= totalPages - 1} className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
-              <ChevronsRight className="w-4 h-4" />
+            <button
+              onClick={() => setPage(totalPages - 1)}
+              disabled={safePage >= totalPages - 1}
+              className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-700/55 hover:text-slate-200 disabled:cursor-not-allowed disabled:opacity-35"
+            >
+              <ChevronsRight className="h-4 w-4" />
             </button>
           </div>
         </div>

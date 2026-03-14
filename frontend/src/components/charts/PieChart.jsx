@@ -1,14 +1,14 @@
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import Card, { CardHeader, CardTitle, CardDescription } from '../ui/Card';
 
-const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
+const COLORS = ['#22d3ee', '#34d399', '#fb923c', '#f87171', '#f472b6', '#a78bfa'];
 
 const CustomTooltip = ({ active, payload }) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 shadow-xl">
-      <p className="text-sm font-medium text-zinc-100">{payload[0].name}</p>
-      <p className="text-xs text-zinc-400">{payload[0].value} ({((payload[0].value / payload[0].payload.total) * 100).toFixed(1)}%)</p>
+    <div className="glass-panel rounded-lg border border-slate-600/75 px-3 py-2 shadow-xl">
+      <p className="text-sm font-semibold text-slate-100">{payload[0].name}</p>
+      <p className="text-xs text-slate-400">{payload[0].value} ({((payload[0].value / payload[0].payload.total) * 100).toFixed(1)}%)</p>
     </div>
   );
 };
@@ -16,7 +16,7 @@ const CustomTooltip = ({ active, payload }) => {
 const renderLegend = ({ payload }) => (
   <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mt-2">
     {payload.map((entry, i) => (
-      <div key={i} className="flex items-center gap-1.5 text-xs text-zinc-400">
+      <div key={i} className="flex items-center gap-1.5 text-xs text-slate-400">
         <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color }} />
         {entry.value}
       </div>
@@ -29,7 +29,7 @@ export default function PieChartCard({ title, description, data, dataKey = 'valu
   const dataWithTotal = data.map(d => ({ ...d, total }));
 
   return (
-    <Card className={className}>
+    <Card hover className={className}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         {description && <CardDescription>{description}</CardDescription>}

@@ -2,18 +2,18 @@ import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
 export default function MetricCard({ title, value, change, changeType = 'neutral', icon: Icon, color = 'primary', subtitle }) {
   const iconBg = {
-    primary: 'bg-indigo-500/10 text-indigo-400',
-    accent: 'bg-teal-500/10 text-teal-400',
-    success: 'bg-emerald-500/10 text-emerald-400',
-    warning: 'bg-amber-500/10 text-amber-400',
-    danger: 'bg-red-500/10 text-red-400',
-    purple: 'bg-purple-500/10 text-purple-400',
+    primary: 'border-cyan-400/30 bg-cyan-500/12 text-cyan-300',
+    accent: 'border-orange-400/30 bg-orange-500/12 text-orange-300',
+    success: 'border-emerald-400/30 bg-emerald-500/12 text-emerald-300',
+    warning: 'border-amber-400/30 bg-amber-500/12 text-amber-300',
+    danger: 'border-red-400/30 bg-red-500/12 text-red-300',
+    purple: 'border-fuchsia-400/30 bg-fuchsia-500/12 text-fuchsia-300',
   };
 
   const changeColor = {
-    up: 'text-emerald-400 bg-emerald-500/10',
-    down: 'text-red-400 bg-red-500/10',
-    neutral: 'text-zinc-400 bg-zinc-800',
+    up: 'border-emerald-400/30 bg-emerald-500/12 text-emerald-300',
+    down: 'border-red-400/30 bg-red-500/12 text-red-300',
+    neutral: 'border-slate-600/70 bg-slate-700/45 text-slate-300',
   };
 
   const changeIcon = {
@@ -23,22 +23,22 @@ export default function MetricCard({ title, value, change, changeType = 'neutral
   };
 
   return (
-    <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 hover:border-zinc-700 transition-colors group">
+    <div className="surface-card surface-card-hover group rounded-2xl p-5">
       <div className="flex items-start justify-between mb-4">
-        <div className={`p-2.5 rounded-xl ${iconBg[color]} transition-transform duration-200 group-hover:scale-105`}>
+        <div className={`rounded-xl border p-2.5 transition-transform duration-200 group-hover:scale-105 ${iconBg[color]}`}>
           {Icon && <Icon className="w-5 h-5" />}
         </div>
         {change !== undefined && (
-          <div className={`flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium ${changeColor[changeType]}`}>
+          <div className={`flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-semibold ${changeColor[changeType]}`}>
             {changeIcon[changeType]}
             <span>{change}</span>
           </div>
         )}
       </div>
       <div>
-        <p className="text-sm text-zinc-500 mb-1">{title}</p>
-        <p className="text-2xl font-semibold text-zinc-100 tracking-tight">{value}</p>
-        {subtitle && <p className="text-xs text-zinc-600 mt-1.5">{subtitle}</p>}
+        <p className="mb-1 text-sm text-slate-400">{title}</p>
+        <p className="text-2xl font-semibold tracking-tight text-slate-100">{value}</p>
+        {subtitle && <p className="mt-1.5 text-xs text-slate-500">{subtitle}</p>}
       </div>
     </div>
   );

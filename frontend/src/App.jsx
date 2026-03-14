@@ -20,12 +20,12 @@ function ProtectedRoute({ children, allowedRoles }) {
 
 function LoadingScreen() {
   return (
-    <div className="min-h-screen bg-[#09090b] flex items-center justify-center">
-      <div className="flex flex-col items-center gap-4 animate-fade-in">
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="animate-rise-in flex flex-col items-center gap-4">
         <div className="relative">
-          <div className="w-12 h-12 border-2 border-zinc-800 border-t-indigo-500 rounded-full animate-spin" />
+          <div className="h-12 w-12 rounded-full border-2 border-slate-700 border-t-cyan-400 animate-spin" />
         </div>
-        <p className="text-sm text-zinc-500">Loading...</p>
+        <p className="text-sm text-slate-400">Loading your workspace...</p>
       </div>
     </div>
   );
