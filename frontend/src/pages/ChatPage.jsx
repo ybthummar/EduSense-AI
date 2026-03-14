@@ -1,233 +1,227 @@
-import { useState, useRef, useEffect } from 'react'
-import { Bot, Send, User, Sparkles, Youtube, PlayCircle, Loader2, Lightbulb } from 'lucide-react'
-import { useAuth } from '../context/AuthContext'
+import { useState, useRef, useEffect } from 'react';
+import { Send, Bot, User, ExternalLink, Loader2, Sparkles, Play } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { chatAPI } from '../services/api';
 
 const suggestedQuestions = [
-  'Explain neural networks',
-  'What is recursion?',
-  'How does TCP/IP work?',
-  'Explain database normalization',
-]
+  'Explain machine learning algorithms',
+  'What is data structures and algorithms?',
+  'How does neural network work?',
+  'Explain object oriented programming',
+];
 
 export default function ChatPage() {
-  const { user } = useAuth()
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      role: 'assistant',
-      content: 'Hello! I\'m your AI Learning Assistant powered by RAG and educational resources. Ask me any concepts, topics, or subjects you\'re studying — I\'ll provide explanations and recommend relevant videos.',
-    }
-  ])
-  const [input, setInput] = useState('')
-  const [isTyping, setIsTyping] = useState(false)
-  const messagesEndRef = useRef(null)
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
+  const { user } = useAuth();
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const scrollRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
-    scrollToBottom()
-  }, [messages, isTyping])
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
+  }, [messages]);
 
-  const handleSend = async (e) => {
-    e?.preventDefault?.()
-    const text = typeof e === 'string' ? e : input.trim()
-    if (!text) return
+  const sendMessage = async (text) => {
+    const question = text || input.trim();
+    if (!question || loading) return;
 
-    const userMsg = { id: Date.now(), role: 'user', content: text }
-    setMessages(prev => [...prev, userMsg])
-    setInput('')
-    setIsTyping(true)
+    const userMsg = { role: 'user', content: question };
+    setMessages((prev) => [...prev, userMsg]);
+    setInput('');
+    setLoading(true);
 
-    setTimeout(() => {
-      const isNeural = text.toLowerCase().includes('neural') || text.toLowerCase().includes('network')
-      const isRecursion = text.toLowerCase().includes('recursion')
-      
-      let aiResponse = { id: Date.now() + 1, role: 'assistant' }
+    try {
+      const { data } = await chatAPI.sendMessage({
+        message: question,
+        user_id: user?.id || 'anonymous',
+        student_id: user?.student_id || user?.id,
+      });
 
-      if (isNeural) {
-         aiResponse.content = "Artificial Neural Networks (ANNs) are computing systems inspired by the biological neural networks that constitute animal brains. An ANN is based on a collection of connected units or nodes called artificial neurons, which loosely model the neurons in a biological brain. Each connection, like the synapses in a biological brain, can transmit a signal to other neurons."
-         aiResponse.videos = [
-           { title: "Neural Networks Explained - Machine Learning Tutorial for Beginners", url: "https://youtube.com/watch?v=aircAruvnKk", thumbnail: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=100", channel: "Simplilearn" },
-           { title: "But what is a neural network? | Chapter 1, Deep learning", url: "https://youtube.com/watch?v=aircAruvnKk", thumbnail: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=100", channel: "3Blue1Brown" }
-         ]
-         aiResponse.playlist = {
-           title: "Deep Learning Complete Course", url: "https://youtube.com/playlist"
-         }
-      } else if (isRecursion) {
-         aiResponse.content = "Recursion is a method of solving a computational problem where the solution depends on solutions to smaller instances of the same problem. A recursive function is one that calls itself within its own code. It typically has a 'base case' to stop the recursion and a 'recursive step' that breaks the problem down."
-         aiResponse.videos = [
-           { title: "Recursion in 100 Seconds", url: "https://youtube.com/watch", thumbnail: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=100", channel: "Fireship" },
-           { title: "Understand Recursion in 12 Minutes", url: "https://youtube.com/watch", thumbnail: "https://images.unsplash.com/photo-1550439062-609e1531270e?w=100", channel: "Clément Mihailescu" }
-         ]
-      } else {
-         aiResponse.content = `Here is an explanation of "${text}". This relies on foundational principles from standard coursework. The key is to understand how these elements interlock. Would you like me to go deeper into specific examples or mathematical proofs?`
-         aiResponse.videos = [
-           { title: `Understanding ${text} basics`, url: "https://youtube.com/watch", thumbnail: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=100", channel: "EduTech" }
-         ]
-      }
+      const assistantMsg = {
+        role: 'assistant',
+        content: data.answer || 'I could not generate a response.',
+        videos: data.videos || [],
+        playlist: data.playlist || null,
+        recommendation: data.recommendation || null,
+      };
+      setMessages((prev) => [...prev, assistantMsg]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: 'assistant',
+          content: 'Sorry, I encountered an error. Please try again.',
+        },
+      ]);
+    } finally {
+      setLoading(false);
+      inputRef.current?.focus();
+    }
+  };
 
-      setMessages(prev => [...prev, aiResponse])
-      setIsTyping(false)
-    }, 1500)
-  }
-
-  const handleSuggestion = (question) => {
-    setInput(question)
-    handleSend(question)
-  }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    sendMessage();
+  };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)]">
-      {/* Chat header */}
-      <div className="glass-card p-4 flex items-center gap-3 mb-4 rounded-xl flex-shrink-0 animate-fade-in-up">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center relative shadow-lg shadow-primary-500/15">
-          <Bot className="w-6 h-6 text-white" />
-          <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-surface-900 rounded-full" />
-        </div>
-        <div className="flex-1">
-          <h2 className="text-base font-bold text-surface-100 flex items-center gap-2">
-            AI Learning Assistant <Sparkles className="w-3.5 h-3.5 text-primary-400" />
-          </h2>
-          <p className="text-xs text-surface-400">Powered by RAG & Educational Resources</p>
-        </div>
-        <div className="hidden sm:flex items-center gap-2 text-xs text-surface-500">
-          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-surface-800/40 rounded-lg">
-            <Sparkles className="w-3 h-3 text-primary-400" />
-            <span>RAG</span>
+    <div className="surface-card flex h-[calc(100vh-11rem)] min-h-[620px] flex-col overflow-hidden rounded-3xl">
+      <div className="border-b border-slate-700/65 px-5 py-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-400/30 bg-cyan-500/12 text-cyan-300">
+            <Sparkles className="h-5 w-5" />
           </div>
-          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-surface-800/40 rounded-lg">
-            <Youtube className="w-3 h-3 text-red-400" />
-            <span>YouTube</span>
+          <div>
+            <h2 className="text-base font-semibold text-slate-100">AI Study Assistant</h2>
+            <p className="text-xs text-slate-400">Ask questions and get explanations, videos, and guidance.</p>
           </div>
         </div>
       </div>
 
-      {/* Chat messages */}
-      <div className="flex-1 overflow-y-auto space-y-5 pr-1">
-        {messages.map((msg) => (
-          <div key={msg.id} className={`flex gap-3 ${msg.role === 'assistant' ? 'justify-start' : 'justify-end'} animate-fade-in`}>
-            {msg.role === 'assistant' && (
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center flex-shrink-0 mt-1 shadow-md shadow-primary-500/10">
-                <Bot className="w-4 h-4 text-white" />
-              </div>
-            )}
-            
-            <div className={`max-w-[75%] ${msg.role === 'assistant' ? '' : 'flex items-end flex-col'}`}>
-              <div className={`p-4 rounded-2xl ${
-                msg.role === 'assistant' 
-                  ? 'bg-surface-800/50 border border-surface-700/40 rounded-tl-sm text-surface-200' 
-                  : 'bg-gradient-to-r from-primary-600 to-primary-500 text-white rounded-tr-sm shadow-lg shadow-primary-500/10'
-              }`}>
-                <p className="whitespace-pre-wrap leading-relaxed text-[15px]">{msg.content}</p>
-              </div>
+      <div ref={scrollRef} className="chat-scroll flex-1 overflow-y-auto px-3 py-4 sm:px-6">
+        {messages.length === 0 ? (
+          <div className="flex h-full flex-col items-center justify-center text-center">
+            <div className="animate-float-slow mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-cyan-400/35 bg-cyan-500/12 text-cyan-300">
+              <Sparkles className="h-8 w-8" />
+            </div>
+            <h3 className="text-xl font-semibold text-slate-100">What would you like to learn today?</h3>
+            <p className="mt-2 max-w-md text-sm text-slate-400">
+              Start with one of these prompts or ask anything related to your coursework.
+            </p>
+            <div className="mt-7 grid w-full max-w-2xl grid-cols-1 gap-2.5 sm:grid-cols-2">
+              {suggestedQuestions.map((question, index) => (
+                <button
+                  key={index}
+                  onClick={() => sendMessage(question)}
+                  className="surface-card surface-card-hover rounded-xl px-4 py-3 text-left text-sm font-medium text-slate-200"
+                >
+                  {question}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="mx-auto w-full max-w-4xl space-y-6 py-1">
+            {messages.map((msg, index) => (
+              <div key={index} className={`flex gap-3 ${msg.role === 'user' ? 'justify-end' : ''}`}>
+                {msg.role === 'assistant' && (
+                  <div className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-cyan-400/25 bg-cyan-500/12 text-cyan-300">
+                    <Bot className="h-4 w-4" />
+                  </div>
+                )}
 
-              {msg.videos && msg.videos.length > 0 && (
-                <div className="mt-3 animate-fade-in pl-0.5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Youtube className="w-3.5 h-3.5 text-red-400" />
-                    <span className="text-[10px] font-bold text-red-400 uppercase tracking-widest">Recommended Videos</span>
+                <div className={`max-w-[85%] ${msg.role === 'user' ? 'order-first' : ''}`}>
+                  <div
+                    className={[
+                      'rounded-2xl px-4 py-3 text-sm leading-relaxed',
+                      msg.role === 'user'
+                        ? 'bubble-user border border-cyan-300/35 bg-gradient-to-r from-cyan-500 to-orange-400 text-slate-950'
+                        : 'bubble-assistant surface-card border-slate-600/60 text-slate-100',
+                    ].join(' ')}
+                  >
+                    <p className="whitespace-pre-wrap">{msg.content}</p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {msg.videos.map((vid, idx) => (
-                      <a key={idx} href={vid.url} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 p-2.5 bg-surface-800/40 hover:bg-surface-800/70 border border-surface-700/30 hover:border-primary-500/20 rounded-xl transition-all group">
-                        <div className="relative w-16 h-12 bg-surface-800 rounded-lg overflow-hidden flex-shrink-0">
-                          {vid.thumbnail.startsWith('http') ? (
-                            <img src={vid.thumbnail} alt="" className="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-opacity" />
-                          ) : (
-                             <div className="w-full h-full flex items-center justify-center text-xl">{vid.thumbnail}</div>
-                          )}
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <PlayCircle className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
-                          </div>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-medium text-surface-200 line-clamp-2 leading-snug group-hover:text-primary-400 transition-colors">{vid.title}</p>
-                          <p className="text-[10px] text-surface-500 mt-1 truncate">{vid.channel}</p>
-                        </div>
+
+                  {msg.recommendation && (
+                    <div className="mt-2 rounded-xl border border-orange-300/25 bg-orange-500/10 p-3">
+                      <p className="mb-1 text-xs font-semibold uppercase tracking-[0.09em] text-orange-200">Personalized Tip</p>
+                      <p className="text-xs text-slate-300">{msg.recommendation}</p>
+                    </div>
+                  )}
+
+                  {msg.videos?.length > 0 && (
+                    <div className="mt-3 space-y-2">
+                      <p className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-400">Recommended Videos</p>
+                      <div className="grid gap-2">
+                        {msg.videos.slice(0, 3).map((video, videoIndex) => (
+                          <a
+                            key={videoIndex}
+                            href={video.url || video.link || '#'}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="surface-card surface-card-hover group flex items-center gap-3 rounded-xl p-3"
+                          >
+                            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-red-400/25 bg-red-500/10 text-red-300">
+                              <Play className="h-4 w-4" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <p className="truncate text-sm text-slate-100 transition-colors group-hover:text-cyan-200">
+                                {video.title || 'Video'}
+                              </p>
+                              <p className="truncate text-xs text-slate-400">{video.channel || video.channelTitle || ''}</p>
+                            </div>
+                            <ExternalLink className="h-4 w-4 flex-shrink-0 text-slate-500 transition-colors group-hover:text-slate-300" />
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {msg.playlist && (msg.playlist.url || msg.playlist.link) && (
+                    <div className="mt-2">
+                      <a
+                        href={msg.playlist.url || msg.playlist.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-3 py-2 text-xs font-semibold text-cyan-200 transition-colors hover:bg-cyan-500/18"
+                      >
+                        <Play className="h-3.5 w-3.5" />
+                        {msg.playlist.title || 'View Full Playlist'}
+                        <ExternalLink className="h-3.5 w-3.5" />
                       </a>
-                    ))}
-                  </div>
-                  
-                  {msg.playlist && (
-                    <div className="mt-2.5 inline-flex">
-                       <a href={msg.playlist.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-1.5 bg-red-500/8 hover:bg-red-500/15 text-red-400 border border-red-500/15 rounded-lg text-xs font-medium transition-colors">
-                         <PlayCircle className="w-3.5 h-3.5" /> Complete Playlist: {msg.playlist.title}
-                       </a>
                     </div>
                   )}
                 </div>
-              )}
-            </div>
 
-            {msg.role === 'user' && (
-              <div className="w-8 h-8 rounded-lg bg-surface-700/80 flex items-center justify-center flex-shrink-0 mt-1">
-                <User className="w-4 h-4 text-surface-300" />
+                {msg.role === 'user' && (
+                  <div className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-orange-400/25 bg-orange-500/10 text-orange-200">
+                    <User className="h-4 w-4" />
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {loading && (
+              <div className="flex gap-3">
+                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-cyan-400/25 bg-cyan-500/12 text-cyan-300">
+                  <Bot className="h-4 w-4" />
+                </div>
+                <div className="surface-card rounded-2xl border-slate-600/60 px-4 py-3">
+                  <div className="flex items-center gap-1.5">
+                    <div className="h-2 w-2 animate-bounce rounded-full bg-slate-400" style={{ animationDelay: '0ms' }} />
+                    <div className="h-2 w-2 animate-bounce rounded-full bg-slate-400" style={{ animationDelay: '150ms' }} />
+                    <div className="h-2 w-2 animate-bounce rounded-full bg-slate-400" style={{ animationDelay: '300ms' }} />
+                  </div>
+                </div>
               </div>
             )}
           </div>
-        ))}
-        
-        {isTyping && (
-          <div className="flex gap-3 justify-start animate-fade-in">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center flex-shrink-0 mt-1 shadow-md shadow-primary-500/10">
-              <Bot className="w-4 h-4 text-white" />
-            </div>
-            <div className="p-4 rounded-2xl bg-surface-800/50 border border-surface-700/40 rounded-tl-sm flex items-center gap-3">
-               <Loader2 className="w-4 h-4 animate-spin text-primary-400" />
-               <span className="text-sm text-surface-400">Searching educational documents & YouTube...</span>
-            </div>
-          </div>
         )}
-        <div ref={messagesEndRef} />
       </div>
 
-      {/* Suggestion chips */}
-      {messages.length <= 1 && !isTyping && (
-        <div className="mt-3 flex-shrink-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          <div className="flex items-center gap-2 mb-2">
-            <Lightbulb className="w-3.5 h-3.5 text-amber-400" />
-            <span className="text-xs text-surface-500 font-medium">Try asking</span>
+      <div className="border-t border-slate-700/65 p-4 sm:p-5">
+        <form onSubmit={handleSubmit} className="mx-auto max-w-4xl">
+          <div className="relative">
+            <input
+              ref={inputRef}
+              type="text"
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+              placeholder="Ask anything about your studies..."
+              disabled={loading}
+              className="glass-panel-soft w-full rounded-2xl border border-slate-600/75 py-3 pl-4 pr-12 text-sm text-slate-100 placeholder:text-slate-500 transition-colors focus:border-cyan-400/50 focus:outline-none focus:ring-2 focus:ring-cyan-400/35 disabled:cursor-not-allowed disabled:opacity-65"
+            />
+            <button
+              type="submit"
+              disabled={!input.trim() || loading}
+              className="absolute right-2 top-1/2 inline-flex -translate-y-1/2 items-center justify-center rounded-xl border border-cyan-300/35 bg-gradient-to-r from-cyan-500 to-orange-400 p-2 text-slate-950 transition-all hover:from-cyan-400 hover:to-orange-300 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+            </button>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {suggestedQuestions.map((q, i) => (
-              <button
-                key={i}
-                onClick={() => handleSuggestion(q)}
-                className="px-3.5 py-2 bg-surface-800/40 hover:bg-surface-800/70 border border-surface-700/20 hover:border-primary-500/20 rounded-xl text-xs text-surface-300 hover:text-surface-100 transition-all cursor-pointer"
-              >
-                {q}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Input area */}
-      <div className="mt-4 pt-4 border-t border-surface-800/40 flex-shrink-0">
-        <form onSubmit={handleSend} className="relative">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="e.g., Explain gradient descent or What is a linked list?"
-            className="w-full bg-surface-900/70 border border-surface-700/40 focus:border-primary-500/50 rounded-2xl py-4 pl-5 pr-14 text-surface-100 placeholder-surface-500 focus:outline-none focus:ring-2 focus:ring-primary-500/15 transition-all"
-            disabled={isTyping}
-          />
-          <button
-            type="submit"
-            disabled={!input.trim() || isTyping}
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 p-2.5 bg-primary-500 hover:bg-primary-400 text-white rounded-xl disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg shadow-primary-500/15 cursor-pointer"
-          >
-            <Send className="w-4 h-4" />
-          </button>
         </form>
-        <div className="flex items-center justify-center gap-4 mt-3">
-           <p className="text-[10px] text-surface-500"><Sparkles className="w-3 h-3 inline text-primary-500 mr-1"/>Explanations via RAG</p>
-           <p className="text-[10px] text-surface-500"><Youtube className="w-3 h-3 inline text-red-500 mr-1"/>Videos from YouTube</p>
-        </div>
       </div>
     </div>
-  )
+  );
 }

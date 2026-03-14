@@ -1,63 +1,45 @@
-import { TrendingUp, TrendingDown, Minus } from 'lucide-react'
+import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
 export default function MetricCard({ title, value, change, changeType = 'neutral', icon: Icon, color = 'primary', subtitle }) {
-  const colorMap = {
-    primary: 'from-primary-500/20 to-primary-600/10 text-primary-400',
-    accent: 'from-accent-500/20 to-accent-600/10 text-accent-400',
-    success: 'from-green-500/20 to-green-600/10 text-green-400',
-    warning: 'from-amber-500/20 to-amber-600/10 text-amber-400',
-    danger: 'from-red-500/20 to-red-600/10 text-red-400',
-    purple: 'from-purple-500/20 to-purple-600/10 text-purple-400',
-  }
-
   const iconBg = {
-    primary: 'bg-primary-500/12 text-primary-400 ring-1 ring-primary-500/10',
-    accent: 'bg-accent-500/12 text-accent-400 ring-1 ring-accent-500/10',
-    success: 'bg-green-500/12 text-green-400 ring-1 ring-green-500/10',
-    warning: 'bg-amber-500/12 text-amber-400 ring-1 ring-amber-500/10',
-    danger: 'bg-red-500/12 text-red-400 ring-1 ring-red-500/10',
-    purple: 'bg-purple-500/12 text-purple-400 ring-1 ring-purple-500/10',
-  }
+    primary: 'border-cyan-400/30 bg-cyan-500/12 text-cyan-300',
+    accent: 'border-orange-400/30 bg-orange-500/12 text-orange-300',
+    success: 'border-emerald-400/30 bg-emerald-500/12 text-emerald-300',
+    warning: 'border-amber-400/30 bg-amber-500/12 text-amber-300',
+    danger: 'border-red-400/30 bg-red-500/12 text-red-300',
+    purple: 'border-fuchsia-400/30 bg-fuchsia-500/12 text-fuchsia-300',
+  };
 
-  const glowColor = {
-    primary: 'group-hover:shadow-primary-500/5',
-    accent: 'group-hover:shadow-accent-500/5',
-    success: 'group-hover:shadow-green-500/5',
-    warning: 'group-hover:shadow-amber-500/5',
-    danger: 'group-hover:shadow-red-500/5',
-    purple: 'group-hover:shadow-purple-500/5',
-  }
+  const changeColor = {
+    up: 'border-emerald-400/30 bg-emerald-500/12 text-emerald-300',
+    down: 'border-red-400/30 bg-red-500/12 text-red-300',
+    neutral: 'border-slate-600/70 bg-slate-700/45 text-slate-300',
+  };
 
   const changeIcon = {
     up: <TrendingUp className="w-3 h-3" />,
     down: <TrendingDown className="w-3 h-3" />,
     neutral: <Minus className="w-3 h-3" />,
-  }
-
-  const changeColor = {
-    up: 'text-green-400 bg-green-500/8 ring-1 ring-green-500/10',
-    down: 'text-red-400 bg-red-500/8 ring-1 ring-red-500/10',
-    neutral: 'text-surface-400 bg-surface-700/20',
-  }
+  };
 
   return (
-    <div className={`group glass-card glass-card-hover p-5 transition-all duration-300 ${glowColor[color]} group-hover:shadow-lg`}>
+    <div className="surface-card surface-card-hover group rounded-2xl p-5">
       <div className="flex items-start justify-between mb-4">
-        <div className={`p-2.5 rounded-xl ${iconBg[color]} transition-transform duration-300 group-hover:scale-105`}>
+        <div className={`rounded-xl border p-2.5 transition-transform duration-200 group-hover:scale-105 ${iconBg[color]}`}>
           {Icon && <Icon className="w-5 h-5" />}
         </div>
         {change !== undefined && (
-          <div className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold ${changeColor[changeType]}`}>
+          <div className={`flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-semibold ${changeColor[changeType]}`}>
             {changeIcon[changeType]}
             <span>{change}</span>
           </div>
         )}
       </div>
       <div>
-        <p className="text-[13px] text-surface-400 mb-1 font-medium">{title}</p>
-        <p className="text-2xl font-bold text-surface-100 tracking-tight">{value}</p>
-        {subtitle && <p className="text-xs text-surface-500 mt-1.5">{subtitle}</p>}
+        <p className="mb-1 text-sm text-slate-400">{title}</p>
+        <p className="text-2xl font-semibold tracking-tight text-slate-100">{value}</p>
+        {subtitle && <p className="mt-1.5 text-xs text-slate-500">{subtitle}</p>}
       </div>
     </div>
-  )
+  );
 }
