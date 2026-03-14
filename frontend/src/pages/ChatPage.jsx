@@ -3,6 +3,8 @@ import { Send, Bot, User, ExternalLink, Loader2, Sparkles, Play } from 'lucide-r
 import { useAuth } from '../context/AuthContext';
 import { chatAPI } from '../services/api';
 
+import { PromptInputBox } from '../components/ui/ai-prompt-box';
+
 const suggestedQuestions = [
   'Explain machine learning algorithms',
   'What is data structures and algorithms?',
@@ -42,8 +44,7 @@ export default function ChatPage() {
         role: 'assistant',
         content: data.answer || 'I could not generate a response.',
         videos: data.videos || [],
-        playlist: data.playlist || null,
-        recommendation: data.recommendation || null,
+        playlist: data.playlist || null,          web_links: data.web_links || [],        recommendation: data.recommendation || null,
       };
       setMessages((prev) => [...prev, assistantMsg]);
     } catch {
@@ -129,7 +130,27 @@ export default function ChatPage() {
                       <p className="text-xs text-slate-300">{msg.recommendation}</p>
                     </div>
                   )}
-
+                    {msg.web_links?.length > 0 && (
+                      <div className="mt-3 space-y-2">
+                        <p className="text-xs font-semibold uppercase tracking-[0.1em] text-cyan-400">Web Sources</p>
+                        <div className="grid gap-2">
+                          {msg.web_links.map((link, linkIndex) => (
+                            <a
+                              key={linkIndex}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group flex items-center justify-between gap-3 rounded-xl border border-cyan-400/20 bg-cyan-500/5 p-3 hover:bg-cyan-500/10 transition-colors"
+                            >
+                              <p className="truncate text-sm text-slate-100 transition-colors group-hover:text-cyan-200">
+                                {link.title}
+                              </p>
+                              <ExternalLink className="h-4 w-4 flex-shrink-0 text-slate-500 transition-colors group-hover:text-cyan-300" />
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   {msg.videos?.length > 0 && (
                     <div className="mt-3 space-y-2">
                       <p className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-400">Recommended Videos</p>
@@ -142,8 +163,14 @@ export default function ChatPage() {
                             rel="noopener noreferrer"
                             className="surface-card surface-card-hover group flex items-center gap-3 rounded-xl p-3"
                           >
-                            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-red-400/25 bg-red-500/10 text-red-300">
-                              <Play className="h-4 w-4" />
+                              <div className="flex h-12 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-black/50">
+                                {video.thumbnail ? (
+                                  <img src={video.thumbnail} alt="thumbnail" className="h-full w-full object-cover" />
+                                ) : (
+                                  <div className="flex h-full w-full items-center justify-center border border-red-400/25 bg-red-500/10 text-red-300">
+                                    <Play className="h-4 w-4" />
+                                  </div>
+                                )}
                             </div>
                             <div className="min-w-0 flex-1">
                               <p className="truncate text-sm text-slate-100 transition-colors group-hover:text-cyan-200">
@@ -200,27 +227,14 @@ export default function ChatPage() {
         )}
       </div>
 
-      <div className="border-t border-slate-700/65 p-4 sm:p-5">
-        <form onSubmit={handleSubmit} className="mx-auto max-w-4xl">
-          <div className="relative">
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(event) => setInput(event.target.value)}
-              placeholder="Ask anything about your studies..."
-              disabled={loading}
-              className="glass-panel-soft w-full rounded-2xl border border-slate-600/75 py-3 pl-4 pr-12 text-sm text-slate-100 placeholder:text-slate-500 transition-colors focus:border-cyan-400/50 focus:outline-none focus:ring-2 focus:ring-cyan-400/35 disabled:cursor-not-allowed disabled:opacity-65"
-            />
-            <button
-              type="submit"
-              disabled={!input.trim() || loading}
-              className="absolute right-2 top-1/2 inline-flex -translate-y-1/2 items-center justify-center rounded-xl border border-cyan-300/35 bg-gradient-to-r from-cyan-500 to-orange-400 p-2 text-slate-950 transition-all hover:from-cyan-400 hover:to-orange-300 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-            </button>
-          </div>
-        </form>
+      <div className="border-t border-slate-700/65 p-4 sm:p-5 bg-slate-900/50 backdrop-blur-sm">
+        <div className="mx-auto max-w-4xl pt-2 pb-4">
+          <PromptInputBox 
+            onSend={(message, files) => sendMessage(message)}
+            isLoading={loading}
+            placeholder="Ask anything about your studies..."
+          />
+        </div>
       </div>
     </div>
   );

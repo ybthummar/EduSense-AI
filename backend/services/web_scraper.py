@@ -17,6 +17,36 @@ def scrape_wikipedia(topic: str, max_paragraphs: int = 3) -> Optional[str]:
         pass
     return None
 
+def scrape_web_links(query: str, max_results: int = 3) -> list:
+    """Return a list of top Wikipedia links for the given topic."""
+    links = []
+    # Try Wikipedia Search Html
+    try:
+        search_url = "https://en.wikipedia.org/w/index.php"
+        params = {"search": query, "title": "Special:Search", "fulltext": "1"}
+        resp = requests.get(search_url, params=params, timeout=8, headers={"User-Agent": "EduSenseAI/1.0"})
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, "html.parser")
+            results = soup.select(".mw-search-result-heading a")
+            for res in results[:max_results]:
+                href = res.get("href")
+                title = res.get_text()
+                if href and title:
+                    links.append({
+                        "title": title,
+                        "url": f"https://en.wikipedia.org{href}"
+                    })
+    except Exception:
+        pass
+        
+    if not links:
+        # Fallback to direct page
+        links.append({
+            "title": f"{query} on Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/" + query.replace(" ", "_")
+        })
+    return links
+
 
 def scrape_web_content(query: str, max_paragraphs: int = 3) -> str:
     """
