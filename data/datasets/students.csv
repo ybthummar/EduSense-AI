@@ -1,9 +1,0 @@
-Student_ID,Name,Email,Dept,Sem,Faculty,attendance,gpa_trend,missing_assignments,interaction_score,risk_encoded
-STU001,Alice Johnson,alice@edusense.com,Computer Science,6,FAC001,92,0.5,0,85,0
-STU002,Bob Smith,bob@edusense.com,Mechanical,4,FAC002,75,-0.2,2,60,2
-STU003,Carol Davis,carol@edusense.com,Electrical,5,FAC003,88,0.1,0,75,0
-STU004,David Kim,david@edusense.com,Civil,3,FAC004,60,-0.8,5,40,2
-STU005,Emma Brown,emma@edusense.com,Computer Science,7,FAC001,96,0.8,0,95,0
-STU006,Frank Miller,frank@edusense.com,Electronics,4,FAC005,70,-0.4,1,55,1
-STU007,Grace Lee,grace@edusense.com,Computer Science,5,FAC001,82,0.0,1,70,1
-STU008,Henry Taylor,henry@edusense.com,Mechanical,6,FAC002,90,0.3,0,80,0
