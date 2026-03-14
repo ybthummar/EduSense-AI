@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from services.dataset_service import get_faculty_analytics, get_faculty_students, get_student_detail
+from services.dataset_service import get_students_master_data, get_students_performance_data, get_faculty_analytics, get_faculty_students, get_student_detail
 from typing import Optional
 
 router = APIRouter()
@@ -43,3 +43,16 @@ def get_faculty_analytics_route(
 ):
     del faculty_id
     return get_faculty_analytics(department=department)
+
+
+@router.get("/students-master")
+def get_students_master_route(department: Optional[str] = None):
+    return get_students_master_data(department=department)
+
+@router.get("/students-performance")
+def get_students_performance_route(department: Optional[str] = None):
+    return get_students_performance_data(department=department)
+
+@router.post("/attendance")
+def save_attendance(data: dict):
+    return {"message": "Attendance saved"}

@@ -2,9 +2,8 @@ import re
 from typing import List
 import os
 
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.chains import LLMChain
 
 from rag.vector_store import get_faiss_index
 from config import GOOGLE_API_KEY
@@ -64,15 +63,15 @@ Use markdown for formatting. Make it friendly and structured.
     # 3. Call ChatGoogleGenerativeAI (Requires GOOGLE_API_KEY)
     try:
         llm = ChatGoogleGenerativeAI(temperature=0.3, model="gemini-1.5-flash", google_api_key=GOOGLE_API_KEY)
-        chain = LLMChain(llm=llm, prompt=prompt)
+        chain = prompt | llm
         
-        answer = chain.run(
-            query=query, 
-            faiss_context=faiss_context, 
-            extra_context=extra_context, 
-            student_context=student_context
-        )
-        return answer
+        response = chain.invoke({
+            "query": query,
+            "faiss_context": faiss_context,
+            "extra_context": extra_context,
+            "student_context": student_context
+        })
+        return response.content
     except Exception as e:
         return f"Error connecting to LLM: {str(e)}\n\n" + fallback_generate(query, course_snippets, extra_context, student_context)
 
