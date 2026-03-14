@@ -18,6 +18,15 @@ export default function FacultyPerformancePage() {
   const [sortOrder, setSortOrder] = useState('asc');
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [showSubjectModal, setShowSubjectModal] = useState(false);
+  const [suggestionModalStudent, setSuggestionModalStudent] = useState(null);
+  const [suggestionTitle, setSuggestionTitle] = useState('');
+  const [suggestionDescription, setSuggestionDescription] = useState('');
+  const [suggestionTopic, setSuggestionTopic] = useState('Study Skills');
+  const [suggestionPriority, setSuggestionPriority] = useState('medium');
+  const [message, setMessage] = useState('');
+  const [studentSuggestions, setStudentSuggestions] = useState([]);
+  const [studentSuggestionTarget, setStudentSuggestionTarget] = useState(null);
+
 
   useEffect(() => {
     loadPerformanceData();
@@ -45,6 +54,49 @@ export default function FacultyPerformancePage() {
   const closeSubjectModal = () => {
     setShowSubjectModal(false);
     setSelectedStudent(null);
+  };
+
+  const loadStudentSuggestions = async (student) => {
+    if (!student?.student_id) return;
+    setStudentSuggestionTarget(student);
+    try {
+      const res = await facultyAPI.getStudentSuggestions(student.student_id);
+      setStudentSuggestions(res.data || []);
+    } catch (err) {
+      console.error('Failed to load student suggestions:', err);
+      setStudentSuggestions([]);
+    }
+  };
+
+  const openSuggestionModal = (student) => {
+    setSuggestionModalStudent(student);
+    setSuggestionTitle(`Suggestion for ${student.name}`);
+    setSuggestionDescription('');
+    setSuggestionTopic('Study Skills');
+    setSuggestionPriority('medium');
+    setMessage('');
+  };
+
+  const closeSuggestionModal = () => {
+    setSuggestionModalStudent(null);
+    setMessage('');
+  };
+
+  const submitSuggestion = async () => {
+    if (!suggestionModalStudent) return;
+    try {
+      await facultyAPI.addStudentSuggestion(suggestionModalStudent.student_id, {
+        title: suggestionTitle,
+        description: suggestionDescription,
+        priority: suggestionPriority,
+        topic: suggestionTopic,
+      });
+      setMessage('Suggestion saved and shared with student.');
+      setTimeout(() => closeSuggestionModal(), 1200);
+    } catch (error) {
+      console.error('Failed to save suggestion:', error);
+      setMessage('Failed to save suggestion, please retry.');
+    }
   };
 
   const departments = [...new Set(students.map(s => s.department))].filter(Boolean).sort();
@@ -304,14 +356,32 @@ export default function FacultyPerformancePage() {
                       </Badge>
                     </td>
                     <td className="px-2 md:px-3 py-2 text-center">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={(e) => { e.stopPropagation(); openSubjectModal(student); }}
-                        className="text-xs px-2 py-1"
-                      >
-                        View
-                      </Button>
+                      <div className="flex items-center justify-center gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={(e) => { e.stopPropagation(); openSubjectModal(student); }}
+                          className="text-xs px-2 py-1"
+                        >
+                          View
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={(e) => { e.stopPropagation(); openSuggestionModal(student); }}
+                          className="text-xs px-2 py-1"
+                        >
+                          Suggest
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={(e) => { e.stopPropagation(); loadStudentSuggestions(student); }}
+                          className="text-xs px-2 py-1"
+                        >
+                          Suggestions
+                        </Button>
+                      </div>
                     </td>
                     <td className="px-2 md:px-3 py-2 text-center">{getRiskBadge(student.risk_level)}</td>
                   </tr>
@@ -338,6 +408,84 @@ export default function FacultyPerformancePage() {
             </div>
           </div>
         </Modal>
+      )}
+
+      {suggestionModalStudent && (
+        <Modal
+          open
+          onClose={closeSuggestionModal}
+          title={`Add suggestion for ${suggestionModalStudent.name}`}
+          size="md"
+        >
+          <div className="space-y-3">
+            <label className="block text-sm text-slate-300">Title</label>
+            <input
+              value={suggestionTitle}
+              onChange={(e) => setSuggestionTitle(e.target.value)}
+              className="w-full rounded-lg border border-slate-600 px-3 py-2 bg-slate-900 text-slate-100"
+            />
+
+            <label className="block text-sm text-slate-300">Description</label>
+            <textarea
+              rows={4}
+              value={suggestionDescription}
+              onChange={(e) => setSuggestionDescription(e.target.value)}
+              className="w-full rounded-lg border border-slate-600 px-3 py-2 bg-slate-900 text-slate-100"
+            />
+
+            <div className="grid grid-cols-2 gap-2">
+              <select
+                value={suggestionPriority}
+                onChange={(e) => setSuggestionPriority(e.target.value)}
+                className="rounded-lg border border-slate-600 px-3 py-2 bg-slate-900 text-slate-100"
+              >
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+              <input
+                value={suggestionTopic}
+                onChange={(e) => setSuggestionTopic(e.target.value)}
+                placeholder="Topic (e.g., Attendance)"
+                className="rounded-lg border border-slate-600 px-3 py-2 bg-slate-900 text-slate-100"
+              />
+            </div>
+
+            {message ? <p className="text-sm text-green-400">{message}</p> : null}
+
+            <div className="flex justify-end gap-2 pt-2">
+              <Button variant="outline" onClick={closeSuggestionModal}>Cancel</Button>
+              <Button onClick={submitSuggestion}>Save</Button>
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {studentSuggestionTarget && (
+        <Card className="p-4 bg-slate-800/60 border border-slate-700/50">
+          <CardHeader>
+            <CardTitle>Faculty Suggestions for {studentSuggestionTarget.name}</CardTitle>
+            <CardDescription>Directly added by faculty staff in this portal</CardDescription>
+          </CardHeader>
+          <div className="space-y-2">
+            {studentSuggestions.length === 0 ? (
+              <p className="text-sm text-slate-400">No faculty suggestions yet for this student. Add one using the Suggest button at row.</p>
+            ) : (
+              studentSuggestions.map((rec, idx) => (
+                <div key={`fac-${idx}`} className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <h4 className="text-sm font-semibold text-slate-100">{rec.title}</h4>
+                      <p className="text-xs text-slate-400">{rec.topic} • {rec.priority}</p>
+                    </div>
+                    <Badge variant={rec.priority === 'high' ? 'danger' : rec.priority === 'medium' ? 'warning' : 'success'} className="text-xs">{rec.priority}</Badge>
+                  </div>
+                  <p className="mt-1 text-sm text-slate-300">{rec.description}</p>
+                </div>
+              ))
+            )}
+          </div>
+        </Card>
       )}
 
       {/* Data Source Info */}

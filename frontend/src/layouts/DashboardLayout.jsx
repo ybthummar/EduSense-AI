@@ -35,6 +35,7 @@ const navByRole = {
     { to: '/faculty/students', icon: GraduationCap, label: 'My Students' },
     { to: '/faculty/performance', icon: BarChart3, label: 'Performance' },
     { to: '/faculty/attendance', icon: BookOpen, label: 'Attendance' },
+    { to: '/faculty/suggestions', icon: MessageSquare, label: 'Suggestion Box' },
     { to: '/chat', icon: MessageSquare, label: 'Chat Assistant' },
   ],
   student: [
@@ -42,6 +43,7 @@ const navByRole = {
     { to: '/student/performance', icon: BarChart3, label: 'Performance' },
     { to: '/student/quizzes', icon: Trophy, label: 'Quizzes' },
     { to: '/student/resources', icon: BookOpen, label: 'Resources' },
+    { to: '/student/suggestions', icon: MessageSquare, label: 'Suggestion Box' },
     { to: '/chat', icon: MessageSquare, label: 'Chat Assistant' },
   ],
 };

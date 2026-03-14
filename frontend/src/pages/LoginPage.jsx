@@ -54,8 +54,9 @@ export default function LoginPage() {
       const loggedIn = await login(account.email, account.password);
       toast.success(`Logged in as ${account.label}`);
       navigate(`/${loggedIn.role}`);
-    } catch {
-      toast.error('Demo login failed. Is the backend running?');
+    } catch (error) {
+      const message = error?.response?.data?.detail || error?.message || 'Demo login failed. Is the backend running?';
+      toast.error(message);
     } finally {
       setLoading(false);
     }

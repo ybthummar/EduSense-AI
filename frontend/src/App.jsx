@@ -9,6 +9,7 @@ import FacultyStudentsPage from './pages/FacultyStudentsPage';
 import FacultyAttendancePage from './pages/FacultyAttendancePage';
 import FacultyPerformancePage from './pages/FacultyPerformancePage';
 import StudentDashboard from './pages/StudentDashboard';
+import SuggestionBoxPage from './pages/SuggestionBoxPage';
 import ChatPage from './pages/ChatPage';
 import DashboardLayout from './layouts/DashboardLayout';
 
@@ -72,6 +73,7 @@ export default function App() {
         <Route path="/faculty/students" element={<FacultyStudentsPage />} />
         <Route path="/faculty/performance" element={<FacultyPerformancePage />} />
         <Route path="/faculty/attendance" element={<FacultyAttendancePage />} />
+        <Route path="/faculty/suggestions" element={<SuggestionBoxPage />} />
       </Route>
 
       {/* Student Routes */}
@@ -86,6 +88,7 @@ export default function App() {
         <Route path="/student/performance" element={<StudentDashboard />} />
         <Route path="/student/quizzes" element={<StudentDashboard />} />
         <Route path="/student/resources" element={<StudentDashboard />} />
+        <Route path="/student/suggestions" element={<SuggestionBoxPage />} />
       </Route>
 
       {/* Chat - accessible by all authenticated users */}

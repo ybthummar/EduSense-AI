@@ -273,39 +273,66 @@ def get_student_dashboard(student_id: Optional[str] = None) -> Dict[str, Any]:
     }
 
 
+# Faculty-managed in-memory suggestion store.
+FACULTY_SUGGESTIONS: Dict[str, List[Dict[str, Any]]] = {}
+
+
+def add_faculty_suggestion(student_id: str, suggestion: Dict[str, Any]) -> Dict[str, Any]:
+    sid = _normalize_student_id(student_id)
+    entry = {
+        "title": suggestion.get("title", "Faculty Suggestion"),
+        "description": suggestion.get("description", "Please follow your faculty guidance."),
+        "priority": suggestion.get("priority", "medium"),
+        "topic": suggestion.get("topic", "General"),
+        "source": "faculty",
+    }
+    FACULTY_SUGGESTIONS.setdefault(sid, []).append(entry)
+    return entry
+
+
+def get_faculty_suggestions(student_id: Optional[str] = None) -> List[Dict[str, Any]]:
+    if not student_id:
+        return []
+    sid = _normalize_student_id(student_id)
+    return FACULTY_SUGGESTIONS.get(sid, [])
+
+
 def get_student_recommendations(student_id: Optional[str] = None) -> List[Dict[str, Any]]:
     dashboard = get_student_dashboard(student_id)
     metrics = dashboard["latest_metrics"]
 
     recommendations: List[Dict[str, Any]] = []
 
-    if metrics["attendance_percentage"] < 75:
+    if metrics.get("attendance_percentage", 0) < 75:
         recommendations.append(
             {
                 "title": "Improve attendance consistency",
                 "priority": "high",
                 "topic": "Attendance",
                 "description": "Your attendance is below 75%. Focus on regular lecture participation.",
+                "source": "system",
             }
         )
 
-    if metrics["average_marks"] < 55:
+    if metrics.get("average_marks", 0) < 55:
         recommendations.append(
             {
                 "title": "Focus on core subject fundamentals",
                 "priority": "high",
                 "topic": "Core Concepts",
                 "description": "Your average marks are low. Revise current semester core subjects with daily practice.",
+                "source": "system",
             }
         )
 
-    if metrics["cgpa"] < 6.5:
+    if metrics.get("cgpa", 0) < 6.5:
         recommendations.append(
             {
                 "title": "Raise CGPA with weekly study goals",
                 "priority": "medium",
                 "topic": "CGPA Improvement",
                 "description": "Target weak subjects first and set weekly improvement goals.",
+                "source": "system",
             }
         )
 
@@ -316,10 +343,34 @@ def get_student_recommendations(student_id: Optional[str] = None) -> List[Dict[s
                 "priority": "low",
                 "topic": "Performance",
                 "description": "Your recent metrics are healthy. Keep consistent effort and attempt advanced practice sets.",
+                "source": "system",
             }
         )
 
-    return recommendations
+    faculty_recs = get_faculty_suggestions(student_id)
+    # Add faculty suggestions first to highlight direct instructor advice
+    combined = faculty_recs + recommendations
+
+    # Add own dummy suggestions if none exist at all
+    if not combined:
+        combined = [
+            {
+                "title": "Check attendance and complete class tasks",
+                "priority": "medium",
+                "topic": "Attendance",
+                "description": "Regular attendance helps improve performance and reduces risk of missing key concepts.",
+                "source": "system",
+            },
+            {
+                "title": "Set a weekly revision schedule",
+                "priority": "low",
+                "topic": "Time Management",
+                "description": "Plan 1-hour daily revision sessions for difficult subjects to gradually boost your scores.",
+                "source": "system",
+            },
+        ]
+
+    return combined
 
 
 def get_student_academic_history(student_id: str) -> Dict[str, Any]:
@@ -393,10 +444,18 @@ def get_student_academic_history(student_id: str) -> Dict[str, Any]:
 def get_faculty_students(department: Optional[str] = None, limit: int = 100) -> List[Dict[str, Any]]:
     """Return all students from master data with full personal info for faculty view."""
     master_df = load_dataset("student_master").copy()
+    enriched_df = load_dataset("enriched").copy()
     risk_df = load_dataset("cgpa_risk").copy()
 
     master_df["Student_ID"] = master_df["Student_ID"].astype(str).str.upper().str.strip()
+    enriched_df["Student_ID"] = enriched_df["Student_ID"].astype(str).str.upper().str.strip()
     risk_df["Student_ID"] = risk_df["Student_ID"].astype(str).str.upper().str.strip()
+
+    latest_enriched = (
+        enriched_df.sort_values(by=["Student_ID", "Enrollment_Year", "Current_Year", "Semester"])
+        .drop_duplicates(subset=["Student_ID"], keep="last")
+        .reset_index(drop=True)
+    )
 
     latest_risk = (
         risk_df.sort_values(by=["Student_ID", "Year", "Semester"])
@@ -405,7 +464,14 @@ def get_faculty_students(department: Optional[str] = None, limit: int = 100) -> 
     )
 
     merged = master_df.merge(
-        latest_risk[["Student_ID", "CGPA", "Attendance_Percentage", "Academic_Risk_Score", "Semester"]],
+        latest_enriched[["Student_ID", "Previous_Sem_SGPA", "Attendance_Percentage", "Semester", "Current_Subject_Codes", "Current_Subject_Marks"]],
+        on="Student_ID",
+        how="left",
+        suffixes=("", "_enriched"),
+    )
+
+    merged = merged.merge(
+        latest_risk[["Student_ID", "CGPA", "Academic_Risk_Score", "Semester"]],
         on="Student_ID",
         how="left",
         suffixes=("", "_risk"),
@@ -419,7 +485,30 @@ def get_faculty_students(department: Optional[str] = None, limit: int = 100) -> 
 
     rows: List[Dict[str, Any]] = []
     for _, row in merged.iterrows():
-        risk_score = float(row["Academic_Risk_Score"]) if not pd.isna(row.get("Academic_Risk_Score")) else 0.0
+        # Try enriched metrics first, then risk fallback
+        try:
+            marks = [int(m) for m in str(row.get("Current_Subject_Marks", "")).split("|") if m.strip()]
+            avg_marks = round(sum(marks) / len(marks), 2) if marks else None
+        except Exception:
+            avg_marks = None
+
+        current_sem_gpa = round(avg_marks / 10, 2) if avg_marks is not None else None
+        gpa_value = None
+        if not pd.isna(row.get("Previous_Sem_SGPA")):
+            gpa_value = round(float(row["Previous_Sem_SGPA"]), 2)
+        elif not pd.isna(row.get("CGPA")):
+            gpa_value = round(float(row["CGPA"]), 2)
+
+        attendance_value = None
+        if not pd.isna(row.get("Attendance_Percentage")):
+            attendance_value = round(float(row["Attendance_Percentage"]), 2)
+
+        derived_risk_score = float(row["Academic_Risk_Score"]) if not pd.isna(row.get("Academic_Risk_Score")) else 0.0
+        if avg_marks is not None and avg_marks < 40:
+            derived_risk_score = max(derived_risk_score, 70)
+        elif avg_marks is not None and avg_marks < 50:
+            derived_risk_score = max(derived_risk_score, 50)
+
         rows.append(
             {
                 "id": str(row["Student_ID"]),
@@ -437,11 +526,13 @@ def get_faculty_students(department: Optional[str] = None, limit: int = 100) -> 
                 "department_code": _clean_value(row.get("Department_Code", "")),
                 "admission_type": _clean_value(row.get("Admission_Type", "")),
                 "current_year": int(row["Current_Year"]) if not pd.isna(row.get("Current_Year")) else None,
-                "semester": int(row["Semester_risk"] if "Semester_risk" in row and not pd.isna(row.get("Semester_risk")) else row["Semester"]),
+                "semester": int(row["Semester"] if not pd.isna(row.get("Semester")) else row.get("Semester_risk", 1)),
                 "status": _clean_value(row.get("Status", "")),
-                "attendance": round(float(row["Attendance_Percentage"]), 2) if not pd.isna(row.get("Attendance_Percentage")) else None,
-                "gpa": round(float(row["CGPA"]), 2) if not pd.isna(row.get("CGPA")) else None,
-                "risk": _risk_level(risk_score),
+                "attendance": attendance_value,
+                "gpa": gpa_value,
+                "current_sem_gpa": current_sem_gpa,
+                "average_marks": avg_marks,
+                "risk": _risk_level(derived_risk_score),
             }
         )
 

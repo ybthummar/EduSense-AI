@@ -44,6 +44,7 @@ export const studentAPI = {
   getDashboard: (studentId) => api.get('/students/dashboard', { params: { student_id: studentId } }),
   getRecommendations: (studentId) => api.get('/students/recommendations', { params: { student_id: studentId } }),
   getProgress: (studentId) => api.get('/students/progress', { params: { student_id: studentId } }),
+  searchSubjectVideos: (subject) => api.get('/students/subject-videos', { params: { subject } }),
 };
 
 // Faculty
@@ -54,6 +55,8 @@ export const facultyAPI = {
   getStudentsMaster: (params = {}) => api.get('/faculty/students-master', { params }),
   getStudentsPerformance: (params = {}) => api.get('/faculty/students-performance', { params }),
   saveAttendance: (data) => api.post('/faculty/attendance', data),
+  addStudentSuggestion: (studentId, suggestion) => api.post(`/faculty/students/${studentId}/suggestions`, suggestion),
+  getStudentSuggestions: (studentId) => api.get(`/faculty/students/${studentId}/suggestions`),
 };
 
 // Chat

@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Query
 from database.firebase import get_firestore
 from services.dataset_service import get_student_dashboard, get_student_recommendations, get_student_academic_history
 from services.student_context import get_student_context
+from services.youtube_service import search_youtube_videos
 from typing import Optional
 
 router = APIRouter()
@@ -33,6 +34,13 @@ def get_study_recommendations(
         return get_student_recommendations(student_id=student_id)
     except ValueError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+@router.get("/subject-videos")
+def get_subject_videos(
+    subject: str = Query(..., description="Subject code or name to fetch YouTube videos for")
+):
+    return search_youtube_videos(subject)
+
 
 @router.get("/progress")
 def get_student_progress(

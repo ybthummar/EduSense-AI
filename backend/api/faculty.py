@@ -164,3 +164,25 @@ def get_students_performance(
         print(f"Error fetching performance data: {e}")
         return []
 
+
+class SuggestionCreate(BaseModel):
+    title: str
+    description: str
+    priority: str = "medium"
+    topic: str = "General"
+
+
+@router.post("/students/{student_id}/suggestions")
+def add_student_suggestion(student_id: str, suggestion: SuggestionCreate):
+    from services.dataset_service import add_faculty_suggestion
+
+    new_entry = add_faculty_suggestion(student_id, suggestion.dict())
+    return {"message": "Suggestion added", "suggestion": new_entry}
+
+
+@router.get("/students/{student_id}/suggestions")
+def list_student_suggestions(student_id: str):
+    from services.dataset_service import get_faculty_suggestions
+
+    return get_faculty_suggestions(student_id)
+
