@@ -250,7 +250,7 @@ export default function StudentDashboard() {
                     </div>
                     <div className="w-full h-2.5 bg-surface-800 rounded-full overflow-hidden">
                       <div
-                        className={`h-full rounded-full transition-all duration-700 ${percentage >= 85 ? 'bg-gradient-to-r from-green-500 to-green-400' : percentage >= 70 ? 'bg-gradient-to-r from-amber-500 to-amber-400' : 'bg-gradient-to-r from-red-500 to-red-400'}`}
+                        className={`h-full rounded-full transition-all duration-700 animate-progress ${percentage >= 85 ? 'bg-gradient-to-r from-green-500 to-green-400' : percentage >= 70 ? 'bg-gradient-to-r from-amber-500 to-amber-400' : 'bg-gradient-to-r from-red-500 to-red-400'}`}
                         style={{ width: `${percentage}%` }}
                       />
                     </div>

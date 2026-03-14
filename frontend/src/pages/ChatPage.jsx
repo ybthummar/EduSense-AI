@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Bot, Send, User, Sparkles, Youtube, PlayCircle, Loader2, Lightbulb } from 'lucide-react'
+import { Bot, Send, User, Sparkles, Youtube, PlayCircle, Loader2, Lightbulb, ArrowDown } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 
 const suggestedQuestions = [
@@ -9,6 +9,10 @@ const suggestedQuestions = [
   'Explain database normalization',
 ]
 
+function formatTime() {
+  return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+}
+
 export default function ChatPage() {
   const { user } = useAuth()
   const [messages, setMessages] = useState([
@@ -16,11 +20,14 @@ export default function ChatPage() {
       id: 1,
       role: 'assistant',
       content: 'Hello! I\'m your AI Learning Assistant powered by RAG and educational resources. Ask me any concepts, topics, or subjects you\'re studying — I\'ll provide explanations and recommend relevant videos.',
+      time: formatTime(),
     }
   ])
   const [input, setInput] = useState('')
   const [isTyping, setIsTyping] = useState(false)
+  const [showScrollBtn, setShowScrollBtn] = useState(false)
   const messagesEndRef = useRef(null)
+  const scrollContainerRef = useRef(null)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -30,12 +37,19 @@ export default function ChatPage() {
     scrollToBottom()
   }, [messages, isTyping])
 
+  const handleScroll = () => {
+    const el = scrollContainerRef.current
+    if (!el) return
+    const nearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 100
+    setShowScrollBtn(!nearBottom)
+  }
+
   const handleSend = async (e) => {
     e?.preventDefault?.()
     const text = typeof e === 'string' ? e : input.trim()
     if (!text) return
 
-    const userMsg = { id: Date.now(), role: 'user', content: text }
+    const userMsg = { id: Date.now(), role: 'user', content: text, time: formatTime() }
     setMessages(prev => [...prev, userMsg])
     setInput('')
     setIsTyping(true)
@@ -44,7 +58,7 @@ export default function ChatPage() {
       const isNeural = text.toLowerCase().includes('neural') || text.toLowerCase().includes('network')
       const isRecursion = text.toLowerCase().includes('recursion')
       
-      let aiResponse = { id: Date.now() + 1, role: 'assistant' }
+      let aiResponse = { id: Date.now() + 1, role: 'assistant', time: formatTime() }
 
       if (isNeural) {
          aiResponse.content = "Artificial Neural Networks (ANNs) are computing systems inspired by the biological neural networks that constitute animal brains. An ANN is based on a collection of connected units or nodes called artificial neurons, which loosely model the neurons in a biological brain. Each connection, like the synapses in a biological brain, can transmit a signal to other neurons."
@@ -81,10 +95,10 @@ export default function ChatPage() {
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)]">
       {/* Chat header */}
-      <div className="glass-card p-4 flex items-center gap-3 mb-4 rounded-xl flex-shrink-0 animate-fade-in-up">
+      <div className="glass-card card-shine p-4 flex items-center gap-3 mb-4 rounded-xl flex-shrink-0 animate-fade-in-up">
         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center relative shadow-lg shadow-primary-500/15">
           <Bot className="w-6 h-6 text-white" />
-          <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-surface-900 rounded-full" />
+          <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-surface-900 rounded-full status-dot-pulse" />
         </div>
         <div className="flex-1">
           <h2 className="text-base font-bold text-surface-100 flex items-center gap-2">
@@ -93,11 +107,11 @@ export default function ChatPage() {
           <p className="text-xs text-surface-400">Powered by RAG & Educational Resources</p>
         </div>
         <div className="hidden sm:flex items-center gap-2 text-xs text-surface-500">
-          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-surface-800/40 rounded-lg">
+          <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-surface-800/40 rounded-lg border border-surface-700/20">
             <Sparkles className="w-3 h-3 text-primary-400" />
             <span>RAG</span>
           </div>
-          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-surface-800/40 rounded-lg">
+          <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-surface-800/40 rounded-lg border border-surface-700/20">
             <Youtube className="w-3 h-3 text-red-400" />
             <span>YouTube</span>
           </div>
@@ -105,7 +119,7 @@ export default function ChatPage() {
       </div>
 
       {/* Chat messages */}
-      <div className="flex-1 overflow-y-auto space-y-5 pr-1">
+      <div ref={scrollContainerRef} onScroll={handleScroll} className="flex-1 overflow-y-auto space-y-5 pr-1 chat-scroll relative">
         {messages.map((msg) => (
           <div key={msg.id} className={`flex gap-3 ${msg.role === 'assistant' ? 'justify-start' : 'justify-end'} animate-fade-in`}>
             {msg.role === 'assistant' && (
@@ -117,21 +131,22 @@ export default function ChatPage() {
             <div className={`max-w-[75%] ${msg.role === 'assistant' ? '' : 'flex items-end flex-col'}`}>
               <div className={`p-4 rounded-2xl ${
                 msg.role === 'assistant' 
-                  ? 'bg-surface-800/50 border border-surface-700/40 rounded-tl-sm text-surface-200' 
-                  : 'bg-gradient-to-r from-primary-600 to-primary-500 text-white rounded-tr-sm shadow-lg shadow-primary-500/10'
+                  ? 'bg-surface-800/50 border border-surface-700/40 bubble-assistant text-surface-200' 
+                  : 'bg-gradient-to-r from-primary-600 to-primary-500 text-white bubble-user shadow-lg shadow-primary-500/10'
               }`}>
                 <p className="whitespace-pre-wrap leading-relaxed text-[15px]">{msg.content}</p>
               </div>
+              <span className="text-[10px] text-surface-600 mt-1.5 px-1">{msg.time}</span>
 
               {msg.videos && msg.videos.length > 0 && (
-                <div className="mt-3 animate-fade-in pl-0.5">
+                <div className="mt-3 animate-fade-in pl-0.5 w-full">
                   <div className="flex items-center gap-2 mb-2">
                     <Youtube className="w-3.5 h-3.5 text-red-400" />
                     <span className="text-[10px] font-bold text-red-400 uppercase tracking-widest">Recommended Videos</span>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {msg.videos.map((vid, idx) => (
-                      <a key={idx} href={vid.url} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 p-2.5 bg-surface-800/40 hover:bg-surface-800/70 border border-surface-700/30 hover:border-primary-500/20 rounded-xl transition-all group">
+                      <a key={idx} href={vid.url} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 p-2.5 bg-surface-800/40 hover:bg-surface-800/70 border border-surface-700/30 hover:border-red-500/20 rounded-xl transition-all group card-shine">
                         <div className="relative w-16 h-12 bg-surface-800 rounded-lg overflow-hidden flex-shrink-0">
                           {vid.thumbnail.startsWith('http') ? (
                             <img src={vid.thumbnail} alt="" className="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-opacity" />
@@ -139,11 +154,11 @@ export default function ChatPage() {
                              <div className="w-full h-full flex items-center justify-center text-xl">{vid.thumbnail}</div>
                           )}
                           <div className="absolute inset-0 flex items-center justify-center">
-                            <PlayCircle className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
+                            <PlayCircle className="w-5 h-5 text-white/60 group-hover:text-white group-hover:scale-110 transition-all" />
                           </div>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs font-medium text-surface-200 line-clamp-2 leading-snug group-hover:text-primary-400 transition-colors">{vid.title}</p>
+                          <p className="text-xs font-medium text-surface-200 line-clamp-2 leading-snug group-hover:text-red-400 transition-colors">{vid.title}</p>
                           <p className="text-[10px] text-surface-500 mt-1 truncate">{vid.channel}</p>
                         </div>
                       </a>
@@ -152,8 +167,8 @@ export default function ChatPage() {
                   
                   {msg.playlist && (
                     <div className="mt-2.5 inline-flex">
-                       <a href={msg.playlist.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-1.5 bg-red-500/8 hover:bg-red-500/15 text-red-400 border border-red-500/15 rounded-lg text-xs font-medium transition-colors">
-                         <PlayCircle className="w-3.5 h-3.5" /> Complete Playlist: {msg.playlist.title}
+                       <a href={msg.playlist.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-1.5 bg-red-500/8 hover:bg-red-500/15 text-red-400 border border-red-500/15 rounded-lg text-xs font-medium transition-colors group">
+                         <PlayCircle className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" /> Complete Playlist: {msg.playlist.title}
                        </a>
                     </div>
                   )}
@@ -162,7 +177,7 @@ export default function ChatPage() {
             </div>
 
             {msg.role === 'user' && (
-              <div className="w-8 h-8 rounded-lg bg-surface-700/80 flex items-center justify-center flex-shrink-0 mt-1">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-surface-600 to-surface-700 flex items-center justify-center flex-shrink-0 mt-1 shadow-md">
                 <User className="w-4 h-4 text-surface-300" />
               </div>
             )}
@@ -174,7 +189,7 @@ export default function ChatPage() {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center flex-shrink-0 mt-1 shadow-md shadow-primary-500/10">
               <Bot className="w-4 h-4 text-white" />
             </div>
-            <div className="p-4 rounded-2xl bg-surface-800/50 border border-surface-700/40 rounded-tl-sm flex items-center gap-3">
+            <div className="p-4 rounded-2xl bg-surface-800/50 border border-surface-700/40 bubble-assistant flex items-center gap-3">
                <Loader2 className="w-4 h-4 animate-spin text-primary-400" />
                <span className="text-sm text-surface-400">Searching educational documents & YouTube...</span>
             </div>
@@ -182,6 +197,15 @@ export default function ChatPage() {
         )}
         <div ref={messagesEndRef} />
       </div>
+
+      {/* Scroll to bottom button */}
+      {showScrollBtn && (
+        <div className="flex justify-center -mt-12 relative z-10">
+          <button onClick={scrollToBottom} className="p-2 rounded-full bg-surface-800/80 border border-surface-700/40 text-surface-400 hover:text-surface-200 shadow-lg backdrop-blur-sm transition-all hover:scale-105 cursor-pointer">
+            <ArrowDown className="w-4 h-4" />
+          </button>
+        </div>
+      )}
 
       {/* Suggestion chips */}
       {messages.length <= 1 && !isTyping && (
@@ -195,7 +219,7 @@ export default function ChatPage() {
               <button
                 key={i}
                 onClick={() => handleSuggestion(q)}
-                className="px-3.5 py-2 bg-surface-800/40 hover:bg-surface-800/70 border border-surface-700/20 hover:border-primary-500/20 rounded-xl text-xs text-surface-300 hover:text-surface-100 transition-all cursor-pointer"
+                className="px-3.5 py-2 bg-surface-800/40 hover:bg-surface-800/70 border border-surface-700/20 hover:border-primary-500/20 rounded-xl text-xs text-surface-300 hover:text-surface-100 transition-all cursor-pointer hover:shadow-md hover:shadow-primary-500/5"
               >
                 {q}
               </button>
@@ -218,7 +242,7 @@ export default function ChatPage() {
           <button
             type="submit"
             disabled={!input.trim() || isTyping}
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 p-2.5 bg-primary-500 hover:bg-primary-400 text-white rounded-xl disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg shadow-primary-500/15 cursor-pointer"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 p-2.5 bg-primary-500 hover:bg-primary-400 text-white rounded-xl disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg shadow-primary-500/15 cursor-pointer hover:scale-105"
           >
             <Send className="w-4 h-4" />
           </button>

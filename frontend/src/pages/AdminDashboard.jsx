@@ -220,9 +220,9 @@ export default function AdminDashboard() {
         <div className="space-y-6 animate-fade-in">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {departmentData.map((dept, i) => (
-              <div key={i} className="glass-card glass-card-hover p-5 transition-all duration-300">
+              <div key={i} className="glass-card glass-card-hover card-shine p-5 transition-all duration-300">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="p-2.5 rounded-xl bg-primary-500/15">
+                  <div className="p-2.5 rounded-xl bg-primary-500/15 group-hover:scale-105 transition-transform">
                     <Building2 className="w-5 h-5 text-primary-400" />
                   </div>
                   <span className="badge badge-info">{dept.faculty} faculty</span>
@@ -233,7 +233,7 @@ export default function AdminDashboard() {
                   <span>Avg GPA: <b className="text-surface-200">{dept.avgGPA}</b></span>
                 </div>
                 <div className="mt-3 w-full h-1.5 bg-surface-800 rounded-full overflow-hidden">
-                  <div className="h-full rounded-full bg-gradient-to-r from-primary-500 to-accent-500" style={{ width: `${(dept.students / 250) * 100}%` }} />
+                  <div className="h-full rounded-full bg-gradient-to-r from-primary-500 to-accent-500 animate-progress" style={{ width: `${(dept.students / 250) * 100}%` }} />
                 </div>
               </div>
             ))}

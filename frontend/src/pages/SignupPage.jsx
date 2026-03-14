@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { Eye, EyeOff, ArrowRight, UserPlus, GraduationCap, BookOpen, Sparkles, Bot } from 'lucide-react'
+import { Eye, EyeOff, ArrowRight, UserPlus, GraduationCap, BookOpen, Sparkles, Bot, Mail, Lock, User } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 export default function SignupPage() {
@@ -45,10 +45,11 @@ export default function SignupPage() {
         {/* Floating decorative elements */}
         <div className="absolute top-[20%] right-[15%] w-16 h-16 rounded-xl border border-accent-500/10 bg-accent-500/5 animate-float rotate-6" />
         <div className="absolute bottom-[25%] left-[10%] w-20 h-20 rounded-2xl border border-primary-500/10 bg-primary-500/5 animate-float-slow" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-[50%] right-[30%] w-10 h-10 rounded-lg border border-purple-500/10 bg-purple-500/5 animate-float" style={{ animationDelay: '1.5s' }} />
 
         <div className="relative z-10 flex flex-col justify-center px-16 max-w-xl">
           <div className="flex items-center gap-3 mb-10 animate-fade-in-up">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center shadow-xl shadow-primary-500/25">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center shadow-xl shadow-primary-500/25 animate-pulse-glow">
               <GraduationCap className="w-7 h-7 text-white" />
             </div>
             <div>
@@ -56,7 +57,7 @@ export default function SignupPage() {
               <p className="text-xs text-surface-500 font-medium tracking-wide">Academic Intelligence Platform</p>
             </div>
           </div>
-          <h2 className="text-4xl font-extrabold text-surface-100 mb-5 leading-[1.15] tracking-tight animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <h2 className="text-4xl font-extrabold text-surface-100 mb-5 leading-[1.15] tracking-tight animate-fade-in-up text-glow" style={{ animationDelay: '0.1s' }}>
             Start your journey with<br />
             <span className="gradient-text-accent">intelligent learning</span>
           </h2>
@@ -72,14 +73,26 @@ export default function SignupPage() {
             ].map((feature, i) => {
               const FeatureIcon = feature.icon
               return (
-                <div key={i} className="flex items-center gap-3 animate-fade-in-up" style={{ animationDelay: `${0.3 + i * 0.08}s` }}>
-                  <div className="w-8 h-8 rounded-lg bg-accent-500/10 border border-accent-500/10 flex items-center justify-center flex-shrink-0">
+                <div key={i} className="flex items-center gap-3 animate-fade-in-up group" style={{ animationDelay: `${0.3 + i * 0.08}s` }}>
+                  <div className="w-8 h-8 rounded-lg bg-accent-500/10 border border-accent-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent-500/15 group-hover:scale-105 transition-all">
                     <FeatureIcon className="w-4 h-4 text-accent-400" />
                   </div>
-                  <span className="text-surface-300 text-sm font-medium">{feature.text}</span>
+                  <span className="text-surface-300 text-sm font-medium group-hover:text-surface-200 transition-colors">{feature.text}</span>
                 </div>
               )
             })}
+          </div>
+
+          {/* Testimonial card */}
+          <div className="mt-10 glass-card card-shine p-5 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+            <p className="text-surface-300 text-sm italic leading-relaxed">"EduSense AI helped me identify weak areas and improve my GPA by 1.2 points in just one semester!"</p>
+            <div className="flex items-center gap-3 mt-3">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center text-white text-xs font-bold">A</div>
+              <div>
+                <p className="text-sm font-medium text-surface-200">Alice Johnson</p>
+                <p className="text-[10px] text-surface-500">Computer Science, Sem 6</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -94,7 +107,7 @@ export default function SignupPage() {
             <h1 className="text-2xl font-bold gradient-text">EduSense AI</h1>
           </div>
 
-          <div className="glass-card p-7 sm:p-8 glow-ring animate-scale-in">
+          <div className="glass-card card-shine p-7 sm:p-8 glow-ring animate-scale-in">
             <div className="mb-7">
               <h2 className="text-2xl font-bold text-surface-100 flex items-center gap-2.5">
                 <div className="p-2 rounded-xl bg-primary-500/10">
@@ -108,34 +121,41 @@ export default function SignupPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-surface-300 mb-2">Full name</label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="input-field"
-                  placeholder="John Doe"
-                  id="signup-name"
-                />
+                <div className="relative">
+                  <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-500" />
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="input-field pl-10"
+                    placeholder="John Doe"
+                    id="signup-name"
+                  />
+                </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-surface-300 mb-2">Email address</label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="input-field"
-                  placeholder="you@university.edu"
-                  id="signup-email"
-                />
+                <div className="relative">
+                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-500" />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="input-field pl-10"
+                    placeholder="you@university.edu"
+                    id="signup-email"
+                  />
+                </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-surface-300 mb-2">Password</label>
                 <div className="relative">
+                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-500" />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="input-field pr-10"
+                    className="input-field pl-10 pr-10"
                     placeholder="••••••••"
                     id="signup-password"
                   />
@@ -150,26 +170,29 @@ export default function SignupPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-surface-300 mb-2">Confirm Password</label>
-                <input
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="input-field"
-                  placeholder="••••••••"
-                  id="signup-confirm-password"
-                />
+                <div className="relative">
+                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-500" />
+                  <input
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="input-field pl-10"
+                    placeholder="••••••••"
+                    id="signup-confirm-password"
+                  />
+                </div>
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-primary w-full justify-center py-3 text-[15px] disabled:opacity-50 mt-2"
+                className="btn-primary w-full justify-center py-3 text-[15px] disabled:opacity-50 mt-2 group"
                 id="signup-submit"
               >
                 {loading ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
-                  <>Create account <ArrowRight className="w-4 h-4" /></>
+                  <>Create account <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" /></>
                 )}
               </button>
             </form>

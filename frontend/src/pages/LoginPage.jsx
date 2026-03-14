@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { Eye, EyeOff, ArrowRight, Sparkles, GraduationCap, Shield, Brain, TrendingUp, BarChart3 } from 'lucide-react'
+import { Eye, EyeOff, ArrowRight, Sparkles, GraduationCap, Shield, Brain, TrendingUp, BarChart3, Users, Zap, Mail, Lock } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 export default function LoginPage() {
@@ -14,9 +14,9 @@ export default function LoginPage() {
 
   // Demo accounts for testing
   const demoAccounts = [
-    { role: 'Admin', email: 'admin@edusense.com', password: 'admin123', icon: Shield, color: 'from-violet-500 to-purple-600' },
-    { role: 'Faculty', email: 'faculty@edusense.com', password: 'faculty123', icon: Brain, color: 'from-primary-500 to-primary-600' },
-    { role: 'Student', email: 'student@edusense.com', password: 'student123', icon: GraduationCap, color: 'from-accent-500 to-accent-600' },
+    { role: 'Admin', email: 'admin@edusense.com', password: 'admin123', icon: Shield, color: 'from-violet-500 to-purple-600', desc: 'Full platform access' },
+    { role: 'Faculty', email: 'faculty@edusense.com', password: 'faculty123', icon: Brain, color: 'from-primary-500 to-primary-600', desc: 'Manage students' },
+    { role: 'Student', email: 'student@edusense.com', password: 'student123', icon: GraduationCap, color: 'from-accent-500 to-accent-600', desc: 'View dashboard' },
   ]
 
   const handleSubmit = async (e) => {
@@ -58,6 +58,12 @@ export default function LoginPage() {
     setPassword(account.password)
   }
 
+  const stats = [
+    { label: 'Active Students', value: '2,400+', icon: Users },
+    { label: 'AI Predictions', value: '98.5%', icon: Zap },
+    { label: 'Departments', value: '12', icon: BarChart3 },
+  ]
+
   return (
     <div className="min-h-screen bg-surface-950 flex relative overflow-hidden">
       {/* Animated background blobs */}
@@ -74,10 +80,11 @@ export default function LoginPage() {
         <div className="absolute top-[15%] right-[10%] w-20 h-20 rounded-2xl border border-primary-500/10 bg-primary-500/5 animate-float-slow rotate-12" />
         <div className="absolute bottom-[20%] left-[8%] w-16 h-16 rounded-xl border border-accent-500/10 bg-accent-500/5 animate-float" style={{ animationDelay: '1s' }} />
         <div className="absolute top-[60%] right-[25%] w-12 h-12 rounded-lg border border-purple-500/10 bg-purple-500/5 animate-float-slow" style={{ animationDelay: '3s' }} />
+        <div className="absolute top-[40%] left-[15%] w-8 h-8 rounded-md border border-primary-400/10 bg-primary-400/5 animate-float" style={{ animationDelay: '2s' }} />
 
         <div className="relative z-10 flex flex-col justify-center px-16 max-w-xl">
           <div className="flex items-center gap-3 mb-10 animate-fade-in-up">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center shadow-xl shadow-primary-500/25">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center shadow-xl shadow-primary-500/25 animate-pulse-glow">
               <GraduationCap className="w-7 h-7 text-white" />
             </div>
             <div>
@@ -86,13 +93,24 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <h2 className="text-4xl font-extrabold text-surface-100 mb-5 leading-[1.15] tracking-tight animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <h2 className="text-4xl font-extrabold text-surface-100 mb-5 leading-[1.15] tracking-tight animate-fade-in-up text-glow" style={{ animationDelay: '0.1s' }}>
             Unlock the power of<br />
             <span className="gradient-text-accent">AI-driven education</span>
           </h2>
-          <p className="text-surface-400 text-lg mb-12 max-w-md leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <p className="text-surface-400 text-lg mb-10 max-w-md leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             Transform academic data into actionable insights with intelligent analytics, risk prediction, and personalized learning.
           </p>
+
+          {/* Stats row */}
+          <div className="grid grid-cols-3 gap-3 mb-10 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+            {stats.map((stat, i) => (
+              <div key={i} className="glass-card card-shine p-4 text-center group hover:border-primary-500/20 transition-all">
+                <stat.icon className="w-5 h-5 text-primary-400 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+                <p className="text-lg font-bold text-surface-100">{stat.value}</p>
+                <p className="text-[10px] text-surface-500 font-medium uppercase tracking-wider">{stat.label}</p>
+              </div>
+            ))}
+          </div>
 
           <div className="space-y-3.5">
             {[
@@ -103,11 +121,11 @@ export default function LoginPage() {
             ].map((feature, i) => {
               const FeatureIcon = feature.icon || Sparkles
               return (
-                <div key={i} className="flex items-center gap-3 animate-fade-in-up" style={{ animationDelay: `${0.3 + i * 0.08}s` }}>
-                  <div className="w-8 h-8 rounded-lg bg-primary-500/10 border border-primary-500/10 flex items-center justify-center flex-shrink-0">
+                <div key={i} className="flex items-center gap-3 animate-fade-in-up group" style={{ animationDelay: `${0.3 + i * 0.08}s` }}>
+                  <div className="w-8 h-8 rounded-lg bg-primary-500/10 border border-primary-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary-500/15 group-hover:scale-105 transition-all">
                     <FeatureIcon className="w-4 h-4 text-primary-400" />
                   </div>
-                  <span className="text-surface-300 text-sm font-medium">{feature.text}</span>
+                  <span className="text-surface-300 text-sm font-medium group-hover:text-surface-200 transition-colors">{feature.text}</span>
                 </div>
               )
             })}
@@ -126,7 +144,7 @@ export default function LoginPage() {
             <h1 className="text-2xl font-bold gradient-text">EduSense AI</h1>
           </div>
 
-          <div className="glass-card p-7 sm:p-8 glow-ring animate-scale-in">
+          <div className="glass-card card-shine p-7 sm:p-8 glow-ring animate-scale-in">
             <div className="mb-7">
               <h2 className="text-2xl font-bold text-surface-100">Welcome back</h2>
               <p className="text-surface-400 mt-1.5 text-sm">Sign in to your EduSense AI account</p>
@@ -135,27 +153,31 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-sm font-medium text-surface-300 mb-2">Email address</label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="input-field"
-                  placeholder="you@university.edu"
-                  id="login-email"
-                />
+                <div className="relative">
+                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-500" />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="input-field pl-10"
+                    placeholder="you@university.edu"
+                    id="login-email"
+                  />
+                </div>
               </div>
 
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <label className="block text-sm font-medium text-surface-300">Password</label>
-                  <span className="text-xs text-primary-400 hover:text-primary-300 cursor-pointer font-medium">Forgot password?</span>
+                  <span className="text-xs text-primary-400 hover:text-primary-300 cursor-pointer font-medium transition-colors">Forgot password?</span>
                 </div>
                 <div className="relative">
+                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-500" />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="input-field pr-10"
+                    className="input-field pl-10 pr-10"
                     placeholder="••••••••"
                     id="login-password"
                   />
@@ -172,13 +194,13 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-primary w-full justify-center py-3 text-[15px] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn-primary w-full justify-center py-3 text-[15px] disabled:opacity-50 disabled:cursor-not-allowed group"
                 id="login-submit"
               >
                 {loading ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
-                  <>Sign in <ArrowRight className="w-4 h-4" /></>
+                  <>Sign in <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" /></>
                 )}
               </button>
             </form>
@@ -204,7 +226,7 @@ export default function LoginPage() {
                   toast.error(result.error)
                 }
               }}
-              className="w-full flex items-center justify-center gap-3 py-3 bg-surface-800/60 hover:bg-surface-800 border border-surface-700/40 hover:border-surface-600/60 rounded-xl text-sm font-medium text-surface-200 transition-all cursor-pointer"
+              className="w-full flex items-center justify-center gap-3 py-3 bg-surface-800/60 hover:bg-surface-800 border border-surface-700/40 hover:border-surface-600/60 rounded-xl text-sm font-medium text-surface-200 transition-all cursor-pointer hover:shadow-lg hover:shadow-black/10"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
@@ -224,8 +246,11 @@ export default function LoginPage() {
           </div>
 
           {/* Demo accounts */}
-          <div className="mt-5 glass-card p-5 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            <p className="text-[10px] text-surface-500 font-semibold uppercase tracking-widest mb-3">Quick Demo Access</p>
+          <div className="mt-5 glass-card card-shine p-5 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <p className="text-[10px] text-surface-500 font-semibold uppercase tracking-widest mb-3 flex items-center gap-1.5">
+              <Zap className="w-3 h-3 text-amber-400" />
+              Quick Demo Access
+            </p>
             <div className="grid grid-cols-3 gap-2">
               {demoAccounts.map((account) => {
                 const AccIcon = account.icon
@@ -233,12 +258,13 @@ export default function LoginPage() {
                   <button
                     key={account.role}
                     onClick={() => fillDemo(account)}
-                    className="group flex flex-col items-center gap-2 px-3 py-3 bg-surface-800/40 hover:bg-surface-800/70 border border-surface-700/20 hover:border-primary-500/20 rounded-xl text-xs font-medium text-surface-300 hover:text-surface-100 transition-all cursor-pointer"
+                    className="group flex flex-col items-center gap-2 px-3 py-3.5 bg-surface-800/40 hover:bg-surface-800/70 border border-surface-700/20 hover:border-primary-500/20 rounded-xl text-xs font-medium text-surface-300 hover:text-surface-100 transition-all cursor-pointer"
                   >
-                    <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${account.color} flex items-center justify-center shadow-lg opacity-70 group-hover:opacity-100 transition-opacity`}>
+                    <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${account.color} flex items-center justify-center shadow-lg opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all`}>
                       <AccIcon className="w-4 h-4 text-white" />
                     </div>
-                    {account.role}
+                    <span className="font-semibold">{account.role}</span>
+                    <span className="text-[10px] text-surface-500">{account.desc}</span>
                   </button>
                 )
               })}

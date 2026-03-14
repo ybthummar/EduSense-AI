@@ -19,13 +19,22 @@ export default function MetricCard({ title, value, change, changeType = 'neutral
     purple: 'bg-purple-500/12 text-purple-400 ring-1 ring-purple-500/10',
   }
 
+  const borderAccent = {
+    primary: 'hover:border-primary-500/20',
+    accent: 'hover:border-accent-500/20',
+    success: 'hover:border-green-500/20',
+    warning: 'hover:border-amber-500/20',
+    danger: 'hover:border-red-500/20',
+    purple: 'hover:border-purple-500/20',
+  }
+
   const glowColor = {
-    primary: 'group-hover:shadow-primary-500/5',
-    accent: 'group-hover:shadow-accent-500/5',
-    success: 'group-hover:shadow-green-500/5',
-    warning: 'group-hover:shadow-amber-500/5',
-    danger: 'group-hover:shadow-red-500/5',
-    purple: 'group-hover:shadow-purple-500/5',
+    primary: 'group-hover:shadow-primary-500/8',
+    accent: 'group-hover:shadow-accent-500/8',
+    success: 'group-hover:shadow-green-500/8',
+    warning: 'group-hover:shadow-amber-500/8',
+    danger: 'group-hover:shadow-red-500/8',
+    purple: 'group-hover:shadow-purple-500/8',
   }
 
   const changeIcon = {
@@ -41,13 +50,13 @@ export default function MetricCard({ title, value, change, changeType = 'neutral
   }
 
   return (
-    <div className={`group glass-card glass-card-hover p-5 transition-all duration-300 ${glowColor[color]} group-hover:shadow-lg`}>
+    <div className={`group glass-card glass-card-hover card-shine p-5 transition-all duration-300 ${glowColor[color]} ${borderAccent[color]} group-hover:shadow-lg`}>
       <div className="flex items-start justify-between mb-4">
-        <div className={`p-2.5 rounded-xl ${iconBg[color]} transition-transform duration-300 group-hover:scale-105`}>
+        <div className={`p-2.5 rounded-xl ${iconBg[color]} transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}>
           {Icon && <Icon className="w-5 h-5" />}
         </div>
         {change !== undefined && (
-          <div className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold ${changeColor[changeType]}`}>
+          <div className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold ${changeColor[changeType]} animate-fade-in`}>
             {changeIcon[changeType]}
             <span>{change}</span>
           </div>
@@ -55,7 +64,7 @@ export default function MetricCard({ title, value, change, changeType = 'neutral
       </div>
       <div>
         <p className="text-[13px] text-surface-400 mb-1 font-medium">{title}</p>
-        <p className="text-2xl font-bold text-surface-100 tracking-tight">{value}</p>
+        <p className="text-2xl font-bold text-surface-100 tracking-tight animate-count text-glow">{value}</p>
         {subtitle && <p className="text-xs text-surface-500 mt-1.5">{subtitle}</p>}
       </div>
     </div>
