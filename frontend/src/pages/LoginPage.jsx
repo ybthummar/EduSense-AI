@@ -1,4 +1,5 @@
-import { Navigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Navigate, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Brain, Mail, Lock, Loader2, ArrowRight, CheckCircle2 } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -6,7 +7,11 @@ import toast from 'react-hot-toast';
 const demoAccounts = [
   { label: 'Admin', email: 'admin@edusense.com', password: 'admin123', role: 'admin' },
   { label: 'Faculty', email: 'faculty@edusense.com', password: 'faculty123', role: 'faculty' },
-  { label: 'Student', email: 'student@edusense.com', password: 'student123', role: 'student' },
+  { label: 'Ishita', email: '23aiml001', password: '23aiml001', role: 'student' },
+  { label: 'Meet', email: '23ce001', password: '23ce001', role: 'student' },
+  { label: 'Manav', email: '25ec001', password: '25ec001', role: 'student' },
+  { label: 'Mahi', email: '23it002', password: '23it002', role: 'student' },
+  { label: 'Vaishnavi', email: '25me003', password: '25me003', role: 'student' },
 ];
 
 const highlights = [
@@ -16,7 +21,11 @@ const highlights = [
 ];
 
 export default function LoginPage() {
-  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { user, login } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   
   if (user) {
     navigate(`/${user.role}`);
@@ -101,14 +110,14 @@ export default function LoginPage() {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-slate-300">Email</label>
+                  <label className="text-sm font-medium text-slate-300">Email / ID</label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
                     <input
-                      type="email"
+                      type="text"
                       value={email}
                       onChange={(event) => setEmail(event.target.value)}
-                      placeholder="you@example.com"
+                      placeholder="Email or Student ID"
                       required
                       className="glass-panel-soft w-full rounded-xl border border-slate-600/70 py-2.5 pl-10 pr-3 text-sm text-slate-100 placeholder:text-slate-500 transition-colors focus:border-cyan-400/50 focus:outline-none focus:ring-2 focus:ring-cyan-400/35"
                     />
@@ -141,10 +150,10 @@ export default function LoginPage() {
 
               <div className="mt-6 border-t border-slate-700/70 pt-5">
                 <p className="mb-3 text-center text-xs uppercase tracking-[0.12em] text-slate-500">Quick Demo Access</p>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="flex flex-wrap justify-center gap-2">
                   {demoAccounts.map((account) => (
                     <button
-                      key={account.role}
+                      key={account.email}
                       onClick={() => handleDemo(account)}
                       disabled={loading}
                       className="rounded-xl border border-slate-600/75 bg-slate-800/55 px-3 py-2 text-xs font-semibold text-slate-300 transition-colors hover:border-cyan-400/40 hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-50"
