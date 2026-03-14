@@ -1,6 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from services.dataset_service import get_faculty_analytics, get_faculty_students
+from services.dataset_service import get_faculty_analytics, get_faculty_students, get_student_detail
 from typing import Optional
 
 router = APIRouter()
@@ -26,6 +26,15 @@ def get_faculty_students_route(
 ):
     del faculty_id
     return get_faculty_students(department=department, limit=limit)
+
+@router.get("/{faculty_id}/students/{student_id}")
+def get_student_detail_route(faculty_id: str, student_id: str):
+    """Full profile for a single student — personal info + academic metrics."""
+    del faculty_id
+    try:
+        return get_student_detail(student_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 @router.get("/{faculty_id}/analytics")
 def get_faculty_analytics_route(

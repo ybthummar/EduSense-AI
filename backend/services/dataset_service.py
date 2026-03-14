@@ -139,8 +139,15 @@ def get_student_dashboard(student_id: Optional[str] = None) -> Dict[str, Any]:
         "attendance": attendance,
         "latest_metrics": {
             "cgpa": round(float(latest["CGPA"]), 2),
+            "previous_cgpa": round(float(latest["Previous_CGPA"]), 2) if not pd.isna(latest.get("Previous_CGPA")) else None,
             "average_marks": avg_marks,
             "attendance_percentage": round(float(latest["Attendance_Percentage"]), 2),
+            "study_hours_per_day": round(float(latest["Study_Hours_Per_Day"]), 1) if not pd.isna(latest.get("Study_Hours_Per_Day")) else None,
+            "assignment_score": round(float(latest["Assignment_Score"]), 2) if not pd.isna(latest.get("Assignment_Score")) else None,
+            "internal_exam_score": round(float(latest["Internal_Exam_Score"]), 2) if not pd.isna(latest.get("Internal_Exam_Score")) else None,
+            "stress_level": str(latest.get("Stress_Level", "")) if not pd.isna(latest.get("Stress_Level")) else None,
+            "backlog_count": int(latest["Backlog_Count"]) if not pd.isna(latest.get("Backlog_Count")) else 0,
+            "backlog_risk_probability": round(float(latest["Backlog_Risk_Probability"]), 4) if not pd.isna(latest.get("Backlog_Risk_Probability")) else None,
             "academic_risk_score": round(float(latest["Academic_Risk_Score"]), 2),
             "risk_level": _risk_level(float(latest["Academic_Risk_Score"])),
         },
@@ -196,7 +203,76 @@ def get_student_recommendations(student_id: Optional[str] = None) -> List[Dict[s
     return recommendations
 
 
+def get_student_academic_history(student_id: str) -> Dict[str, Any]:
+    """Complete semester-wise academic history for a student from cgpa_risk dataset."""
+    risk_df = load_dataset("cgpa_risk").copy()
+    risk_df["Student_ID"] = risk_df["Student_ID"].astype(str).str.upper().str.strip()
+    sid = _normalize_student_id(student_id)
+
+    student_rows = risk_df[risk_df["Student_ID"] == sid].copy()
+    if student_rows.empty:
+        raise ValueError(f"Student '{student_id}' not found in academic dataset")
+
+    student_rows = student_rows.sort_values(by=["Year", "Semester"]).reset_index(drop=True)
+    curriculum_df = load_dataset("curriculum")
+
+    semesters: List[Dict[str, Any]] = []
+    for _, row in student_rows.iterrows():
+        subject_codes = [c.strip() for c in str(row.get("Subject_Codes", "")).split("|") if c.strip()]
+
+        # Map subject codes to names via curriculum
+        curr_rows = curriculum_df[
+            (curriculum_df["Department"].astype(str).str.strip() == str(row["Department"]).strip())
+            & (curriculum_df["Year"] == row["Year"])
+            & (curriculum_df["Semester"] == row["Semester"])
+        ]
+        subject_name_map = {
+            str(r["Subject_Code"]): str(r["Subject_Name"]) for _, r in curr_rows.iterrows()
+        }
+
+        subjects = [
+            {"code": code, "name": subject_name_map.get(code, code)}
+            for code in subject_codes
+        ]
+
+        semesters.append({
+            "year": int(row["Year"]),
+            "semester": int(row["Semester"]),
+            "department": str(row["Department"]),
+            "subjects": subjects,
+            "average_marks": round(float(row["Average_Marks"]), 2),
+            "cgpa": round(float(row["CGPA"]), 2),
+            "previous_cgpa": round(float(row["Previous_CGPA"]), 2) if not pd.isna(row.get("Previous_CGPA")) else None,
+            "attendance_percentage": round(float(row["Attendance_Percentage"]), 2),
+            "study_hours_per_day": round(float(row["Study_Hours_Per_Day"]), 1) if not pd.isna(row.get("Study_Hours_Per_Day")) else None,
+            "assignment_score": round(float(row["Assignment_Score"]), 2) if not pd.isna(row.get("Assignment_Score")) else None,
+            "internal_exam_score": round(float(row["Internal_Exam_Score"]), 2) if not pd.isna(row.get("Internal_Exam_Score")) else None,
+            "sleep_hours": round(float(row["Sleep_Hours"]), 1) if not pd.isna(row.get("Sleep_Hours")) else None,
+            "stress_level": str(row.get("Stress_Level", "")) if not pd.isna(row.get("Stress_Level")) else None,
+            "internet_usage_hours": round(float(row["Internet_Usage_Hours"]), 1) if not pd.isna(row.get("Internet_Usage_Hours")) else None,
+            "participation_in_activities": str(row.get("Participation_in_Activities", "")) if not pd.isna(row.get("Participation_in_Activities")) else None,
+            "internship": str(row.get("Internship", "")) if not pd.isna(row.get("Internship")) else None,
+            "part_time_job": str(row.get("Part_Time_Job", "")) if not pd.isna(row.get("Part_Time_Job")) else None,
+            "family_income_level": str(row.get("Family_Income_Level", "")) if not pd.isna(row.get("Family_Income_Level")) else None,
+            "backlog_count": int(row["Backlog_Count"]) if not pd.isna(row.get("Backlog_Count")) else 0,
+            "backlog_risk_probability": round(float(row["Backlog_Risk_Probability"]), 4) if not pd.isna(row.get("Backlog_Risk_Probability")) else None,
+            "academic_risk_score": round(float(row["Academic_Risk_Score"]), 2),
+            "risk_level": _risk_level(float(row["Academic_Risk_Score"])),
+        })
+
+    latest = student_rows.iloc[-1]
+    return {
+        "student_id": sid,
+        "department": str(latest["Department"]),
+        "total_semesters": len(semesters),
+        "current_cgpa": round(float(latest["CGPA"]), 2),
+        "current_risk_level": _risk_level(float(latest["Academic_Risk_Score"])),
+        "semesters": semesters,
+    }
+
+
 def get_faculty_students(department: Optional[str] = None, limit: int = 100) -> List[Dict[str, Any]]:
+    """Return all students from master data with full personal info for faculty view."""
     master_df = load_dataset("student_master").copy()
     risk_df = load_dataset("cgpa_risk").copy()
 
@@ -224,20 +300,85 @@ def get_faculty_students(department: Optional[str] = None, limit: int = 100) -> 
 
     rows: List[Dict[str, Any]] = []
     for _, row in merged.iterrows():
-        risk_score = float(row["Academic_Risk_Score"]) if not pd.isna(row["Academic_Risk_Score"]) else 0.0
+        risk_score = float(row["Academic_Risk_Score"]) if not pd.isna(row.get("Academic_Risk_Score")) else 0.0
         rows.append(
             {
                 "id": str(row["Student_ID"]),
+                "first_name": _clean_value(row.get("First_Name", "")),
+                "last_name": _clean_value(row.get("Last_Name", "")),
                 "name": f"{row.get('First_Name', '')} {row.get('Last_Name', '')}".strip(),
-                "semester": int(row["Semester_risk"] if "Semester_risk" in row and not pd.isna(row["Semester_risk"]) else row["Semester"]),
+                "email": _clean_value(row.get("Email", "")),
+                "phone_number": str(_clean_value(row.get("Phone_Number", ""))),
+                "gender": _clean_value(row.get("Gender", "")),
+                "date_of_birth": _clean_value(row.get("Date_of_Birth", "")),
+                "city": _clean_value(row.get("City", "")),
+                "state": _clean_value(row.get("State", "")),
+                "enrollment_year": int(row["Enrollment_Year"]) if not pd.isna(row.get("Enrollment_Year")) else None,
                 "department": str(row["Department"]),
-                "attendance": round(float(row["Attendance_Percentage"]), 2) if not pd.isna(row["Attendance_Percentage"]) else None,
-                "gpa": round(float(row["CGPA"]), 2) if not pd.isna(row["CGPA"]) else None,
+                "department_code": _clean_value(row.get("Department_Code", "")),
+                "admission_type": _clean_value(row.get("Admission_Type", "")),
+                "current_year": int(row["Current_Year"]) if not pd.isna(row.get("Current_Year")) else None,
+                "semester": int(row["Semester_risk"] if "Semester_risk" in row and not pd.isna(row.get("Semester_risk")) else row["Semester"]),
+                "status": _clean_value(row.get("Status", "")),
+                "attendance": round(float(row["Attendance_Percentage"]), 2) if not pd.isna(row.get("Attendance_Percentage")) else None,
+                "gpa": round(float(row["CGPA"]), 2) if not pd.isna(row.get("CGPA")) else None,
                 "risk": _risk_level(risk_score),
             }
         )
 
     return rows
+
+
+def get_student_detail(student_id: str) -> Dict[str, Any]:
+    """Full profile for a single student: master data + latest academic metrics."""
+    master_df = load_dataset("student_master").copy()
+    master_df["Student_ID"] = master_df["Student_ID"].astype(str).str.upper().str.strip()
+    sid = _normalize_student_id(student_id)
+
+    student_row = master_df[master_df["Student_ID"] == sid]
+    if student_row.empty:
+        raise ValueError(f"Student '{student_id}' not found in master data")
+
+    row = student_row.iloc[0]
+    profile: Dict[str, Any] = {
+        "student_id": sid,
+        "first_name": _clean_value(row.get("First_Name", "")),
+        "last_name": _clean_value(row.get("Last_Name", "")),
+        "name": f"{row.get('First_Name', '')} {row.get('Last_Name', '')}".strip(),
+        "email": _clean_value(row.get("Email", "")),
+        "phone_number": str(_clean_value(row.get("Phone_Number", ""))),
+        "gender": _clean_value(row.get("Gender", "")),
+        "date_of_birth": _clean_value(row.get("Date_of_Birth", "")),
+        "city": _clean_value(row.get("City", "")),
+        "state": _clean_value(row.get("State", "")),
+        "enrollment_year": int(row["Enrollment_Year"]) if not pd.isna(row.get("Enrollment_Year")) else None,
+        "department": str(row["Department"]),
+        "department_code": _clean_value(row.get("Department_Code", "")),
+        "admission_type": _clean_value(row.get("Admission_Type", "")),
+        "current_year": int(row["Current_Year"]) if not pd.isna(row.get("Current_Year")) else None,
+        "semester": int(row["Semester"]) if not pd.isna(row.get("Semester")) else None,
+        "status": _clean_value(row.get("Status", "")),
+    }
+
+    # Attach latest academic metrics if available in cgpa_risk dataset
+    try:
+        risk_df = load_dataset("cgpa_risk").copy()
+        risk_df["Student_ID"] = risk_df["Student_ID"].astype(str).str.upper().str.strip()
+        student_risk = risk_df[risk_df["Student_ID"] == sid].sort_values(by=["Year", "Semester"])
+        if not student_risk.empty:
+            latest = student_risk.iloc[-1]
+            profile["academic_metrics"] = {
+                "cgpa": round(float(latest["CGPA"]), 2),
+                "average_marks": round(float(latest["Average_Marks"]), 2),
+                "attendance_percentage": round(float(latest["Attendance_Percentage"]), 2),
+                "academic_risk_score": round(float(latest["Academic_Risk_Score"]), 2),
+                "risk_level": _risk_level(float(latest["Academic_Risk_Score"])),
+                "backlog_count": int(latest["Backlog_Count"]),
+            }
+    except Exception:
+        profile["academic_metrics"] = None
+
+    return profile
 
 
 def get_faculty_analytics(department: Optional[str] = None) -> Dict[str, Any]:

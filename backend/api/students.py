@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query
 from database.firebase import get_firestore
-from services.dataset_service import get_student_dashboard, get_student_recommendations
+from services.dataset_service import get_student_dashboard, get_student_recommendations, get_student_academic_history
 from services.student_context import get_student_context
 from typing import Optional
 
@@ -12,6 +12,16 @@ def get_student_dashboard_route(
 ):
     try:
         return get_student_dashboard(student_id=student_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+@router.get("/academic-history")
+def get_student_academic_history_route(
+    student_id: str = Query(..., description="Student ID to fetch academic history for"),
+):
+    """Complete semester-wise academic history: all subjects, marks, CGPA, attendance, and more."""
+    try:
+        return get_student_academic_history(student_id=student_id)
     except ValueError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
