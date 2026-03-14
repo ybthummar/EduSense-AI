@@ -1,0 +1,66 @@
+{
+  "name": "Student Feedback Collection Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 18 * * 5"
+            }
+          ]
+        }
+      },
+      "name": "Friday Eve Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.twilio.com/2010-04-01/Accounts/TWILIO_SID/Messages.json",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Basic BASE64_TWILIO_CREDS"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "To",
+              "value": "ALL_STUDENTS"
+            },
+            {
+              "name": "From",
+              "value": "TWILIO_NUM"
+            },
+            {
+              "name": "Body",
+              "value": "Hi EduSense AI Student! Quick feedback: How was your learning experience this week? Reply with 1-5 (1=poor, 5=excellent)."
+            }
+          ]
+        }
+      },
+      "name": "Send SMS via Twilio",
+      "type": "n8n-nodes-base.httpRequest"
+    }
+  ],
+  "connections": {
+    "Friday Eve Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send SMS via Twilio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

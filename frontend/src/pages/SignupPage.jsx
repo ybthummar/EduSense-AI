@@ -45,7 +45,7 @@ export default function SignupPage() {
               <span className="text-white font-bold text-xl">K</span>
             </div>
             <div>
-              <h1 className="text-3xl font-bold gradient-text">KenexAI</h1>
+              <h1 className="text-3xl font-bold gradient-text">EduSense AI</h1>
               <p className="text-sm text-surface-500">Academic Intelligence Platform</p>
             </div>
           </div>
@@ -66,7 +66,7 @@ export default function SignupPage() {
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
               <span className="text-white font-bold text-lg">K</span>
             </div>
-            <h1 className="text-2xl font-bold gradient-text">KenexAI</h1>
+            <h1 className="text-2xl font-bold gradient-text">EduSense AI</h1>
           </div>
 
           <div className="glass-card p-8">

@@ -66,11 +66,11 @@ const allStudents = [
 ]
 
 const allFaculty = [
-  { id: 'FAC001', name: 'Dr. Sarah Smith', department: 'Computer Science', email: 'sarah@kenexai.com', students: 35, status: 'Active' },
-  { id: 'FAC002', name: 'Prof. James Johnson', department: 'Mechanical', email: 'james@kenexai.com', students: 42, status: 'Active' },
-  { id: 'FAC003', name: 'Dr. Emily Williams', department: 'Electrical', email: 'emily@kenexai.com', students: 28, status: 'Active' },
-  { id: 'FAC004', name: 'Prof. Michael Brown', department: 'Civil', email: 'michael@kenexai.com', students: 38, status: 'Active' },
-  { id: 'FAC005', name: 'Dr. Lisa Davis', department: 'Electronics', email: 'lisa@kenexai.com', students: 31, status: 'Active' },
+  { id: 'FAC001', name: 'Dr. Sarah Smith', department: 'Computer Science', email: 'sarah@edusense.com', students: 35, status: 'Active' },
+  { id: 'FAC002', name: 'Prof. James Johnson', department: 'Mechanical', email: 'james@edusense.com', students: 42, status: 'Active' },
+  { id: 'FAC003', name: 'Dr. Emily Williams', department: 'Electrical', email: 'emily@edusense.com', students: 28, status: 'Active' },
+  { id: 'FAC004', name: 'Prof. Michael Brown', department: 'Civil', email: 'michael@edusense.com', students: 38, status: 'Active' },
+  { id: 'FAC005', name: 'Dr. Lisa Davis', department: 'Electronics', email: 'lisa@edusense.com', students: 31, status: 'Active' },
 ]
 
 export default function AdminDashboard() {
@@ -310,7 +310,7 @@ export default function AdminDashboard() {
           </div>
           <div>
             <label className="block text-sm font-medium text-surface-300 mb-1.5">Email</label>
-            <input value={newFaculty.email} onChange={e => setNewFaculty({...newFaculty, email: e.target.value})} className="input-field" placeholder="john@kenexai.com" type="email" />
+            <input value={newFaculty.email} onChange={e => setNewFaculty({...newFaculty, email: e.target.value})} className="input-field" placeholder="john@edusense.com" type="email" />
           </div>
           <div>
             <label className="block text-sm font-medium text-surface-300 mb-1.5">Department</label>

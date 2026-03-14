@@ -1,0 +1,86 @@
+{
+  "name": "Outbound Academic Calling Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * *"
+            }
+          ]
+        }
+      },
+      "name": "ScheduleTrigger",
+      "type": "n8n-nodes-base.scheduleTrigger"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "http://backend:8000/api/faculty/high-risk-students",
+        "authentication": "none"
+      },
+      "name": "Fetch High Risk Students",
+      "type": "n8n-nodes-base.httpRequest"
+    },
+    {
+      "parameters": {
+        "url": "https://api.vapi.ai/call",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer VAPI_KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "phoneNumberId",
+              "value": "VAPI_PHONE_ID"
+            },
+            {
+              "name": "customer",
+              "value": "=$json.student_phone"
+            },
+            {
+              "name": "assistant",
+              "value": "{\"model\":{\"provider\":\"openai\",\"model\":\"gpt-4\"},\"voice\":{\"provider\":\"playht\",\"voiceId\":\"jennifer\"},\"firstMessage\":\"Hello, I'm calling from the EduSense AI advisory bot regarding your recent academic performance. Is this a good time?\"}"
+            }
+          ]
+        }
+      },
+      "name": "Trigger Vapi Call",
+      "type": "n8n-nodes-base.httpRequest"
+    }
+  ],
+  "connections": {
+    "ScheduleTrigger": {
+      "main": [
+        [
+          {
+            "node": "Fetch High Risk Students",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch High Risk Students": {
+      "main": [
+        [
+          {
+            "node": "Trigger Vapi Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

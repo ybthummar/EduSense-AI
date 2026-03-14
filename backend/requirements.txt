@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+python-jose[cryptography]
+passlib[bcrypt]
+sqlalchemy
+psycopg2-binary
+pydantic[email]
+python-dotenv
+langchain
+langchain-community
+faiss-cpu
+sentence-transformers
+requests
+pandas
+scikit-learn
+xgboost
+youtube-data-api

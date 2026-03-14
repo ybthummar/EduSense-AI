@@ -8,14 +8,14 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const token = localStorage.getItem('kenex_token')
-    const userData = localStorage.getItem('kenex_user')
+    const token = localStorage.getItem('edusense_token')
+    const userData = localStorage.getItem('edusense_user')
     if (token && userData) {
       try {
         setUser(JSON.parse(userData))
       } catch {
-        localStorage.removeItem('kenex_token')
-        localStorage.removeItem('kenex_user')
+        localStorage.removeItem('edusense_token')
+        localStorage.removeItem('edusense_user')
       }
     }
     setLoading(false)
@@ -25,8 +25,8 @@ export function AuthProvider({ children }) {
     try {
       const res = await api.post('/auth/login', { email, password })
       const { access_token, user: userData } = res.data
-      localStorage.setItem('kenex_token', access_token)
-      localStorage.setItem('kenex_user', JSON.stringify(userData))
+      localStorage.setItem('edusense_token', access_token)
+      localStorage.setItem('edusense_user', JSON.stringify(userData))
       setUser(userData)
       return { success: true, user: userData }
     } catch (err) {
@@ -44,8 +44,8 @@ export function AuthProvider({ children }) {
   }
 
   const logout = () => {
-    localStorage.removeItem('kenex_token')
-    localStorage.removeItem('kenex_user')
+    localStorage.removeItem('edusense_token')
+    localStorage.removeItem('edusense_user')
     setUser(null)
   }
 

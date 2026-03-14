@@ -14,9 +14,9 @@ export default function LoginPage() {
 
   // Demo accounts for testing
   const demoAccounts = [
-    { role: 'Admin', email: 'admin@kenexai.com', password: 'admin123' },
-    { role: 'Faculty', email: 'faculty@kenexai.com', password: 'faculty123' },
-    { role: 'Student', email: 'student@kenexai.com', password: 'student123' },
+    { role: 'Admin', email: 'admin@edusense.com', password: 'admin123' },
+    { role: 'Faculty', email: 'faculty@edusense.com', password: 'faculty123' },
+    { role: 'Student', email: 'student@edusense.com', password: 'student123' },
   ]
 
   const handleSubmit = async (e) => {
@@ -34,8 +34,8 @@ export default function LoginPage() {
         role: demo.role.toLowerCase(),
         department: demo.role === 'Faculty' ? 'Computer Science' : undefined,
       }
-      localStorage.setItem('kenex_token', 'demo_token_' + demo.role.toLowerCase())
-      localStorage.setItem('kenex_user', JSON.stringify(userData))
+      localStorage.setItem('edusense_token', 'demo_token_' + demo.role.toLowerCase())
+      localStorage.setItem('edusense_user', JSON.stringify(userData))
       toast.success(`Welcome back, ${userData.name}!`)
       setTimeout(() => {
         window.location.href = `/${userData.role}`
@@ -72,7 +72,7 @@ export default function LoginPage() {
               <span className="text-white font-bold text-xl">K</span>
             </div>
             <div>
-              <h1 className="text-3xl font-bold gradient-text">KenexAI</h1>
+              <h1 className="text-3xl font-bold gradient-text">EduSense AI</h1>
               <p className="text-sm text-surface-500">Academic Intelligence Platform</p>
             </div>
           </div>
@@ -111,13 +111,13 @@ export default function LoginPage() {
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
               <span className="text-white font-bold text-lg">K</span>
             </div>
-            <h1 className="text-2xl font-bold gradient-text">KenexAI</h1>
+            <h1 className="text-2xl font-bold gradient-text">EduSense AI</h1>
           </div>
 
           <div className="glass-card p-8">
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-surface-100">Welcome back</h2>
-              <p className="text-surface-400 mt-1">Sign in to your KenexAI account</p>
+              <p className="text-surface-400 mt-1">Sign in to your EduSense AI account</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">

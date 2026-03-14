@@ -1,0 +1,78 @@
+{
+  "name": "Inbound Student Support Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "vapi-inbound",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "=$json.body.message.type",
+              "value2": "end-of-call-report"
+            }
+          ]
+        }
+      },
+      "name": "Check Call Complete",
+      "type": "n8n-nodes-base.if"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://backend:8000/api/chat/inbound-transcript",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "transcript",
+              "value": "=$json.body.message.transcript"
+            },
+            {
+              "name": "summary",
+              "value": "=$json.body.message.summary"
+            },
+            {
+              "name": "caller_id",
+              "value": "=$json.body.message.customer.number"
+            }
+          ]
+        }
+      },
+      "name": "Save Transcript to DB",
+      "type": "n8n-nodes-base.httpRequest"
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Check Call Complete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Call Complete": {
+      "main": [
+        [
+          {
+            "node": "Save Transcript to DB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

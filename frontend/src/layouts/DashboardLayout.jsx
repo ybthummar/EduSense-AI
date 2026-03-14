@@ -69,7 +69,7 @@ export default function DashboardLayout({ children }) {
             </div>
             {sidebarOpen && (
               <div className="animate-fade-in">
-                <h1 className="text-lg font-bold gradient-text">KenexAI</h1>
+                <h1 className="text-lg font-bold gradient-text">EduSense AI</h1>
                 <p className="text-[10px] text-surface-500 -mt-0.5">Academic Intelligence</p>
               </div>
             )}
