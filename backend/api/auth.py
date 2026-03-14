@@ -34,39 +34,6 @@ class SignupSchema(BaseModel):
     role: str = "student"
 
 
-DEMO_ACCOUNTS = {
-    "admin@edusense.com": {
-        "password": "admin123",
-        "user": {
-            "id": "demo-admin-1",
-            "email": "admin@edusense.com",
-            "name": "Demo Admin",
-            "role": "admin",
-        },
-    },
-    "faculty@edusense.com": {
-        "password": "faculty123",
-        "user": {
-            "id": "demo-faculty-1",
-            "email": "faculty@edusense.com",
-            "name": "Demo Faculty",
-            "role": "faculty",
-            "faculty_id": "FAC_DEMO_001",
-        },
-    },
-    "student@edusense.com": {
-        "password": "student123",
-        "user": {
-            "id": "demo-student-1",
-            "email": "student@edusense.com",
-            "name": "Demo Student",
-            "role": "student",
-            "student_id": DEFAULT_STUDENT_DATA_ID,
-        },
-    },
-}
-
-
 def _b64_encode(raw: bytes) -> str:
     return base64.urlsafe_b64encode(raw).decode("ascii").rstrip("=")
 
@@ -166,6 +133,24 @@ DEMO_ACCOUNTS = {
 
 @router.post("/login")
 def login(creds: LoginSchema):
+    # Check demo accounts first
+    email_lower = creds.email.lower().strip()
+    if email_lower in DEMO_ACCOUNTS:
+        demo_account = DEMO_ACCOUNTS[email_lower]
+        if creds.password != demo_account["password"]:
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+        
+        user = demo_account.copy()
+        user.pop("password", None)
+        user["email"] = email_lower
+        token = create_access_token({"sub": creds.email, "role": user["role"]})
+        return {
+            "access_token": token,
+            "token_type": "bearer",
+            "user": user,
+        }
+    
+    # Check database for registered users
     db = get_firestore()
     users = db.collection("users").where("email", "==", creds.email).limit(1).stream()
     user_doc = next(users, None)

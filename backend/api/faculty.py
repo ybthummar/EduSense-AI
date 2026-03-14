@@ -1,7 +1,15 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from services.dataset_service import get_students_master_data, get_students_performance_data, get_faculty_analytics, get_faculty_students, get_student_detail
-from typing import Optional
+from services.dataset_service import (
+    get_faculty_analytics,
+    get_faculty_students,
+    get_student_detail,
+    load_dataset,
+    _normalize_student_id,
+    _risk_level,
+    _clean_value,
+)
+from typing import Optional, List, Dict, Any
 
 router = APIRouter()
 
@@ -46,13 +54,96 @@ def get_faculty_analytics_route(
 
 
 @router.get("/students-master")
-def get_students_master_route(department: Optional[str] = None):
-    return get_students_master_data(department=department)
+def get_students_master(department: Optional[str] = None, limit: int = 100):
+    """Get all students from master data CSV for faculty view."""
+    return get_faculty_students(department=department, limit=limit)
+
 
 @router.get("/students-performance")
-def get_students_performance_route(department: Optional[str] = None):
-    return get_students_performance_data(department=department)
+def get_students_performance(
+    department: Optional[str] = None,
+    limit: int = 100,
+) -> List[Dict[str, Any]]:
+    """Get student performance data from enriched and master datasets."""
+    import pandas as pd
+    
+    try:
+        # Load enriched dataset which has performance metrics
+        enriched_df = load_dataset("enriched").copy()
+        enriched_df["Student_ID"] = enriched_df["Student_ID"].astype(str).str.upper().str.strip()
+        
+        # Also load master for additional personal info
+        master_df = load_dataset("student_master").copy()
+        master_df["Student_ID"] = master_df["Student_ID"].astype(str).str.upper().str.strip()
+        
+        # Filter by department if specified
+        if department:
+            dept = department.strip()
+            enriched_df = enriched_df[enriched_df["Department"].str.strip() == dept]
+            master_df = master_df[master_df["Department"].str.strip() == dept]
+        
+        # Limit results
+        enriched_df = enriched_df.head(limit)
+        
+        # Merge with master data for complete info
+        merged = enriched_df.merge(
+            master_df[["Student_ID", "Phone_Number", "Email", "Department_Code"]],
+            on="Student_ID",
+            how="left",
+            suffixes=("", "_master")
+        )
+        
+        students = []
+        for _, row in merged.iterrows():
+            # Parse marks
+            marks_str = str(row.get("Current_Subject_Marks", ""))
+            marks = [int(m.strip()) for m in marks_str.split("|") if m.strip()]
+            avg_marks = sum(marks) / len(marks) if marks else 0
+            
+            # Calculate SGPA from average marks (10-point scale)
+            current_sem_sgpa = round((avg_marks / 10), 2)
+            previous_sem_sgpa = float(row.get("Previous_Sem_SGPA", 0)) if not pd.isna(row.get("Previous_Sem_SGPA")) else 0
+            
+            # Risk calculation
+            risk_score = 0
+            if avg_marks < 40:
+                risk_score += 50
+            elif avg_marks < 50:
+                risk_score += 30
+            elif avg_marks < 60:
+                risk_score += 15
+            
+            attendance = float(row.get("Attendance_Percentage", 0)) if not pd.isna(row.get("Attendance_Percentage")) else 0
+            if attendance < 75:
+                risk_score += 30
+            elif attendance < 85:
+                risk_score += 10
+            
+            students.append({
+                "student_id": str(row["Student_ID"]),
+                "name": f"{row.get('First_Name', '')} {row.get('Last_Name', '')}".strip(),
+                "first_name": _clean_value(row.get("First_Name", "")),
+                "last_name": _clean_value(row.get("Last_Name", "")),
+                "email": _clean_value(row.get("Email", "")),
+                "phone_number": str(_clean_value(row.get("Phone_Number", ""))),
+                "department": str(row.get("Department", "")),
+                "department_code": _clean_value(row.get("Department_Code", "")),
+                "year": int(row.get("Current_Year", 1)) if not pd.isna(row.get("Current_Year")) else 1,
+                "semester": int(row.get("Semester", 1)) if not pd.isna(row.get("Semester")) else 1,
+                "attendance_percentage": round(attendance, 2),
+                "average_marks": round(avg_marks, 2),
+                "previous_sem_sgpa": round(previous_sem_sgpa, 2),
+                "current_sem_sgpa": current_sem_sgpa,  # Calculated from current marks
+                "extracurricular_level": _clean_value(row.get("Extracurricular_Level", "")),
+                "internship": _clean_value(row.get("Internship", "")),
+                "devops_status": _clean_value(row.get("DevOps_Engineering_Status", "")),
+                "project_status": _clean_value(row.get("Project_Phase_II_Status", "")),
+                "risk_score": round(risk_score, 2),
+                "risk_level": _risk_level(risk_score),
+            })
+        
+        return students
+    except Exception as e:
+        print(f"Error fetching performance data: {e}")
+        return []
 
-@router.post("/attendance")
-def save_attendance(data: dict):
-    return {"message": "Attendance saved"}

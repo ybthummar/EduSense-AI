@@ -124,6 +124,7 @@ def run_student_agent_workflow(message: str, student_id: Optional[str] = None) -
         message,
         extra_context=combined_knowledge,
         student_context=context_prompt,
+        student_context_dict=student_context,
     )
     workflow.append(
         _log_step(

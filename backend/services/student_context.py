@@ -141,9 +141,23 @@ def get_student_context(student_id: Optional[str] = None) -> Dict[str, Any]:
 
     try:
         dashboard = get_student_dashboard(student_id=student_id)
-        history = get_student_academic_history(student_id=student_id)
+        # Try to get complete academic history, but if student is from enriched dataset it may not exist
+        try:
+            history = get_student_academic_history(student_id=student_id)
+        except ValueError:
+            # Student not in cgpa_risk dataset (enriched dataset student), create minimal history
+            history = {
+                "semesters": [{
+                    "cgpa": dashboard.get("latest_metrics", {}).get("cgpa", 0),
+                    "attendance_percentage": dashboard.get("latest_metrics", {}).get("attendance_percentage"),
+                    "average_marks": dashboard.get("latest_metrics", {}).get("average_marks"),
+                }]
+            }
+        
         recommendations = get_student_recommendations(student_id=student_id)
-    except (ValueError, Exception):
+    except (ValueError, Exception) as e:
+        # Log the error for debugging
+        print(f"⚠️  Error building student context for {student_id}: {str(e)}")
         return context
 
     metrics = dashboard.get("latest_metrics", {})
