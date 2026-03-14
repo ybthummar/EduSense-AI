@@ -1,19 +1,27 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Brain, Mail, Lock, Loader2, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Brain, Mail, Lock, Loader2, ArrowRight, CheckCircle2, User, GraduationCap } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const demoAccounts = [
   { label: 'Admin', email: 'admin@edusense.com', password: 'admin123', role: 'admin' },
   { label: 'Faculty', email: 'faculty@edusense.com', password: 'faculty123', role: 'faculty' },
-  { label: 'Student', email: 'student@edusense.com', password: 'student123', role: 'student' },
+];
+
+const studentAccounts = [
+  { label: 'Ishita (AIML)', email: '23aiml001', password: '23aiml001', dept: 'AIML', name: 'Ishita Soni' },
+  { label: 'Meet (CE)', email: '23ce001', password: '23ce001', dept: 'CE', name: 'Meet Desai' },
+  { label: 'Manav (EC)', email: '25ec001', password: '25ec001', dept: 'EC', name: 'Manav Sharma' },
+  { label: 'Mahi (IT)', email: '23it002', password: '23it002', dept: 'IT', name: 'Mahi Reddy' },
+  { label: 'Vaishnavi (ME)', email: '25me003', password: '25me003', dept: 'ME', name: 'Vaishnavi Reddy' },
 ];
 
 const highlights = [
   'Track attendance, SGPA trends, and risk levels in one place.',
   'Get personalized study recommendations with AI support.',
-  'Switch between Admin, Faculty, and Student demo personas instantly.',
+  'View subject-wise marks and performance analytics.',
+  '100K+ student records with real-time insights.',
 ];
 
 export default function LoginPage() {
@@ -106,14 +114,14 @@ export default function LoginPage() {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-slate-300">Email</label>
+                  <label className="text-sm font-medium text-slate-300">Username / Email</label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+                    <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
                     <input
-                      type="email"
+                      type="text"
                       value={email}
                       onChange={(event) => setEmail(event.target.value)}
-                      placeholder="you@example.com"
+                      placeholder="Student ID or email"
                       required
                       className="glass-panel-soft w-full rounded-xl border border-slate-600/70 py-2.5 pl-10 pr-3 text-sm text-slate-100 placeholder:text-slate-500 transition-colors focus:border-cyan-400/50 focus:outline-none focus:ring-2 focus:ring-cyan-400/35"
                     />
@@ -145,8 +153,8 @@ export default function LoginPage() {
               </form>
 
               <div className="mt-6 border-t border-slate-700/70 pt-5">
-                <p className="mb-3 text-center text-xs uppercase tracking-[0.12em] text-slate-500">Quick Demo Access</p>
-                <div className="grid grid-cols-3 gap-2">
+                <p className="mb-3 text-center text-xs uppercase tracking-[0.12em] text-slate-500">Admin & Faculty Access</p>
+                <div className="grid grid-cols-2 gap-2 mb-4">
                   {demoAccounts.map((account) => (
                     <button
                       key={account.role}
@@ -155,6 +163,24 @@ export default function LoginPage() {
                       className="rounded-xl border border-slate-600/75 bg-slate-800/55 px-3 py-2 text-xs font-semibold text-slate-300 transition-colors hover:border-cyan-400/40 hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {account.label}
+                    </button>
+                  ))}
+                </div>
+
+                <p className="mb-3 text-center text-xs uppercase tracking-[0.12em] text-slate-500">
+                  <GraduationCap className="inline h-3 w-3 mr-1" />Student Demo Accounts
+                </p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {studentAccounts.map((account) => (
+                    <button
+                      key={account.email}
+                      onClick={() => handleDemo(account)}
+                      disabled={loading}
+                      className="group rounded-xl border border-slate-600/75 bg-slate-800/55 px-2 py-2.5 text-xs transition-colors hover:border-cyan-400/40 hover:bg-cyan-500/10 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      <div className="font-semibold text-slate-200 group-hover:text-cyan-200">{account.name.split(' ')[0]}</div>
+                      <div className="text-[10px] text-cyan-400 font-mono">{account.email.toUpperCase()}</div>
+                      <div className="text-[10px] text-slate-500">{account.dept}</div>
                     </button>
                   ))}
                 </div>

@@ -40,7 +40,12 @@ def create_access_token(data: dict):
 DEMO_ACCOUNTS = {
     "admin@edusense.com": {"password": "admin123", "role": "admin", "name": "Admin User", "id": "ADMIN_001"},
     "faculty@edusense.com": {"password": "faculty123", "role": "faculty", "name": "Dr. Faculty", "id": "FAC_001", "faculty_id": "FAC_001", "department": "Computer Engineering"},
-    "student@edusense.com": {"password": "student123", "role": "student", "name": "Demo Student", "id": "STU000001", "student_id": "STU000001", "department": "Computer Engineering", "semester": 5},
+    # Student accounts with student_id as both username and password
+    "23aiml001": {"password": "23aiml001", "role": "student", "name": "Ishita Soni", "id": "23AIML001", "student_id": "23AIML001", "department": "Artificial Intelligence and Machine Learning", "semester": 7},
+    "23ce001": {"password": "23ce001", "role": "student", "name": "Meet Desai", "id": "23CE001", "student_id": "23CE001", "department": "Computer Engineering", "semester": 8},
+    "25ec001": {"password": "25ec001", "role": "student", "name": "Manav Sharma", "id": "25EC001", "student_id": "25EC001", "department": "Electronics and Communication Engineering", "semester": 4},
+    "23it002": {"password": "23it002", "role": "student", "name": "Mahi Reddy", "id": "23IT002", "student_id": "23IT002", "department": "Information Technology", "semester": 8},
+    "25me003": {"password": "25me003", "role": "student", "name": "Vaishnavi Reddy", "id": "25ME003", "student_id": "25ME003", "department": "Mechanical Engineering", "semester": 4},
 }
 
 @router.post("/login")

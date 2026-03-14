@@ -14,6 +14,7 @@ DATASET_FILES = {
     "cgpa_risk": "student_cgpa_risk_synthetic_dataset_100k.csv",
     "career_path": "student_future_career_path_synthetic_dataset_100k.csv",
     "curriculum": "engineering_college_curriculum_dataset.csv",
+    "enriched": "enriched_engineering_student_academic_dataset.csv",
 }
 
 
@@ -74,7 +75,125 @@ def _risk_level(risk_score: float) -> str:
     return "Low"
 
 
+def _get_enriched_dashboard(row: pd.Series, sid: str) -> Dict[str, Any]:
+    """Build dashboard data from enriched dataset row."""
+    # Parse subject codes and marks
+    subject_codes = [code.strip() for code in str(row.get("Current_Subject_Codes", "")).split("|") if code.strip()]
+    subject_marks_raw = str(row.get("Current_Subject_Marks", "")).split("|")
+    subject_marks = []
+    for m in subject_marks_raw:
+        try:
+            subject_marks.append(int(m.strip()))
+        except ValueError:
+            subject_marks.append(0)
+
+    # Get curriculum for subject names
+    curriculum_df = load_dataset("curriculum")
+    dept = str(row["Department"]).strip()
+    year = int(row["Current_Year"])
+    sem = int(row["Semester"])
+
+    curriculum_rows = curriculum_df[
+        (curriculum_df["Department"].astype(str).str.strip() == dept)
+        & (curriculum_df["Year"] == year)
+        & (curriculum_df["Semester"] == sem)
+    ]
+
+    subject_name_map = {
+        str(r["Subject_Code"]): str(r["Subject_Name"])
+        for _, r in curriculum_rows.iterrows()
+    }
+
+    # Build subject performance with individual marks
+    subject_performance = []
+    for i, code in enumerate(subject_codes):
+        marks = subject_marks[i] if i < len(subject_marks) else 0
+        subject_performance.append({
+            "subject": subject_name_map.get(code, code),
+            "subject_code": code,
+            "marks": marks,
+            "total": 100,
+        })
+
+    # Calculate average marks
+    avg_marks = round(sum(subject_marks) / len(subject_marks), 2) if subject_marks else 0
+
+    # Previous SGPA for trend (show current semester's previous SGPA)
+    previous_sgpa = float(row["Previous_Sem_SGPA"]) if not pd.isna(row.get("Previous_Sem_SGPA")) else 0
+    sgpa_trend = []
+    for s in range(1, sem + 1):
+        if s == sem:
+            # Current semester - estimate from marks
+            estimated_sgpa = round((avg_marks / 10) * 0.9 + 1, 2)
+            sgpa_trend.append({"semester": f"Sem {s}", "sgpa": estimated_sgpa})
+        elif s == sem - 1:
+            sgpa_trend.append({"semester": f"Sem {s}", "sgpa": round(previous_sgpa, 2)})
+        else:
+            # Estimate previous semesters
+            estimated = round(previous_sgpa + (0.1 * (sem - s - 1)), 2)
+            sgpa_trend.append({"semester": f"Sem {s}", "sgpa": min(estimated, 10.0)})
+
+    # Attendance
+    attendance_pct = float(row["Attendance_Percentage"]) if not pd.isna(row.get("Attendance_Percentage")) else 0
+    attendance = [{"semester": f"Sem {sem}", "percentage": round(attendance_pct, 2)}]
+
+    # Risk calculation based on marks and attendance
+    risk_score = 0
+    if avg_marks < 40:
+        risk_score += 50
+    elif avg_marks < 50:
+        risk_score += 30
+    elif avg_marks < 60:
+        risk_score += 15
+    if attendance_pct < 75:
+        risk_score += 30
+    elif attendance_pct < 85:
+        risk_score += 10
+
+    return {
+        "student_id": sid,
+        "name": f"{row.get('First_Name', '')} {row.get('Last_Name', '')}".strip(),
+        "email": _clean_value(row.get("Email", "")),
+        "department": dept,
+        "department_code": _clean_value(row.get("Department_Code", "")),
+        "year": year,
+        "semester": sem,
+        "enrollment_year": int(row["Enrollment_Year"]) if not pd.isna(row.get("Enrollment_Year")) else None,
+        "city": _clean_value(row.get("City", "")),
+        "state": _clean_value(row.get("State", "")),
+        "sgpa_trend": sgpa_trend,
+        "subject_performance": subject_performance,
+        "attendance": attendance,
+        "latest_metrics": {
+            "cgpa": round(previous_sgpa, 2),
+            "previous_cgpa": round(previous_sgpa - 0.2, 2) if previous_sgpa > 0.2 else None,
+            "average_marks": avg_marks,
+            "attendance_percentage": round(attendance_pct, 2),
+            "devops_status": _clean_value(row.get("DevOps_Engineering_Status", "")),
+            "project_status": _clean_value(row.get("Project_Phase_II_Status", "")),
+            "internship": _clean_value(row.get("Internship", "")),
+            "extracurricular_level": _clean_value(row.get("Extracurricular_Level", "")),
+            "academic_risk_score": round(risk_score, 2),
+            "risk_level": _risk_level(risk_score),
+        },
+    }
+
+
 def get_student_dashboard(student_id: Optional[str] = None) -> Dict[str, Any]:
+    # First try to get data from enriched dataset
+    try:
+        enriched_df = load_dataset("enriched").copy()
+        enriched_df["Student_ID"] = enriched_df["Student_ID"].astype(str).str.upper().str.strip()
+
+        if student_id:
+            sid = _normalize_student_id(student_id)
+            student_row = enriched_df[enriched_df["Student_ID"] == sid]
+            if not student_row.empty:
+                return _get_enriched_dashboard(student_row.iloc[0], sid)
+    except (DatasetNotFoundError, Exception):
+        pass  # Fall back to cgpa_risk dataset
+
+    # Fall back to cgpa_risk dataset
     risk_df = load_dataset("cgpa_risk").copy()
     risk_df["Student_ID"] = risk_df["Student_ID"].astype(str).str.upper().str.strip()
 
@@ -431,3 +550,43 @@ def get_dataset_rows(dataset_key: str, limit: int = 100, offset: int = 0) -> Dic
         "offset": int(offset),
         "rows": records,
     }
+
+
+def get_students_master_data(department: Optional[str] = None) -> List[Dict[str, Any]]:
+    df = load_dataset("student_master")
+    if department:
+        df = df[df["Department"].astype(str).str.strip().str.lower() == department.strip().lower()]
+    records = []
+    for _, row in df.iterrows():
+        records.append({col.lower(): _clean_value(val) for col, val in row.items()})
+    return records
+
+def get_students_performance_data(department: Optional[str] = None) -> List[Dict[str, Any]]:
+    df = load_dataset("enriched")
+    if department:
+        df = df[df["Department"].astype(str).str.strip().str.lower() == department.strip().lower()]
+    records = []
+    for _, row in df.iterrows():
+        # Ensure we construct performance data correctly for frontend
+        rec = {col.lower(): _clean_value(val) for col, val in row.items()}
+        rec["name"] = f"{rec.get('first_name', '')} {rec.get('last_name', '')}".strip()
+        rec["devops_status"] = rec.get("devops_engineering_status")
+        rec["project_status"] = rec.get("project_phase_ii_status")
+        rec["risk_level"] = _risk_level(50) # default fake risk, actual logic requires marks
+        # Let's compute a simple risk based on previous_sem_sgpa and attendance
+        sgpa = rec.get("previous_sem_sgpa", 10)
+        att = rec.get("attendance_percentage", 100)
+        marks_str = str(rec.get("current_subject_marks", ""))
+        current_sgpa = 0.0
+        if marks_str:
+            marks = [int(m) for m in marks_str.split("|") if m.strip().isdigit()]
+            if marks:
+                current_sgpa = round(((sum(marks)/len(marks)) / 10) * 0.9 + 1, 2)
+        rec["current_sem_sgpa"] = current_sgpa
+        risk = 0
+        if sgpa and sgpa < 5: risk += 50
+        elif sgpa and sgpa < 6: risk += 20
+        if att and att < 75: risk += 30
+        rec["risk_level"] = _risk_level(risk)
+        records.append(rec)
+    return records

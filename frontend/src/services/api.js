@@ -51,6 +51,9 @@ export const facultyAPI = {
   getStudents: (facultyId, params = {}) => api.get(`/faculty/${facultyId}/students`, { params }),
   getAnalytics: (facultyId, params = {}) => api.get(`/faculty/${facultyId}/analytics`, { params }),
   addStudent: (data) => api.post('/faculty/add_student', data),
+  getStudentsMaster: (params = {}) => api.get('/faculty/students-master', { params }),
+  getStudentsPerformance: (params = {}) => api.get('/faculty/students-performance', { params }),
+  saveAttendance: (data) => api.post('/faculty/attendance', data),
 };
 
 // Chat
