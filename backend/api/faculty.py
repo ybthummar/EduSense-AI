@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from database.connection import get_db
 import database.models as models
+from services.dataset_service import get_faculty_analytics, get_faculty_students
+from typing import Optional
 
 router = APIRouter()
 
@@ -20,16 +22,20 @@ def add_student(student: StudentCreate, db: Session = Depends(get_db)):
     return {"message": f"Student {student.name} added successfully."}
 
 @router.get("/{faculty_id}/students")
-def get_faculty_students(faculty_id: str, db: Session = Depends(get_db)):
-    # Placeholder
-    return [
-       {"id": "STU001", "name": "Alice Johnson", "semester": 6, "attendance": 92}
-    ]
+def get_faculty_students_route(
+    faculty_id: str,
+    department: Optional[str] = None,
+    limit: int = 100,
+    db: Session = Depends(get_db),
+):
+    del faculty_id, db
+    return get_faculty_students(department=department, limit=limit)
 
 @router.get("/{faculty_id}/analytics")
-def get_faculty_analytics(faculty_id: str, db: Session = Depends(get_db)):
-    # Placeholder for faculty class analytics, learning gaps
-    return {
-        "class_avg_gpa": 7.43,
-        "at_risk_count": 3
-    }
+def get_faculty_analytics_route(
+    faculty_id: str,
+    department: Optional[str] = None,
+    db: Session = Depends(get_db),
+):
+    del faculty_id, db
+    return get_faculty_analytics(department=department)

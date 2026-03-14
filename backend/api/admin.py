@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from database.connection import get_db
 import database.models as models
 from api.auth import get_password_hash
+from services.dataset_service import get_admin_dashboard_metrics
 import uuid
 
 router = APIRouter()
@@ -50,9 +51,11 @@ def create_faculty(data: FacultyCreate, db: Session = Depends(get_db)):
 
 @router.get("/dashboard")
 def get_admin_dashboard(db: Session = Depends(get_db)):
-    # Admin metrics
+    dataset_metrics = get_admin_dashboard_metrics()
+    total_faculty = db.query(models.Faculty).count()
+
     return {
-        "departments": 5,
-        "total_students": 905,
-        "total_faculty": 42
+        "departments": dataset_metrics["departments"],
+        "total_students": dataset_metrics["total_students"],
+        "total_faculty": total_faculty,
     }
