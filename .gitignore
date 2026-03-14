@@ -1,0 +1,54 @@
+# Node dependencies and logs
+node_modules/
+**/node_modules/
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Frontend/build output
+dist/
+build/
+coverage/
+**/dist/
+**/build/
+
+# Python caches and virtual environments
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Local environment/config
+.env
+.env.*
+*.local
+
+# Firebase local artifacts
+.firebase/
+firebase-debug.log
+
+# Airflow local artifacts
+airflow/logs/
+airflow/airflow.db
+
+# Editor and OS files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
