@@ -1,11 +1,15 @@
 import os
-from langchain_community.document_loaders import PyPDFLoader, TextLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 from rag.vector_store import build_faiss_index
+
+def _get_loaders():
+    from langchain_community.document_loaders import PyPDFLoader, TextLoader
+    from langchain.text_splitter import RecursiveCharacterTextSplitter
+    return PyPDFLoader, TextLoader, RecursiveCharacterTextSplitter
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "data")
 
 def load_documents_and_index():
+    PyPDFLoader, TextLoader, RecursiveCharacterTextSplitter = _get_loaders()
     all_docs = []
     
     if not os.path.exists(DATA_DIR):

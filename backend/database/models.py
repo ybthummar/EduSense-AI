@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, Boolean, ForeignKey, JSON
 from sqlalchemy.orm import relationship
-from database.connection import Base
+from database.connection import Base  # noqa: F401 – Base is the SQLAlchemy declarative base
 
 class User(Base):
     __tablename__ = "users"
