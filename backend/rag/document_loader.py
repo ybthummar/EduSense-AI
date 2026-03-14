@@ -3,7 +3,7 @@ from rag.vector_store import build_faiss_index
 
 def _get_loaders():
     from langchain_community.document_loaders import PyPDFLoader, TextLoader
-    from langchain.text_splitter import RecursiveCharacterTextSplitter
+    from langchain_text_splitters import RecursiveCharacterTextSplitter
     return PyPDFLoader, TextLoader, RecursiveCharacterTextSplitter
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "data")

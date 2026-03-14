@@ -66,9 +66,9 @@ export default function FacultyStudentsPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full max-w-full mx-auto px-2 sm:px-4 lg:px-6">
       {/* Header */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between w-full">
         <div>
           <h1 className="text-2xl font-bold text-slate-100">Student Directory</h1>
           <p className="text-sm text-slate-400">View and manage all students in your department</p>
@@ -80,7 +80,7 @@ export default function FacultyStudentsPage() {
       </div>
 
       {/* Search and Filter */}
-      <Card className="p-4">
+      <Card className="p-4 w-full">
         <div className="flex flex-col gap-4 sm:flex-row">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
@@ -113,8 +113,8 @@ export default function FacultyStudentsPage() {
       </Card>
 
       {/* Students Table */}
-      <Card>
-        <div className="overflow-x-auto">
+      <Card className="w-full">
+        <div className="overflow-x-auto px-0">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-slate-700 bg-slate-800/50">

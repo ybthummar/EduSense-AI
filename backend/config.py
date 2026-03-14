@@ -1,13 +1,17 @@
 """Centralised configuration loaded from environment variables."""
 
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
+# Load from backend/.env
+env_path = Path(__file__).parent / ".env"
+load_dotenv(env_path, override=True)
 
 # --- AI Models ---
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", os.getenv("GEMINI_API_KEY", ""))
+# Try GOOGLE_API_KEY first, then GEMINI_API_KEY (handle empty strings)
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY") or ""
 
 # --- YouTube ---
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY", "")
