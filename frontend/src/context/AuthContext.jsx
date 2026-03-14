@@ -1,97 +1,48 @@
-import { createContext, useContext, useState, useEffect } from 'react'
-import api from '../services/api'
-import {
-  auth as firebaseAuth,
-  googleProvider,
-  signInWithPopup,
-  signOut as firebaseSignOut,
-  isFirebaseConfigured,
-} from '../services/firebase'
+import { createContext, useContext, useState, useEffect } from 'react';
+import { authAPI } from '../services/api';
 
-const AuthContext = createContext(null)
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('edusense_token')
-    const userData = localStorage.getItem('edusense_user')
-    if (token && userData) {
-      try {
-        setUser(JSON.parse(userData))
-      } catch {
-        localStorage.removeItem('edusense_token')
-        localStorage.removeItem('edusense_user')
-      }
+    const savedUser = localStorage.getItem('edusense_user');
+    const token = localStorage.getItem('edusense_token');
+    if (savedUser && token) {
+      try { setUser(JSON.parse(savedUser)); } catch { localStorage.clear(); }
     }
-    setLoading(false)
-  }, [])
+    setLoading(false);
+  }, []);
 
   const login = async (email, password) => {
-    try {
-      const res = await api.post('/auth/login', { email, password })
-      const { access_token, user: userData } = res.data
-      localStorage.setItem('edusense_token', access_token)
-      localStorage.setItem('edusense_user', JSON.stringify(userData))
-      setUser(userData)
-      return { success: true, user: userData }
-    } catch (err) {
-      return { success: false, error: err.response?.data?.detail || 'Login failed' }
-    }
-  }
-
-  const loginWithGoogle = async () => {
-    if (!isFirebaseConfigured || !firebaseAuth || !googleProvider) {
-      return { success: false, error: 'Firebase is not configured. Please add Firebase credentials to .env' }
-    }
-    try {
-      const result = await signInWithPopup(firebaseAuth, googleProvider)
-      const idToken = await result.user.getIdToken()
-      const userData = {
-        id: result.user.uid,
-        email: result.user.email,
-        name: result.user.displayName || result.user.email,
-        role: 'student',
-        photoURL: result.user.photoURL,
-        authProvider: 'firebase',
-      }
-      localStorage.setItem('edusense_token', idToken)
-      localStorage.setItem('edusense_user', JSON.stringify(userData))
-      setUser(userData)
-      return { success: true, user: userData }
-    } catch (err) {
-      return { success: false, error: err.message || 'Google sign-in failed' }
-    }
-  }
+    const { data } = await authAPI.login({ email, password });
+    localStorage.setItem('edusense_token', data.access_token);
+    localStorage.setItem('edusense_user', JSON.stringify(data.user));
+    setUser(data.user);
+    return data.user;
+  };
 
   const signup = async (name, email, password) => {
-    try {
-      await api.post('/auth/signup', { name, email, password, role: 'student' })
-      return { success: true }
-    } catch (err) {
-      return { success: false, error: err.response?.data?.detail || 'Signup failed' }
-    }
-  }
+    await authAPI.signup({ name, email, password, role: 'student' });
+  };
 
   const logout = () => {
-    localStorage.removeItem('edusense_token')
-    localStorage.removeItem('edusense_user')
-    if (isFirebaseConfigured && firebaseAuth) {
-      firebaseSignOut(firebaseAuth).catch(() => {})
-    }
-    setUser(null)
-  }
+    localStorage.removeItem('edusense_token');
+    localStorage.removeItem('edusense_user');
+    setUser(null);
+  };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, loginWithGoogle, signup, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, signup, logout }}>
       {children}
     </AuthContext.Provider>
-  )
+  );
 }
 
 export const useAuth = () => {
-  const ctx = useContext(AuthContext)
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider')
-  return ctx
-}
+  const ctx = useContext(AuthContext);
+  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
+  return ctx;
+};

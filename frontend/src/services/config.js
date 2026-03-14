@@ -1,13 +1,3 @@
-/** Frontend configuration utilities */
-
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
-
-export const FIREBASE_CONFIGURED = !!import.meta.env.VITE_FIREBASE_API_KEY
-
-export const APP_NAME = 'EduSense AI'
-
-export const ROLES = {
-  ADMIN: 'admin',
-  FACULTY: 'faculty',
-  STUDENT: 'student',
-}
+export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+export const APP_NAME = 'EduSense AI';
+export const ROLES = { ADMIN: 'admin', FACULTY: 'faculty', STUDENT: 'student' };

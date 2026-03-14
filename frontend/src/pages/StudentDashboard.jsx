@@ -1,328 +1,168 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import {
-  BarChart3, TrendingUp, BookOpen, Bot, GraduationCap,
-  Target, Award, Calendar, Play, ExternalLink, Sparkles, Clock
-} from 'lucide-react'
-import MetricCard from '../components/MetricCard'
-import { AreaChartComponent, BarChartComponent, LineChartComponent } from '../components/Charts'
-import { useAuth } from '../context/AuthContext'
-
-const sgpaTrend = [
-  { semester: 'Sem 1', sgpa: 7.2 },
-  { semester: 'Sem 2', sgpa: 7.5 },
-  { semester: 'Sem 3', sgpa: 7.8 },
-  { semester: 'Sem 4', sgpa: 8.1 },
-  { semester: 'Sem 5', sgpa: 7.9 },
-  { semester: 'Sem 6', sgpa: 8.4 },
-]
-
-const subjectMarks = [
-  { subject: 'DSA', marks: 85, total: 100 },
-  { subject: 'DBMS', marks: 78, total: 100 },
-  { subject: 'OS', marks: 90, total: 100 },
-  { subject: 'CN', marks: 82, total: 100 },
-  { subject: 'SE', marks: 88, total: 100 },
-]
-
-const attendanceData = [
-  { month: 'Jan', attendance: 90 },
-  { month: 'Feb', attendance: 88 },
-  { month: 'Mar', attendance: 92 },
-  { month: 'Apr', attendance: 85 },
-  { month: 'May', attendance: 91 },
-  { month: 'Jun', attendance: 87 },
-]
-
-const aiRecommendations = [
-  {
-    title: 'Strengthen Computer Networks',
-    description: 'Your CN score is below 85%. Focus on network protocols and OSI model.',
-    priority: 'high',
-    icon: Target,
-  },
-  {
-    title: 'Practice DBMS normalization',
-    description: 'Review 3NF and BCNF concepts. Your quiz accuracy was 72%.',
-    priority: 'medium',
-    icon: BookOpen,
-  },
-  {
-    title: 'Keep up with OS!',
-    description: 'You\'re excelling in Operating Systems. Try advanced scheduling problems.',
-    priority: 'success',
-    icon: Award,
-  },
-  {
-    title: 'Improve attendance consistency',
-    description: 'Attendance dipped in April. Maintain above 85% for best results.',
-    priority: 'medium',
-    icon: Calendar,
-  },
-]
-
-const recommendedVideos = [
-  {
-    title: 'Data Structures and Algorithms - Full Course',
-    channel: 'freeCodeCamp',
-    thumbnail: '🎥',
-    duration: '5:22:12',
-    url: 'https://youtube.com/watch?v=example1',
-  },
-  {
-    title: 'DBMS Complete Tutorial - Normalization Explained',
-    channel: 'Gate Smashers',
-    thumbnail: '📚',
-    duration: '45:30',
-    url: 'https://youtube.com/watch?v=example2',
-  },
-  {
-    title: 'Operating System Concepts - Process Scheduling',
-    channel: 'Neso Academy',
-    thumbnail: '🖥️',
-    duration: '38:15',
-    url: 'https://youtube.com/watch?v=example3',
-  },
-  {
-    title: 'Computer Networks - TCP/IP Protocol Suite',
-    channel: 'Knowledge Gate',
-    thumbnail: '🌐',
-    duration: '52:40',
-    url: 'https://youtube.com/watch?v=example4',
-  },
-  {
-    title: 'Software Engineering - Agile Development',
-    channel: 'CS Dojo',
-    thumbnail: '⚙️',
-    duration: '28:50',
-    url: 'https://youtube.com/watch?v=example5',
-  },
-]
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { TrendingUp, BookOpen, Target, AlertTriangle, MessageSquare, ExternalLink, Lightbulb } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import MetricCard from '../components/MetricCard';
+import { LineChartCard } from '../components/charts';
+import { BarChartCard } from '../components/charts';
+import { PieChartCard } from '../components/charts';
+import Badge from '../components/ui/Badge';
+import Button from '../components/ui/Button';
+import Card, { CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
+import { studentAPI } from '../services/api';
 
 export default function StudentDashboard() {
-  const { user } = useAuth()
-  const navigate = useNavigate()
-  const [activeTab, setActiveTab] = useState('overview')
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [dashboard, setDashboard] = useState(null);
+  const [recommendations, setRecommendations] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const tabs = [
-    { id: 'overview', label: 'Overview', icon: BarChart3 },
-    { id: 'performance', label: 'Performance', icon: TrendingUp },
-    { id: 'resources', label: 'Resources', icon: BookOpen },
-  ]
+  const studentId = user?.student_id || user?.id;
 
-  const currentCGPA = sgpaTrend[sgpaTrend.length - 1].sgpa
-  const avgAttendance = Math.round(attendanceData.reduce((a, b) => a + b.attendance, 0) / attendanceData.length)
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    try {
+      const [dashRes, recRes] = await Promise.all([
+        studentAPI.getDashboard(studentId),
+        studentAPI.getRecommendations(studentId),
+      ]);
+      setDashboard(dashRes.data);
+      setRecommendations(recRes.data || []);
+    } catch (err) {
+      console.error('Failed to load student data:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[...Array(4)].map((_, i) => <div key={i} className="h-32 skeleton" />)}
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {[...Array(2)].map((_, i) => <div key={i} className="h-80 skeleton" />)}
+        </div>
+      </div>
+    );
+  }
+
+  const metrics = dashboard?.latest_metrics || {};
+  const sgpaTrend = (dashboard?.sgpa_trend || []).map((item, i) => ({
+    name: item.semester || `Sem ${i + 1}`,
+    sgpa: item.sgpa || item.value || 0,
+  }));
+
+  const subjectPerf = (dashboard?.subject_performance || []).map(item => ({
+    name: item.subject || item.name || 'Subject',
+    marks: item.marks || item.score || item.value || 0,
+  }));
+
+  const attendanceData = (dashboard?.attendance || []).map(item => ({
+    name: item.subject || item.name || 'Subject',
+    value: item.percentage || item.value || 0,
+  }));
+
+  const latestSGPA = sgpaTrend.length > 0 ? sgpaTrend[sgpaTrend.length - 1].sgpa : 0;
+  const avgAttendance = attendanceData.length > 0
+    ? (attendanceData.reduce((sum, d) => sum + d.value, 0) / attendanceData.length).toFixed(1)
+    : '0';
+
+  const priorityVariant = { high: 'danger', medium: 'warning', low: 'info' };
 
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 animate-fade-in-up">
+      <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-extrabold text-surface-100 tracking-tight">
-            Welcome back, <span className="gradient-text">{user?.name || 'Student'}</span>
-          </h1>
-          <p className="text-surface-400 text-sm mt-1">
-            Semester 6 · Computer Science
-          </p>
+          <h1 className="text-xl font-semibold text-zinc-100">Student Dashboard</h1>
+          <p className="text-sm text-zinc-500 mt-1">{dashboard?.department || 'Department'} &middot; Year {dashboard?.year || '—'}</p>
         </div>
-        <button onClick={() => navigate('/chat')} className="btn-primary text-sm cursor-pointer">
-          <Bot className="w-4 h-4" /> AI Study Assistant
-        </button>
+        <Button onClick={() => navigate('/chat')}>
+          <MessageSquare className="w-4 h-4" /> AI Assistant
+        </Button>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-1 bg-surface-900/40 p-1.5 rounded-xl border border-surface-800/30 overflow-x-auto animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${
-              activeTab === tab.id
-                ? 'bg-primary-500/12 text-primary-400 shadow-sm shadow-primary-500/5'
-                : 'text-surface-400 hover:text-surface-200 hover:bg-surface-800/30'
-            }`}
-          >
-            <tab.icon className="w-4 h-4" /> {tab.label}
-          </button>
-        ))}
+      {/* Metrics */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <MetricCard title="Current SGPA" value={latestSGPA.toFixed(2)} icon={TrendingUp} color="primary" />
+        <MetricCard title="Attendance" value={`${avgAttendance}%`} icon={BookOpen} color="accent" />
+        <MetricCard title="Subjects" value={subjectPerf.length} icon={Target} color="purple" />
+        <MetricCard
+          title="Risk Level"
+          value={metrics.risk_level || 'Low'}
+          icon={AlertTriangle}
+          color={metrics.risk_level === 'High' || metrics.risk_level === 'Critical' ? 'danger' : metrics.risk_level === 'Medium' ? 'warning' : 'success'}
+        />
       </div>
 
-      {/* Overview */}
-      {activeTab === 'overview' && (
-        <div className="space-y-6 animate-fade-in">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <MetricCard title="Current SGPA" value={currentCGPA} change="+0.5" changeType="up" icon={GraduationCap} color="primary" />
-            <MetricCard title="Avg Attendance" value={`${avgAttendance}%`} change="+2%" changeType="up" icon={Clock} color="accent" />
-            <MetricCard title="Subjects" value="5" icon={BookOpen} color="purple" subtitle="Semester 6" />
-            <MetricCard title="Risk Level" value="Low" icon={Target} color="success" subtitle="Keep it up!" />
-          </div>
+      {/* Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <LineChartCard
+          title="SGPA Trend"
+          description="Semester-wise SGPA progression"
+          data={sgpaTrend}
+          lines={[{ dataKey: 'sgpa', name: 'SGPA', color: '#6366f1' }]}
+          height={280}
+        />
+        <BarChartCard
+          title="Subject Performance"
+          description="Marks by subject"
+          data={subjectPerf}
+          dataKey="marks"
+          color="#10b981"
+          height={280}
+        />
+      </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <AreaChartComponent data={sgpaTrend} dataKey="sgpa" xKey="semester" title="SGPA Trend" color="#6366f1" />
-            <BarChartComponent data={subjectMarks} dataKeys={['marks']} xKey="subject" title="Subject Marks" colors={['#8b5cf6']} />
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <PieChartCard
+          title="Attendance Distribution"
+          description="Subject-wise attendance"
+          data={attendanceData}
+          height={280}
+        />
 
-          {/* AI Recommendations */}
-          <div className="glass-card p-5">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="p-1.5 rounded-lg bg-primary-500/10">
-                <Sparkles className="w-4 h-4 text-primary-400" />
-              </div>
-              <h3 className="text-sm font-semibold text-surface-200">AI Study Recommendations</h3>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {aiRecommendations.map((rec, i) => (
-                <div key={i} className={`group flex items-start gap-3 p-4 rounded-xl border transition-all duration-200 hover:border-primary-500/20 cursor-pointer ${
-                  rec.priority === 'high' ? 'bg-red-500/[0.03] border-red-500/15' :
-                  rec.priority === 'medium' ? 'bg-amber-500/[0.03] border-amber-500/15' :
-                  'bg-green-500/[0.03] border-green-500/15'
-                }`}>
-                  <div className={`p-2 rounded-lg flex-shrink-0 transition-transform group-hover:scale-105 ${
-                    rec.priority === 'high' ? 'bg-red-500/12 text-red-400' :
-                    rec.priority === 'medium' ? 'bg-amber-500/12 text-amber-400' :
-                    'bg-green-500/12 text-green-400'
-                  }`}>
-                    <rec.icon className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-medium text-surface-100">{rec.title}</h4>
-                    <p className="text-xs text-surface-400 mt-1 leading-relaxed">{rec.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Recommended Videos */}
-          <div className="glass-card p-5">
-            <div className="flex items-center justify-between mb-4">
+        {/* AI Recommendations */}
+        <Card>
+          <CardHeader>
+            <CardTitle>
               <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded-lg bg-red-500/10">
-                  <Play className="w-4 h-4 text-red-400" />
-                </div>
-                <h3 className="text-sm font-semibold text-surface-200">Recommended YouTube Videos</h3>
+                <Lightbulb className="w-4 h-4 text-amber-400" />
+                AI Study Recommendations
               </div>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
-              {recommendedVideos.map((video, i) => (
-                <a
-                  key={i}
-                  href={video.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group p-4 bg-surface-800/25 rounded-xl border border-surface-700/20 hover:border-primary-500/20 hover:bg-surface-800/50 transition-all duration-200"
-                >
-                  <div className="text-3xl mb-3 group-hover:scale-110 transition-transform inline-block">{video.thumbnail}</div>
-                  <h4 className="text-sm font-medium text-surface-200 group-hover:text-primary-400 transition-colors line-clamp-2 mb-2">{video.title}</h4>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] text-surface-500">{video.channel}</span>
-                    <span className="text-[11px] text-surface-500 font-mono">{video.duration}</span>
+            </CardTitle>
+            <CardDescription>Personalized suggestions based on your performance</CardDescription>
+          </CardHeader>
+          <div className="space-y-3">
+            {recommendations.length === 0 ? (
+              <p className="text-sm text-zinc-500 py-4 text-center">No recommendations yet</p>
+            ) : (
+              recommendations.slice(0, 5).map((rec, i) => (
+                <div key={i} className="p-3 bg-zinc-800/50 border border-zinc-800 rounded-lg">
+                  <div className="flex items-start justify-between mb-1">
+                    <h4 className="text-sm font-medium text-zinc-200">{rec.title}</h4>
+                    <Badge variant={priorityVariant[rec.priority?.toLowerCase()] || 'info'}>
+                      {rec.priority || 'Normal'}
+                    </Badge>
                   </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Performance */}
-      {activeTab === 'performance' && (
-        <div className="space-y-6 animate-fade-in">
-          <LineChartComponent data={sgpaTrend} dataKeys={['sgpa']} xKey="semester" title="SGPA Progress Over Semesters" colors={['#6366f1']} />
-
-          <div className="glass-card p-5">
-            <h3 className="text-sm font-semibold text-surface-200 mb-4">Detailed Subject Performance</h3>
-            <div className="space-y-4">
-              {subjectMarks.map((subject, i) => {
-                const percentage = (subject.marks / subject.total) * 100
-                return (
-                  <div key={i}>
-                    <div className="flex justify-between items-center mb-1.5">
-                      <span className="text-sm font-medium text-surface-200">{subject.subject}</span>
-                      <div className="flex items-center gap-2">
-                        <span className={`text-sm font-bold ${percentage >= 85 ? 'text-green-400' : percentage >= 70 ? 'text-amber-400' : 'text-red-400'}`}>
-                          {subject.marks}/{subject.total}
-                        </span>
-                        <span className={`badge text-[10px] ${percentage >= 85 ? 'badge-success' : percentage >= 70 ? 'badge-warning' : 'badge-danger'}`}>
-                          {percentage >= 90 ? 'A+' : percentage >= 80 ? 'A' : percentage >= 70 ? 'B' : percentage >= 60 ? 'C' : 'D'}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="w-full h-2.5 bg-surface-800 rounded-full overflow-hidden">
-                      <div
-                        className={`h-full rounded-full transition-all duration-700 animate-progress ${percentage >= 85 ? 'bg-gradient-to-r from-green-500 to-green-400' : percentage >= 70 ? 'bg-gradient-to-r from-amber-500 to-amber-400' : 'bg-gradient-to-r from-red-500 to-red-400'}`}
-                        style={{ width: `${percentage}%` }}
-                      />
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-
-          <AreaChartComponent data={attendanceData} dataKey="attendance" xKey="month" title="Monthly Attendance" color="#14b8a6" />
-        </div>
-      )}
-
-      {/* Resources */}
-      {activeTab === 'resources' && (
-        <div className="space-y-6 animate-fade-in">
-          <div className="glass-card p-5">
-            <div className="flex items-center gap-2 mb-4">
-              <Bot className="w-5 h-5 text-primary-400" />
-              <h3 className="text-sm font-semibold text-surface-200">AI Learning Assistant</h3>
-            </div>
-            <p className="text-surface-400 text-sm mb-4">
-              Ask any academic question and get instant, detailed explanations with video recommendations.
-            </p>
-            <button onClick={() => navigate('/chat')} className="btn-primary text-sm cursor-pointer">
-              <Bot className="w-4 h-4" /> Open AI Assistant
-            </button>
-          </div>
-
-          <div className="glass-card p-5">
-            <div className="flex items-center gap-2 mb-4">
-              <Play className="w-5 h-5 text-red-400" />
-              <h3 className="text-sm font-semibold text-surface-200">Curated Video Playlists</h3>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {[
-                { title: 'Data Structures & Algorithms Complete Course', videos: 42, hours: 18 },
-                { title: 'Database Management Systems', videos: 28, hours: 12 },
-                { title: 'Operating Systems Fundamentals', videos: 35, hours: 15 },
-                { title: 'Computer Networks Deep Dive', videos: 30, hours: 14 },
-              ].map((playlist, i) => (
-                <div key={i} className="flex items-center gap-3 p-4 bg-surface-800/30 rounded-xl border border-surface-700/30 hover:border-primary-500/30 transition-all cursor-pointer">
-                  <div className="p-2.5 bg-red-500/15 rounded-xl">
-                    <Play className="w-5 h-5 text-red-400" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-medium text-surface-200">{playlist.title}</h4>
-                    <p className="text-xs text-surface-500">{playlist.videos} videos · {playlist.hours}h</p>
-                  </div>
+                  <p className="text-xs text-zinc-500">{rec.description}</p>
+                  {rec.topic && (
+                    <span className="inline-block mt-2 text-[11px] px-2 py-0.5 bg-indigo-500/10 text-indigo-400 rounded-md">
+                      {rec.topic}
+                    </span>
+                  )}
                 </div>
-              ))}
-            </div>
+              ))
+            )}
           </div>
-
-          <div className="glass-card p-5">
-            <div className="flex items-center gap-2 mb-4">
-              <BookOpen className="w-5 h-5 text-accent-400" />
-              <h3 className="text-sm font-semibold text-surface-200">Study Materials</h3>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {['DSA Notes.pdf', 'DBMS Cheat Sheet.pdf', 'OS Concepts.pdf', 'CN Protocols Guide.pdf', 'SE Design Patterns.pdf', 'Previous Year Papers.zip'].map((file, i) => (
-                <div key={i} className="flex items-center gap-3 p-3 bg-surface-800/30 rounded-lg border border-surface-700/20 hover:border-surface-600/40 transition-all cursor-pointer">
-                  <div className="p-1.5 bg-primary-500/15 rounded-lg">
-                    <BookOpen className="w-4 h-4 text-primary-400" />
-                  </div>
-                  <span className="text-sm text-surface-300">{file}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+        </Card>
+      </div>
     </div>
-  )
+  );
 }
