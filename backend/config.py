@@ -5,8 +5,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# --- OpenAI ---
+# --- AI Models ---
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", os.getenv("GEMINI_API_KEY", ""))
 
 # --- YouTube ---
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY", "")
