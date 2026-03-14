@@ -9,6 +9,10 @@ import FacultyStudentsPage from './pages/FacultyStudentsPage';
 import FacultyAttendancePage from './pages/FacultyAttendancePage';
 import FacultyPerformancePage from './pages/FacultyPerformancePage';
 import StudentDashboard from './pages/StudentDashboard';
+import StudentResourcesPage from './pages/StudentResourcesPage';
+import StudentReviewsPage from './pages/StudentReviewsPage';
+import FacultyResourcesPage from './pages/FacultyResourcesPage';
+import WeeklyReportPage from './pages/WeeklyReportPage';
 import ChatPage from './pages/ChatPage';
 import DashboardLayout from './layouts/DashboardLayout';
 
@@ -72,6 +76,7 @@ export default function App() {
         <Route path="/faculty/students" element={<FacultyStudentsPage />} />
         <Route path="/faculty/performance" element={<FacultyPerformancePage />} />
         <Route path="/faculty/attendance" element={<FacultyAttendancePage />} />
+        <Route path="/faculty/resources" element={<FacultyResourcesPage />} />
       </Route>
 
       {/* Student Routes */}
@@ -85,7 +90,9 @@ export default function App() {
         <Route path="/student" element={<StudentDashboard />} />
         <Route path="/student/performance" element={<StudentDashboard />} />
         <Route path="/student/quizzes" element={<StudentDashboard />} />
-        <Route path="/student/resources" element={<StudentDashboard />} />
+        <Route path="/student/resources" element={<StudentResourcesPage />} />
+        <Route path="/student/reviews" element={<StudentReviewsPage />} />
+        <Route path="/student/weekly-report" element={<WeeklyReportPage />} />
       </Route>
 
       {/* Chat - accessible by all authenticated users */}

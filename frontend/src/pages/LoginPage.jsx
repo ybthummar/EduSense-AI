@@ -4,10 +4,17 @@ import { useAuth } from '../context/AuthContext';
 import { Brain, Mail, Lock, Loader2, ArrowRight, CheckCircle2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-const demoAccounts = [
-  { label: 'Admin', email: 'admin@edusense.com', password: 'admin123', role: 'admin' },
-  { label: 'Faculty', email: 'faculty@edusense.com', password: 'faculty123', role: 'faculty' },
-  { label: 'Student', email: 'student@edusense.com', password: 'student123', role: 'student' },
+const staffAccounts = [
+  { label: 'Admin Access', email: 'admin@edusense.com', password: 'admin123', role: 'admin' },
+  { label: 'Faculty Access', email: 'faculty@edusense.com', password: 'faculty123', role: 'faculty' },
+];
+
+const studentAccounts = [
+  { label: 'Ishita (AIML)', email: '23aiml001', password: '23aiml001', role: 'student' },
+  { label: 'Meet (CE)', email: '23ce001', password: '23ce001', role: 'student' },
+  { label: 'Manav (EC)', email: '25ec001', password: '25ec001', role: 'student' },
+  { label: 'Mahi (IT)', email: '23it002', password: '23it002', role: 'student' },
+  { label: 'Vaishnavi (ME)', email: '25me003', password: '25me003', role: 'student' },
 ];
 
 const highlights = [
@@ -146,17 +153,33 @@ export default function LoginPage() {
 
               <div className="mt-6 border-t border-slate-700/70 pt-5">
                 <p className="mb-3 text-center text-xs uppercase tracking-[0.12em] text-slate-500">Quick Demo Access</p>
-                <div className="grid grid-cols-3 gap-2">
-                  {demoAccounts.map((account) => (
-                    <button
-                      key={account.role}
-                      onClick={() => handleDemo(account)}
-                      disabled={loading}
-                      className="rounded-xl border border-slate-600/75 bg-slate-800/55 px-3 py-2 text-xs font-semibold text-slate-300 transition-colors hover:border-cyan-400/40 hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                      {account.label}
-                    </button>
-                  ))}
+                <div className="space-y-3">
+                  <div className="grid grid-cols-2 gap-2">
+                    {staffAccounts.map((account) => (
+                      <button
+                        key={account.role}
+                        onClick={(e) => { e.preventDefault(); handleDemo(account); }}
+                        type="button"
+                        disabled={loading}
+                        className="rounded-xl border border-slate-600/75 bg-slate-800/55 px-3 py-2 text-xs font-semibold text-slate-300 transition-colors hover:border-cyan-400/40 hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-50"
+                      >
+                        {account.label}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {studentAccounts.map((account) => (
+                      <button
+                        key={account.email}
+                        onClick={(e) => { e.preventDefault(); handleDemo(account); }}
+                        type="button"
+                        disabled={loading}
+                        className="flex-1 min-w-[30%] sm:flex-none rounded-xl border border-slate-600/75 bg-slate-800/55 px-3 py-2 text-[11px] font-medium text-slate-300 transition-colors hover:border-orange-400/40 hover:text-orange-200 disabled:cursor-not-allowed disabled:opacity-50"
+                      >
+                        {account.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
