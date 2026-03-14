@@ -17,6 +17,10 @@ export default function StudentDashboard() {
   const [dashboard, setDashboard] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [subjectVideos, setSubjectVideos] = useState([]);
+  const [activeSubject, setActiveSubject] = useState(null);
+  const [videoLoading, setVideoLoading] = useState(false);
+  const [videoError, setVideoError] = useState(null);
 
   const studentId = user?.student_id || user?.id;
 
@@ -39,6 +43,32 @@ export default function StudentDashboard() {
     }
   };
 
+  const fetchSubjectVideos = async (subject) => {
+    if (!subject) return;
+    setVideoLoading(true);
+    setVideoError(null);
+    setActiveSubject(subject);
+    try {
+      const res = await studentAPI.searchSubjectVideos(subject);
+      setSubjectVideos(res.data?.videos || []);
+    } catch (err) {
+      console.error('Failed to load subject videos:', err);
+      setVideoError('Unable to load study videos at this time.');
+      setSubjectVideos([]);
+    } finally {
+      setVideoLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!loading && dashboard) {
+      const weakSubjects = (dashboard.subject_performance || []).filter((s) => parseFloat(s.marks) < 60);
+      if (weakSubjects.length > 0) {
+        fetchSubjectVideos(weakSubjects[0].subject || weakSubjects[0].subject_code);
+      }
+    }
+  }, [loading, dashboard]);
+
   if (loading) {
     return (
       <div className="space-y-6">
@@ -59,9 +89,9 @@ export default function StudentDashboard() {
   }));
 
   const subjectPerf = (dashboard?.subject_performance || []).map((item) => ({
-    name: item.subject_code || item.subject || item.name || 'Subject',
-    fullName: item.subject || item.name || 'Subject',
-    marks: item.marks || item.score || item.value || 0,
+    subject_code: item.subject_code || item.subject || item.name || 'Subject',
+    name: item.subject || item.name || 'Subject',
+    marks: item.marks != null ? item.marks : (item.score || item.value || 0),
   }));
 
   const attendanceData = (dashboard?.attendance || []).map((item) => ({
@@ -74,6 +104,9 @@ export default function StudentDashboard() {
     (attendanceData.length > 0
       ? (attendanceData.reduce((sum, d) => sum + d.value, 0) / attendanceData.length).toFixed(1)
       : '0');
+
+  const facultySuggestions = recommendations.filter((rec) => rec.source === 'faculty');
+  const systemSuggestions = recommendations.filter((rec) => rec.source !== 'faculty');
 
   const priorityVariant = { high: 'danger', medium: 'warning', low: 'info' };
 
@@ -237,6 +270,54 @@ export default function StudentDashboard() {
         </div>
       </Card>
 
+      <Card hover className="mt-4">
+        <CardHeader>
+          <CardTitle className="text-base">Focus Subjects & Learning Videos</CardTitle>
+          <CardDescription>Highlighted subjects where you can improve, with YouTube video resources</CardDescription>
+        </CardHeader>
+        <div className="space-y-4 p-4">
+          <div className="flex flex-wrap items-center gap-2">
+            {(subjectPerf.filter((sub) => sub.marks < 60) || []).map((sub) => (
+              <Button
+                key={sub.subject_code || sub.subject}
+                onClick={() => fetchSubjectVideos(sub.subject || sub.subject_code)}
+                variant={activeSubject === (sub.subject || sub.subject_code) ? 'secondary' : 'outline'}
+              >
+                {sub.subject} ({sub.marks}/100)
+              </Button>
+            ))}
+            {(subjectPerf.filter((sub) => sub.marks < 60).length === 0) && (
+              <p className="text-sm text-slate-400">No weak subjects detected; keep up the good work!</p>
+            )}
+          </div>
+
+          {videoLoading && <p className="text-sm text-cyan-300">Loading videos for "{activeSubject}"...</p>}
+          {videoError && <p className="text-sm text-red-300">{videoError}</p>}
+
+          {subjectVideos.length > 0 && (
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+              {subjectVideos.map((video, idx) => (
+                <a
+                  key={idx}
+                  href={video.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="surface-card rounded-xl p-3 border border-slate-700 hover:border-cyan-400"
+                >
+                  <div className="text-sm font-semibold text-slate-100">{video.title}</div>
+                  <div className="text-xs text-slate-400">{video.channel}</div>
+                  <div className="mt-2 text-xs text-cyan-300">Watch video</div>
+                </a>
+              ))}
+            </div>
+          )}
+
+          {!videoLoading && !videoError && subjectVideos.length === 0 && (
+            <p className="text-sm text-slate-400">Select a subject to view curated video tutorials.</p>
+          )}
+        </div>
+      </Card>
+
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <PieChartCard
           title="Attendance Distribution"
@@ -253,29 +334,49 @@ export default function StudentDashboard() {
                 AI Study Recommendations
               </div>
             </CardTitle>
-            <CardDescription>Personalized suggestions based on your performance</CardDescription>
+            <CardDescription>Personalized suggestions based on your performance and faculty guidance</CardDescription>
           </CardHeader>
-          <div className="space-y-3">
-            {recommendations.length === 0 ? (
-              <p className="py-4 text-center text-sm text-slate-400">No recommendations yet</p>
-            ) : (
-              recommendations.slice(0, 5).map((rec, i) => (
-                <div key={i} className="surface-card rounded-xl p-3">
-                  <div className="mb-1 flex items-start justify-between gap-3">
-                    <h4 className="text-sm font-medium text-slate-100">{rec.title}</h4>
-                    <Badge variant={priorityVariant[rec.priority?.toLowerCase()] || 'info'}>
-                      {rec.priority || 'Normal'}
-                    </Badge>
-                  </div>
-                  <p className="text-xs text-slate-400">{rec.description}</p>
-                  {rec.topic && (
-                    <span className="mt-2 inline-block rounded-full border border-cyan-400/25 bg-cyan-500/10 px-2.5 py-0.5 text-[11px] text-cyan-200">
-                      {rec.topic}
-                    </span>
-                  )}
+          <div className="space-y-4">
+            {facultySuggestions.length > 0 && (
+              <div>
+                <h4 className="text-sm text-cyan-300 mb-2">Faculty Suggestions</h4>
+                <div className="space-y-2">
+                  {facultySuggestions.slice(0, 5).map((rec, i) => (
+                    <div key={`fac-${i}`} className="surface-card rounded-xl p-3 bg-slate-900/80 border border-cyan-700/50">
+                      <div className="mb-1 flex items-start justify-between gap-3">
+                        <h4 className="text-sm font-medium text-slate-100">{rec.title}</h4>
+                        <Badge variant={priorityVariant[rec.priority?.toLowerCase()] || 'info'}>
+                          {rec.priority || 'Normal'}
+                        </Badge>
+                      </div>
+                      <p className="text-xs text-slate-400">{rec.description}</p>
+                      {rec.topic && (<span className="mt-2 inline-block rounded-full border border-cyan-400/25 bg-cyan-500/10 px-2.5 py-0.5 text-[11px] text-cyan-200">{rec.topic}</span>)}
+                    </div>
+                  ))}
                 </div>
-              ))
+              </div>
             )}
+            <div>
+              <h4 className="text-sm text-cyan-300 mb-2">System Recommendations</h4>
+              {systemSuggestions.length === 0 ? (
+                <p className="py-4 text-center text-sm text-slate-400">No system suggestions yet</p>
+              ) : (
+                <div className="space-y-2">
+                  {systemSuggestions.slice(0, 5).map((rec, i) => (
+                    <div key={`sys-${i}`} className="surface-card rounded-xl p-3">
+                      <div className="mb-1 flex items-start justify-between gap-3">
+                        <h4 className="text-sm font-medium text-slate-100">{rec.title}</h4>
+                        <Badge variant={priorityVariant[rec.priority?.toLowerCase()] || 'info'}>
+                          {rec.priority || 'Normal'}
+                        </Badge>
+                      </div>
+                      <p className="text-xs text-slate-400">{rec.description}</p>
+                      {rec.topic && (<span className="mt-2 inline-block rounded-full border border-cyan-400/25 bg-cyan-500/10 px-2.5 py-0.5 text-[11px] text-cyan-200">{rec.topic}</span>)}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </Card>
       </div>

@@ -3,6 +3,7 @@ import { TrendingUp, Users, AlertTriangle, Search, Filter, BarChart3, BookOpen, 
 import Card, { CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
+import Modal from '../components/ui/Modal';
 import MetricCard from '../components/MetricCard';
 import { BarChartCard, PieChartCard } from '../components/charts';
 import { facultyAPI } from '../services/api';
@@ -16,6 +17,16 @@ export default function FacultyPerformancePage() {
   const [sortBy, setSortBy] = useState('student_id');
   const [sortOrder, setSortOrder] = useState('asc');
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const [showSubjectModal, setShowSubjectModal] = useState(false);
+  const [suggestionModalStudent, setSuggestionModalStudent] = useState(null);
+  const [suggestionTitle, setSuggestionTitle] = useState('');
+  const [suggestionDescription, setSuggestionDescription] = useState('');
+  const [suggestionTopic, setSuggestionTopic] = useState('Study Skills');
+  const [suggestionPriority, setSuggestionPriority] = useState('medium');
+  const [message, setMessage] = useState('');
+  const [studentSuggestions, setStudentSuggestions] = useState([]);
+  const [studentSuggestionTarget, setStudentSuggestionTarget] = useState(null);
+
 
   useEffect(() => {
     loadPerformanceData();
@@ -32,6 +43,59 @@ export default function FacultyPerformancePage() {
       setStudents([]);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const openSubjectModal = (student) => {
+    setSelectedStudent(student);
+    setShowSubjectModal(true);
+  };
+
+  const closeSubjectModal = () => {
+    setShowSubjectModal(false);
+    setSelectedStudent(null);
+  };
+
+  const loadStudentSuggestions = async (student) => {
+    if (!student?.student_id) return;
+    setStudentSuggestionTarget(student);
+    try {
+      const res = await facultyAPI.getStudentSuggestions(student.student_id);
+      setStudentSuggestions(res.data || []);
+    } catch (err) {
+      console.error('Failed to load student suggestions:', err);
+      setStudentSuggestions([]);
+    }
+  };
+
+  const openSuggestionModal = (student) => {
+    setSuggestionModalStudent(student);
+    setSuggestionTitle(`Suggestion for ${student.name}`);
+    setSuggestionDescription('');
+    setSuggestionTopic('Study Skills');
+    setSuggestionPriority('medium');
+    setMessage('');
+  };
+
+  const closeSuggestionModal = () => {
+    setSuggestionModalStudent(null);
+    setMessage('');
+  };
+
+  const submitSuggestion = async () => {
+    if (!suggestionModalStudent) return;
+    try {
+      await facultyAPI.addStudentSuggestion(suggestionModalStudent.student_id, {
+        title: suggestionTitle,
+        description: suggestionDescription,
+        priority: suggestionPriority,
+        topic: suggestionTopic,
+      });
+      setMessage('Suggestion saved and shared with student.');
+      setTimeout(() => closeSuggestionModal(), 1200);
+    } catch (error) {
+      console.error('Failed to save suggestion:', error);
+      setMessage('Failed to save suggestion, please retry.');
     }
   };
 
@@ -239,6 +303,7 @@ export default function FacultyPerformancePage() {
                 <th className="px-1 md:px-3 py-2 md:py-3 text-center font-semibold text-slate-300"><FolderGit2 className="h-3.5 w-3.5 mx-auto" title="Project" /></th>
                 <th className="px-1 md:px-3 py-2 md:py-3 text-center font-semibold text-slate-300"><Briefcase className="h-3.5 w-3.5 mx-auto" title="Internship" /></th>
                 <th className="px-1 md:px-3 py-2 md:py-3 text-center font-semibold text-slate-300"><Award className="h-3.5 w-3.5 mx-auto" title="Extracurricular" /></th>
+                <th className="px-3 py-3 text-center font-semibold text-slate-300">Subjects</th>
                 <SortableHeader label="Risk" column="risk_level" sortBy={sortBy} sortOrder={sortOrder} onSort={handleSort} />
               </tr>
             </thead>
@@ -290,6 +355,34 @@ export default function FacultyPerformancePage() {
                         {student.extracurricular_level?.substring(0, 1) || '-'}
                       </Badge>
                     </td>
+                    <td className="px-2 md:px-3 py-2 text-center">
+                      <div className="flex items-center justify-center gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={(e) => { e.stopPropagation(); openSubjectModal(student); }}
+                          className="text-xs px-2 py-1"
+                        >
+                          View
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={(e) => { e.stopPropagation(); openSuggestionModal(student); }}
+                          className="text-xs px-2 py-1"
+                        >
+                          Suggest
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={(e) => { e.stopPropagation(); loadStudentSuggestions(student); }}
+                          className="text-xs px-2 py-1"
+                        >
+                          Suggestions
+                        </Button>
+                      </div>
+                    </td>
                     <td className="px-2 md:px-3 py-2 text-center">{getRiskBadge(student.risk_level)}</td>
                   </tr>
                 ))
@@ -298,6 +391,102 @@ export default function FacultyPerformancePage() {
           </table>
         </div>
       </Card>
+
+      {showSubjectModal && selectedStudent && (
+        <Modal open onClose={closeSubjectModal} title={`Subject-wise marks: ${selectedStudent.name}`} size="xl">
+          <div className="space-y-3">
+            <p className="text-sm text-slate-300">This list is sourced from the current semester subject marks in enriched dataset.</p>
+            <div className="grid gap-2">
+              {selectedStudent.current_subjects?.length ? selectedStudent.current_subjects.map((sub, idx) => (
+                <div key={`${sub.subject_code}-${idx}`} className="flex items-center justify-between bg-slate-900/70 rounded-lg p-2 border border-slate-700">
+                  <span className="text-slate-200 font-medium">{sub.subject_code}</span>
+                  <span className="text-cyan-300 font-semibold">{sub.marks != null ? `${sub.marks}` : 'N/A'}</span>
+                </div>
+              )) : (
+                <div className="text-slate-400">No subject marks available.</div>
+              )}
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {suggestionModalStudent && (
+        <Modal
+          open
+          onClose={closeSuggestionModal}
+          title={`Add suggestion for ${suggestionModalStudent.name}`}
+          size="md"
+        >
+          <div className="space-y-3">
+            <label className="block text-sm text-slate-300">Title</label>
+            <input
+              value={suggestionTitle}
+              onChange={(e) => setSuggestionTitle(e.target.value)}
+              className="w-full rounded-lg border border-slate-600 px-3 py-2 bg-slate-900 text-slate-100"
+            />
+
+            <label className="block text-sm text-slate-300">Description</label>
+            <textarea
+              rows={4}
+              value={suggestionDescription}
+              onChange={(e) => setSuggestionDescription(e.target.value)}
+              className="w-full rounded-lg border border-slate-600 px-3 py-2 bg-slate-900 text-slate-100"
+            />
+
+            <div className="grid grid-cols-2 gap-2">
+              <select
+                value={suggestionPriority}
+                onChange={(e) => setSuggestionPriority(e.target.value)}
+                className="rounded-lg border border-slate-600 px-3 py-2 bg-slate-900 text-slate-100"
+              >
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+              <input
+                value={suggestionTopic}
+                onChange={(e) => setSuggestionTopic(e.target.value)}
+                placeholder="Topic (e.g., Attendance)"
+                className="rounded-lg border border-slate-600 px-3 py-2 bg-slate-900 text-slate-100"
+              />
+            </div>
+
+            {message ? <p className="text-sm text-green-400">{message}</p> : null}
+
+            <div className="flex justify-end gap-2 pt-2">
+              <Button variant="outline" onClick={closeSuggestionModal}>Cancel</Button>
+              <Button onClick={submitSuggestion}>Save</Button>
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {studentSuggestionTarget && (
+        <Card className="p-4 bg-slate-800/60 border border-slate-700/50">
+          <CardHeader>
+            <CardTitle>Faculty Suggestions for {studentSuggestionTarget.name}</CardTitle>
+            <CardDescription>Directly added by faculty staff in this portal</CardDescription>
+          </CardHeader>
+          <div className="space-y-2">
+            {studentSuggestions.length === 0 ? (
+              <p className="text-sm text-slate-400">No faculty suggestions yet for this student. Add one using the Suggest button at row.</p>
+            ) : (
+              studentSuggestions.map((rec, idx) => (
+                <div key={`fac-${idx}`} className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <h4 className="text-sm font-semibold text-slate-100">{rec.title}</h4>
+                      <p className="text-xs text-slate-400">{rec.topic} • {rec.priority}</p>
+                    </div>
+                    <Badge variant={rec.priority === 'high' ? 'danger' : rec.priority === 'medium' ? 'warning' : 'success'} className="text-xs">{rec.priority}</Badge>
+                  </div>
+                  <p className="mt-1 text-sm text-slate-300">{rec.description}</p>
+                </div>
+              ))
+            )}
+          </div>
+        </Card>
+      )}
 
       {/* Data Source Info */}
       <Card className="p-4 bg-slate-800/50 border border-slate-700/50">

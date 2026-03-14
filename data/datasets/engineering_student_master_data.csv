@@ -69,3 +69,4 @@ Student_ID,Enrollment_Year,Department,Department_Code,First_Name,Last_Name,Gende
 25ME002,2025,Mechanical Engineering,ME,Diya,Patidar,Female,18/12/06,25ME002@charusat.edu.in,9313817756,Rajkot,Gujarat,Regular,2,4,Active
 25ME003,2025,Mechanical Engineering,ME,Vaishnavi,Reddy,Female,07/03/06,25ME003@charusat.edu.in,7622074467,Udaipur,Rajasthan,Regular,2,4,Active
 25ME004,2025,Mechanical Engineering,ME,Aditya,Chauhan,Male,11/07/05,25ME004@charusat.edu.in,7383242583,Jaipur,Rajasthan,Regular,2,4,Active
+23CE011,2023,Computer Engineering,CE,Meet,Desai,Male,20/03/06,23CE011@charusat.edu.in,7622074467,Jaipur,Rajasthan,Regular,4,8,Active

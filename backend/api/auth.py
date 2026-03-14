@@ -151,9 +151,19 @@ def login(creds: LoginSchema):
         }
     
     # Check database for registered users
-    db = get_firestore()
-    users = db.collection("users").where("email", "==", creds.email).limit(1).stream()
-    user_doc = next(users, None)
+    try:
+        db = get_firestore()
+        users = db.collection("users").where("email", "==", creds.email).limit(1).stream()
+        user_doc = next(users, None)
+    except Exception as db_exc:
+        # If Firestore is unavailable, avoid internal 500 and return service unavailable.
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                "Authentication backend not available right now. "
+                "Please use demo credentials or try again later."
+            ),
+        ) from db_exc
 
     if not user_doc:
         raise HTTPException(status_code=401, detail="Invalid credentials")

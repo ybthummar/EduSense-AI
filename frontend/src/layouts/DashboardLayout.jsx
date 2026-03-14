@@ -36,7 +36,11 @@ const navByRole = {
     { to: '/faculty/students', icon: GraduationCap, label: 'My Students' },
     { to: '/faculty/performance', icon: BarChart3, label: 'Performance' },
     { to: '/faculty/attendance', icon: BookOpen, label: 'Attendance' },
+<<<<<<< HEAD
     { to: '/faculty/resources', icon: BookOpen, label: 'Share Resources' },
+=======
+    { to: '/faculty/suggestions', icon: MessageSquare, label: 'Suggestion Box' },
+>>>>>>> 745739c8053737db714011ce747f834db934f586
     { to: '/chat', icon: MessageSquare, label: 'Chat Assistant' },
   ],
   student: [
@@ -44,7 +48,11 @@ const navByRole = {
     { to: '/student/performance', icon: BarChart3, label: 'Performance' },
     { to: '/student/quizzes', icon: Trophy, label: 'Quizzes' },
     { to: '/student/resources', icon: BookOpen, label: 'Resources' },
+<<<<<<< HEAD
     { to: '/student/reviews', icon: Star, label: 'Student Reviews' },
+=======
+    { to: '/student/suggestions', icon: MessageSquare, label: 'Suggestion Box' },
+>>>>>>> 745739c8053737db714011ce747f834db934f586
     { to: '/chat', icon: MessageSquare, label: 'Chat Assistant' },
     { to: '/student/weekly-report', icon: Brain, label: 'Weekly AI Analyst' },
   ],

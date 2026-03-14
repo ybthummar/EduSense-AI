@@ -125,6 +125,7 @@ def get_student_context(student_id: Optional[str] = None) -> Dict[str, Any]:
         "risk_score": None,
         "weak_subjects": [],
         "strong_subjects": [],
+        "subject_performance": [],
         "risk_factors": [],
         "trends": {
             "cgpa": "insufficient_data",
@@ -197,6 +198,7 @@ def get_student_context(student_id: Optional[str] = None) -> Dict[str, Any]:
             "risk_score": _to_float(metrics.get("academic_risk_score")),
             "weak_subjects": bands["weak"],
             "strong_subjects": bands["strong"],
+            "subject_performance": subject_performance,
             "risk_factors": risk_factors,
             "trends": trends,
             "latest_metrics": metrics,

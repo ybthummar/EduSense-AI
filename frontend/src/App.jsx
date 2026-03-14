@@ -9,10 +9,14 @@ import FacultyStudentsPage from './pages/FacultyStudentsPage';
 import FacultyAttendancePage from './pages/FacultyAttendancePage';
 import FacultyPerformancePage from './pages/FacultyPerformancePage';
 import StudentDashboard from './pages/StudentDashboard';
+<<<<<<< HEAD
 import StudentResourcesPage from './pages/StudentResourcesPage';
 import StudentReviewsPage from './pages/StudentReviewsPage';
 import FacultyResourcesPage from './pages/FacultyResourcesPage';
 import WeeklyReportPage from './pages/WeeklyReportPage';
+=======
+import SuggestionBoxPage from './pages/SuggestionBoxPage';
+>>>>>>> 745739c8053737db714011ce747f834db934f586
 import ChatPage from './pages/ChatPage';
 import DashboardLayout from './layouts/DashboardLayout';
 
@@ -76,7 +80,11 @@ export default function App() {
         <Route path="/faculty/students" element={<FacultyStudentsPage />} />
         <Route path="/faculty/performance" element={<FacultyPerformancePage />} />
         <Route path="/faculty/attendance" element={<FacultyAttendancePage />} />
+<<<<<<< HEAD
         <Route path="/faculty/resources" element={<FacultyResourcesPage />} />
+=======
+        <Route path="/faculty/suggestions" element={<SuggestionBoxPage />} />
+>>>>>>> 745739c8053737db714011ce747f834db934f586
       </Route>
 
       {/* Student Routes */}
@@ -90,9 +98,14 @@ export default function App() {
         <Route path="/student" element={<StudentDashboard />} />
         <Route path="/student/performance" element={<StudentDashboard />} />
         <Route path="/student/quizzes" element={<StudentDashboard />} />
+<<<<<<< HEAD
         <Route path="/student/resources" element={<StudentResourcesPage />} />
         <Route path="/student/reviews" element={<StudentReviewsPage />} />
         <Route path="/student/weekly-report" element={<WeeklyReportPage />} />
+=======
+        <Route path="/student/resources" element={<StudentDashboard />} />
+        <Route path="/student/suggestions" element={<SuggestionBoxPage />} />
+>>>>>>> 745739c8053737db714011ce747f834db934f586
       </Route>
 
       {/* Chat - accessible by all authenticated users */}
