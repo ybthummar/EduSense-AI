@@ -36,8 +36,34 @@ def create_access_token(data: dict):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
+# Demo accounts for testing (no database needed)
+DEMO_ACCOUNTS = {
+    "admin@edusense.com": {"password": "admin123", "role": "admin", "name": "Admin User", "id": "ADMIN_001"},
+    "faculty@edusense.com": {"password": "faculty123", "role": "faculty", "name": "Dr. Faculty", "id": "FAC_001", "faculty_id": "FAC_001", "department": "Computer Engineering"},
+    "student@edusense.com": {"password": "student123", "role": "student", "name": "Demo Student", "id": "STU000001", "student_id": "STU000001", "department": "Computer Engineering", "semester": 5},
+}
+
 @router.post("/login")
 def login(creds: LoginSchema):
+    # Check demo accounts first
+    if creds.email in DEMO_ACCOUNTS:
+        demo = DEMO_ACCOUNTS[creds.email]
+        if creds.password == demo["password"]:
+            token = create_access_token({"sub": creds.email, "role": demo["role"]})
+            return {
+                "access_token": token,
+                "token_type": "bearer",
+                "user": {
+                    "id": demo["id"],
+                    "email": creds.email,
+                    "name": demo["name"],
+                    "role": demo["role"],
+                    **{k: v for k, v in demo.items() if k not in ["password", "id", "name", "role"]}
+                }
+            }
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    # Firestore lookup for real users
     db = get_firestore()
     users = db.collection("users").where("email", "==", creds.email).limit(1).stream()
     user_doc = next(users, None)
@@ -50,7 +76,7 @@ def login(creds: LoginSchema):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     token = create_access_token({"sub": user.get("email"), "role": user.get("role")})
-    
+
     return {
         "access_token": token,
         "token_type": "bearer",
