@@ -11,16 +11,11 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 # --- YouTube ---
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY", "")
 
-# --- Database ---
-DB_USER = os.getenv("DB_USER", "postgres")
-DB_PASS = os.getenv("DB_PASS", "postgres")
-DB_HOST = os.getenv("DB_HOST", "localhost")
-DB_PORT = os.getenv("DB_PORT", "5432")
-DB_NAME = os.getenv("DB_NAME", "edusense")
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}",
-)
+# --- Database backend ---
+# Firebase is the primary backend for app data.
+DATABASE_BACKEND = os.getenv("DATABASE_BACKEND", "firebase").lower()
+# Optional legacy SQL URL (kept for backward compatibility paths).
+DATABASE_URL = os.getenv("DATABASE_URL", "")
 
 # --- JWT ---
 JWT_SECRET = os.getenv("JWT_SECRET", "supersecretkeyedusense")
@@ -30,3 +25,4 @@ JWT_ALGORITHM = "HS256"
 FIREBASE_PROJECT_ID = os.getenv("FIREBASE_PROJECT_ID", "")
 FIREBASE_PRIVATE_KEY = os.getenv("FIREBASE_PRIVATE_KEY", "")
 FIREBASE_CLIENT_EMAIL = os.getenv("FIREBASE_CLIENT_EMAIL", "")
+FIREBASE_CREDENTIALS_PATH = os.getenv("FIREBASE_CREDENTIALS_PATH", "")

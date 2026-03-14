@@ -1,8 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from database.connection import get_db
-import database.models as models
+from database.firebase import get_firestore
 from api.auth import get_password_hash
 from services.dataset_service import get_admin_dashboard_metrics
 import uuid
@@ -15,32 +13,33 @@ class FacultyCreate(BaseModel):
     department: str
 
 @router.post("/create_faculty")
-def create_faculty(data: FacultyCreate, db: Session = Depends(get_db)):
+def create_faculty(data: FacultyCreate):
     # Admin only scope placeholder assumption
-    existing = db.query(models.User).filter(models.User.email == data.email).first()
-    if existing:
+    db = get_firestore()
+    existing = db.collection("users").where("email", "==", data.email).limit(1).stream()
+    if next(existing, None):
         raise HTTPException(status_code=400, detail="User email exists")
     
     generated_password = f"pwd_{str(uuid.uuid4())[:6]}"
     faculty_id = f"FAC_{str(uuid.uuid4())[:6]}"
 
-    new_user = models.User(
-        email=data.email,
-        password=get_password_hash(generated_password),
-        name=data.name,
-        role="faculty"
+    user_id = str(uuid.uuid4())
+    db.collection("users").document(user_id).set(
+        {
+            "email": data.email,
+            "password": get_password_hash(generated_password),
+            "name": data.name,
+            "role": "faculty",
+        }
     )
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
 
-    new_faculty = models.Faculty(
-        faculty_id=faculty_id,
-        department=data.department,
-        user_id=new_user.id
+    db.collection("faculty").document(faculty_id).set(
+        {
+            "faculty_id": faculty_id,
+            "department": data.department,
+            "user_id": user_id,
+        }
     )
-    db.add(new_faculty)
-    db.commit()
 
     return {
         "message": "Faculty created",
@@ -50,9 +49,10 @@ def create_faculty(data: FacultyCreate, db: Session = Depends(get_db)):
     }
 
 @router.get("/dashboard")
-def get_admin_dashboard(db: Session = Depends(get_db)):
+def get_admin_dashboard():
+    db = get_firestore()
     dataset_metrics = get_admin_dashboard_metrics()
-    total_faculty = db.query(models.Faculty).count()
+    total_faculty = sum(1 for _ in db.collection("faculty").stream())
 
     return {
         "departments": dataset_metrics["departments"],

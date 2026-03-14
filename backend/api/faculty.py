@@ -1,8 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from fastapi import APIRouter
 from pydantic import BaseModel
-from database.connection import get_db
-import database.models as models
 from services.dataset_service import get_faculty_analytics, get_faculty_students
 from typing import Optional
 
@@ -17,7 +14,7 @@ class StudentCreate(BaseModel):
     semester: int
 
 @router.post("/add_student")
-def add_student(student: StudentCreate, db: Session = Depends(get_db)):
+def add_student(student: StudentCreate):
     # Placeholder for checking faculty scope & adding student
     return {"message": f"Student {student.name} added successfully."}
 
@@ -26,16 +23,14 @@ def get_faculty_students_route(
     faculty_id: str,
     department: Optional[str] = None,
     limit: int = 100,
-    db: Session = Depends(get_db),
 ):
-    del faculty_id, db
+    del faculty_id
     return get_faculty_students(department=department, limit=limit)
 
 @router.get("/{faculty_id}/analytics")
 def get_faculty_analytics_route(
     faculty_id: str,
     department: Optional[str] = None,
-    db: Session = Depends(get_db),
 ):
-    del faculty_id, db
+    del faculty_id
     return get_faculty_analytics(department=department)

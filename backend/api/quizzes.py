@@ -3,12 +3,10 @@
 from datetime import datetime
 from typing import List, Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from sqlalchemy.orm import Session
 
-from database.connection import get_db
-import database.models as models
+from database.firebase import get_firestore, next_sequence
 
 router = APIRouter()
 
@@ -44,84 +42,91 @@ class QuizAttemptSchema(BaseModel):
 # ---- Endpoints ----
 
 @router.post("/create")
-def create_quiz(data: QuizCreateSchema, db: Session = Depends(get_db)):
+def create_quiz(data: QuizCreateSchema):
     """Faculty creates a quiz with questions."""
-    quiz = models.Quiz(
-        title=data.title,
-        subject=data.subject,
-        created_at=datetime.utcnow().isoformat(),
-    )
-    db.add(quiz)
-    db.flush()
+    db = get_firestore()
+    quiz_id = next_sequence("quiz_id")
+    quiz_ref = db.collection("quizzes").document(str(quiz_id))
 
-    for q in data.questions:
-        question = models.QuizQuestion(
-            quiz_id=quiz.id,
-            question_text=q.question_text,
-            option_a=q.option_a,
-            option_b=q.option_b,
-            option_c=q.option_c,
-            option_d=q.option_d,
-            correct_option=q.correct_option.upper(),
-        )
-        db.add(question)
-
-    db.commit()
-    db.refresh(quiz)
-    return {"message": "Quiz created", "quiz_id": quiz.id}
-
-
-@router.get("/list")
-def list_quizzes(subject: Optional[str] = None, db: Session = Depends(get_db)):
-    """List all available quizzes."""
-    query = db.query(models.Quiz)
-    if subject:
-        query = query.filter(models.Quiz.subject.ilike(f"%{subject}%"))
-    quizzes = query.all()
-    return [
+    quiz_ref.set(
         {
-            "id": q.id,
-            "title": q.title,
-            "subject": q.subject,
-            "question_count": len(q.questions),
-            "created_at": q.created_at,
+            "id": quiz_id,
+            "title": data.title,
+            "subject": data.subject,
+            "created_at": datetime.utcnow().isoformat(),
+            "question_count": len(data.questions),
         }
-        for q in quizzes
-    ]
+    )
 
-
-@router.get("/{quiz_id}")
-def get_quiz(quiz_id: int, db: Session = Depends(get_db)):
-    """Get quiz details with questions (correct answers hidden)."""
-    quiz = db.query(models.Quiz).filter(models.Quiz.id == quiz_id).first()
-    if not quiz:
-        raise HTTPException(status_code=404, detail="Quiz not found")
-    return {
-        "id": quiz.id,
-        "title": quiz.title,
-        "subject": quiz.subject,
-        "questions": [
+    for idx, q in enumerate(data.questions, start=1):
+        quiz_ref.collection("questions").document(str(idx)).set(
             {
-                "id": q.id,
+                "id": idx,
                 "question_text": q.question_text,
                 "option_a": q.option_a,
                 "option_b": q.option_b,
                 "option_c": q.option_c,
                 "option_d": q.option_d,
+                "correct_option": q.correct_option.upper(),
             }
-            for q in quiz.questions
+        )
+
+    return {"message": "Quiz created", "quiz_id": quiz_id}
+
+
+@router.get("/list")
+def list_quizzes(subject: Optional[str] = None):
+    """List all available quizzes."""
+    db = get_firestore()
+    quizzes = [doc.to_dict() for doc in db.collection("quizzes").stream()]
+    if subject:
+        needle = subject.lower()
+        quizzes = [q for q in quizzes if needle in q.get("subject", "").lower()]
+
+    quizzes.sort(key=lambda q: q.get("id", 0))
+    return quizzes
+
+
+@router.get("/{quiz_id}")
+def get_quiz(quiz_id: int):
+    """Get quiz details with questions (correct answers hidden)."""
+    db = get_firestore()
+    quiz_doc = db.collection("quizzes").document(str(quiz_id)).get()
+    if not quiz_doc.exists:
+        raise HTTPException(status_code=404, detail="Quiz not found")
+
+    quiz = quiz_doc.to_dict()
+    questions = [q.to_dict() for q in quiz_doc.reference.collection("questions").stream()]
+    questions.sort(key=lambda q: q.get("id", 0))
+
+    return {
+        "id": quiz.get("id", quiz_id),
+        "title": quiz.get("title"),
+        "subject": quiz.get("subject"),
+        "questions": [
+            {
+                "id": q.get("id"),
+                "question_text": q.get("question_text"),
+                "option_a": q.get("option_a"),
+                "option_b": q.get("option_b"),
+                "option_c": q.get("option_c"),
+                "option_d": q.get("option_d"),
+            }
+            for q in questions
         ],
     }
 
 
 @router.post("/submit")
-def submit_quiz(attempt: QuizAttemptSchema, db: Session = Depends(get_db)):
+def submit_quiz(attempt: QuizAttemptSchema):
     """Student submits answers; auto-scored."""
-    quiz = db.query(models.Quiz).filter(models.Quiz.id == attempt.quiz_id).first()
-    if not quiz:
+    db = get_firestore()
+    quiz_doc = db.collection("quizzes").document(str(attempt.quiz_id)).get()
+    if not quiz_doc.exists:
         raise HTTPException(status_code=404, detail="Quiz not found")
 
-    question_map = {q.id: q.correct_option for q in quiz.questions}
+    questions = [q.to_dict() for q in quiz_doc.reference.collection("questions").stream()]
+    question_map = {int(q.get("id")): q.get("correct_option") for q in questions}
     total = len(question_map)
     correct = 0
 
@@ -132,16 +137,16 @@ def submit_quiz(attempt: QuizAttemptSchema, db: Session = Depends(get_db)):
 
     score = round((correct / total) * 100, 2) if total > 0 else 0
 
-    record = models.QuizAttempt(
-        quiz_id=attempt.quiz_id,
-        student_id=attempt.student_id,
-        score=score,
-        total_questions=total,
-        correct_answers=correct,
-        submitted_at=datetime.utcnow().isoformat(),
+    db.collection("quiz_attempts").add(
+        {
+            "quiz_id": attempt.quiz_id,
+            "student_id": attempt.student_id,
+            "score": score,
+            "total_questions": total,
+            "correct_answers": correct,
+            "submitted_at": datetime.utcnow().isoformat(),
+        }
     )
-    db.add(record)
-    db.commit()
 
     return {
         "score": score,
@@ -152,20 +157,12 @@ def submit_quiz(attempt: QuizAttemptSchema, db: Session = Depends(get_db)):
 
 
 @router.get("/attempts/{student_id}")
-def get_student_attempts(student_id: str, db: Session = Depends(get_db)):
+def get_student_attempts(student_id: str):
     """Get all quiz attempts for a student."""
-    attempts = (
-        db.query(models.QuizAttempt)
-        .filter(models.QuizAttempt.student_id == student_id)
-        .all()
-    )
-    return [
-        {
-            "quiz_id": a.quiz_id,
-            "score": a.score,
-            "total_questions": a.total_questions,
-            "correct_answers": a.correct_answers,
-            "submitted_at": a.submitted_at,
-        }
-        for a in attempts
+    db = get_firestore()
+    attempts = [
+        doc.to_dict()
+        for doc in db.collection("quiz_attempts").where("student_id", "==", student_id).stream()
     ]
+    attempts.sort(key=lambda a: a.get("submitted_at", ""), reverse=True)
+    return attempts

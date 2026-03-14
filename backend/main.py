@@ -1,14 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from database import models
-from database.connection import engine
+from database.firebase import init_firestore
 from api import admin, auth, chatbot, datasets, faculty, quizzes, students
 
-# Create database tables (gracefully skip if DB unavailable)
+# Initialize Firestore (gracefully continue if not configured)
 try:
-    models.Base.metadata.create_all(bind=engine)
+    init_firestore()
 except Exception as _db_err:
-    print(f"[startup] DB table creation skipped: {_db_err}")
+    print(f"[startup] Firestore initialization skipped: {_db_err}")
 
 app = FastAPI(
     title="EduSense AI Platform API",
