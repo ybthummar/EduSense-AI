@@ -6,22 +6,26 @@ import {
 const COLORS = ['#6366f1', '#14b8a6', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4', '#22c55e', '#f97316']
 
 const customTooltipStyle = {
-  backgroundColor: 'rgba(15, 23, 42, 0.95)',
-  border: '1px solid rgba(148, 163, 184, 0.15)',
-  borderRadius: '12px',
+  backgroundColor: 'rgba(15, 23, 42, 0.97)',
+  border: '1px solid rgba(148, 163, 184, 0.1)',
+  borderRadius: '14px',
   padding: '12px 16px',
-  boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+  boxShadow: '0 12px 40px rgba(0,0,0,0.4)',
+  backdropFilter: 'blur(12px)',
 }
 
 function CustomTooltip({ active, payload, label }) {
   if (!active || !payload) return null
   return (
     <div style={customTooltipStyle}>
-      <p className="text-surface-400 text-xs font-medium mb-2">{label}</p>
+      <p className="text-surface-400 text-xs font-semibold mb-2 uppercase tracking-wider">{label}</p>
       {payload.map((entry, i) => (
-        <p key={i} className="text-sm font-semibold" style={{ color: entry.color }}>
-          {entry.name}: {typeof entry.value === 'number' ? entry.value.toLocaleString() : entry.value}
-        </p>
+        <div key={i} className="flex items-center gap-2 py-0.5">
+          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color }} />
+          <p className="text-sm font-semibold" style={{ color: entry.color }}>
+            {entry.name}: {typeof entry.value === 'number' ? entry.value.toLocaleString() : entry.value}
+          </p>
+        </div>
       ))}
     </div>
   )

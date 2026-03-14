@@ -1,7 +1,13 @@
 import { useState, useRef, useEffect } from 'react'
-import { Bot, Send, User, Sparkles, Youtube, PlayCircle, Loader2 } from 'lucide-react'
+import { Bot, Send, User, Sparkles, Youtube, PlayCircle, Loader2, Lightbulb } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
-import toast from 'react-hot-toast'
+
+const suggestedQuestions = [
+  'Explain neural networks',
+  'What is recursion?',
+  'How does TCP/IP work?',
+  'Explain database normalization',
+]
 
 export default function ChatPage() {
   const { user } = useAuth()
@@ -9,7 +15,7 @@ export default function ChatPage() {
     {
       id: 1,
       role: 'assistant',
-      content: 'Hello! I am your AI Learning Assistant. Ask me any concepts, topics, or subjects you are studying.',
+      content: 'Hello! I\'m your AI Learning Assistant powered by RAG and educational resources. Ask me any concepts, topics, or subjects you\'re studying — I\'ll provide explanations and recommend relevant videos.',
     }
   ])
   const [input, setInput] = useState('')
@@ -25,18 +31,18 @@ export default function ChatPage() {
   }, [messages, isTyping])
 
   const handleSend = async (e) => {
-    e.preventDefault()
-    if (!input.trim()) return
+    e?.preventDefault?.()
+    const text = typeof e === 'string' ? e : input.trim()
+    if (!text) return
 
-    const userMsg = { id: Date.now(), role: 'user', content: input.trim() }
+    const userMsg = { id: Date.now(), role: 'user', content: text }
     setMessages(prev => [...prev, userMsg])
     setInput('')
     setIsTyping(true)
 
-    // Simulate API delay and AI response with YouTube recommendations
     setTimeout(() => {
-      const isNeural = userMsg.content.toLowerCase().includes('neural') || userMsg.content.toLowerCase().includes('network')
-      const isRecursion = userMsg.content.toLowerCase().includes('recursion')
+      const isNeural = text.toLowerCase().includes('neural') || text.toLowerCase().includes('network')
+      const isRecursion = text.toLowerCase().includes('recursion')
       
       let aiResponse = { id: Date.now() + 1, role: 'assistant' }
 
@@ -56,9 +62,9 @@ export default function ChatPage() {
            { title: "Understand Recursion in 12 Minutes", url: "https://youtube.com/watch", thumbnail: "https://images.unsplash.com/photo-1550439062-609e1531270e?w=100", channel: "Clément Mihailescu" }
          ]
       } else {
-         aiResponse.content = `Here is an explanation of "${userMsg.content}". This relies on foundational principles from standard coursework. The key is to understand how these elements interlock. Would you like me to go deeper into specific examples or mathematical proofs?`
+         aiResponse.content = `Here is an explanation of "${text}". This relies on foundational principles from standard coursework. The key is to understand how these elements interlock. Would you like me to go deeper into specific examples or mathematical proofs?`
          aiResponse.videos = [
-           { title: `Understanding ${userMsg.content} basics`, url: "https://youtube.com/watch", thumbnail: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=100", channel: "EduTech" }
+           { title: `Understanding ${text} basics`, url: "https://youtube.com/watch", thumbnail: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=100", channel: "EduTech" }
          ]
       }
 
@@ -67,72 +73,86 @@ export default function ChatPage() {
     }, 1500)
   }
 
+  const handleSuggestion = (question) => {
+    setInput(question)
+    handleSend(question)
+  }
+
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)]">
       {/* Chat header */}
-      <div className="glass-card p-4 flex items-center gap-3 mb-4 rounded-xl flex-shrink-0">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center relative">
+      <div className="glass-card p-4 flex items-center gap-3 mb-4 rounded-xl flex-shrink-0 animate-fade-in-up">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center relative shadow-lg shadow-primary-500/15">
           <Bot className="w-6 h-6 text-white" />
-          <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-green-500 border-2 border-surface-900 rounded-full"></div>
+          <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-surface-900 rounded-full" />
         </div>
-        <div>
-          <h2 className="text-lg font-bold text-surface-100 flex items-center gap-2">
-            AI Learning Assistant <Sparkles className="w-4 h-4 text-primary-400" />
+        <div className="flex-1">
+          <h2 className="text-base font-bold text-surface-100 flex items-center gap-2">
+            AI Learning Assistant <Sparkles className="w-3.5 h-3.5 text-primary-400" />
           </h2>
-          <p className="text-sm text-surface-400">Powered by RAG & Educational Resources</p>
+          <p className="text-xs text-surface-400">Powered by RAG & Educational Resources</p>
+        </div>
+        <div className="hidden sm:flex items-center gap-2 text-xs text-surface-500">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-surface-800/40 rounded-lg">
+            <Sparkles className="w-3 h-3 text-primary-400" />
+            <span>RAG</span>
+          </div>
+          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-surface-800/40 rounded-lg">
+            <Youtube className="w-3 h-3 text-red-400" />
+            <span>YouTube</span>
+          </div>
         </div>
       </div>
 
       {/* Chat messages */}
-      <div className="flex-1 overflow-y-auto space-y-6 pr-2 custom-scrollbar">
+      <div className="flex-1 overflow-y-auto space-y-5 pr-1">
         {messages.map((msg) => (
-          <div key={msg.id} className={`flex gap-4 ${msg.role === 'assistant' ? 'justify-start' : 'justify-end'}`}>
+          <div key={msg.id} className={`flex gap-3 ${msg.role === 'assistant' ? 'justify-start' : 'justify-end'} animate-fade-in`}>
             {msg.role === 'assistant' && (
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center flex-shrink-0 mt-1">
-                <Bot className="w-5 h-5 text-white" />
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center flex-shrink-0 mt-1 shadow-md shadow-primary-500/10">
+                <Bot className="w-4 h-4 text-white" />
               </div>
             )}
             
             <div className={`max-w-[75%] ${msg.role === 'assistant' ? '' : 'flex items-end flex-col'}`}>
               <div className={`p-4 rounded-2xl ${
                 msg.role === 'assistant' 
-                  ? 'bg-surface-800/60 border border-surface-700/50 rounded-tl-sm text-surface-200 shadow-sm' 
-                  : 'bg-gradient-to-r from-primary-600 to-primary-500 text-white rounded-tr-sm shadow-md shadow-primary-500/10'
+                  ? 'bg-surface-800/50 border border-surface-700/40 rounded-tl-sm text-surface-200' 
+                  : 'bg-gradient-to-r from-primary-600 to-primary-500 text-white rounded-tr-sm shadow-lg shadow-primary-500/10'
               }`}>
-                <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
+                <p className="whitespace-pre-wrap leading-relaxed text-[15px]">{msg.content}</p>
               </div>
 
-              {/* RAG & YouTube Recommendations Payload */}
               {msg.videos && msg.videos.length > 0 && (
-                <div className="mt-3 animate-fade-in pl-1">
-                  <div className="flex items-center gap-2 mb-2 text-red-400">
-                    <Youtube className="w-4 h-4" />
-                    <span className="text-xs font-semibold uppercase tracking-wider">Recommended Videos</span>
+                <div className="mt-3 animate-fade-in pl-0.5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Youtube className="w-3.5 h-3.5 text-red-400" />
+                    <span className="text-[10px] font-bold text-red-400 uppercase tracking-widest">Recommended Videos</span>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {msg.videos.map((vid, idx) => (
-                      <a key={idx} href={vid.url} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 p-2.5 bg-surface-900/50 hover:bg-surface-800/80 border border-surface-800 hover:border-surface-700 rounded-xl transition-all group">
+                      <a key={idx} href={vid.url} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 p-2.5 bg-surface-800/40 hover:bg-surface-800/70 border border-surface-700/30 hover:border-primary-500/20 rounded-xl transition-all group">
                         <div className="relative w-16 h-12 bg-surface-800 rounded-lg overflow-hidden flex-shrink-0">
                           {vid.thumbnail.startsWith('http') ? (
-                            <img src={vid.thumbnail} alt="" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+                            <img src={vid.thumbnail} alt="" className="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-opacity" />
                           ) : (
                              <div className="w-full h-full flex items-center justify-center text-xl">{vid.thumbnail}</div>
                           )}
-                          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors flex items-center justify-center">
-                            <PlayCircle className="w-4 h-4 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <PlayCircle className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
                           </div>
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-xs font-medium text-surface-200 line-clamp-2 leading-snug group-hover:text-primary-400 transition-colors">{vid.title}</p>
-                          <p className="text-[10px] text-surface-500 mt-0.5 truncate">{vid.channel}</p>
+                          <p className="text-[10px] text-surface-500 mt-1 truncate">{vid.channel}</p>
                         </div>
                       </a>
                     ))}
                   </div>
                   
                   {msg.playlist && (
-                    <div className="mt-3 inline-flex">
-                       <a href={msg.playlist.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 rounded-lg text-xs font-medium transition-colors">
+                    <div className="mt-2.5 inline-flex">
+                       <a href={msg.playlist.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-1.5 bg-red-500/8 hover:bg-red-500/15 text-red-400 border border-red-500/15 rounded-lg text-xs font-medium transition-colors">
                          <PlayCircle className="w-3.5 h-3.5" /> Complete Playlist: {msg.playlist.title}
                        </a>
                     </div>
@@ -142,19 +162,19 @@ export default function ChatPage() {
             </div>
 
             {msg.role === 'user' && (
-              <div className="w-8 h-8 rounded-lg bg-surface-700 flex items-center justify-center flex-shrink-0 mt-1 shadow-inner">
-                <User className="w-5 h-5 text-surface-300" />
+              <div className="w-8 h-8 rounded-lg bg-surface-700/80 flex items-center justify-center flex-shrink-0 mt-1">
+                <User className="w-4 h-4 text-surface-300" />
               </div>
             )}
           </div>
         ))}
         
         {isTyping && (
-          <div className="flex gap-4 justify-start">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center flex-shrink-0 mt-1">
-              <Bot className="w-5 h-5 text-white" />
+          <div className="flex gap-3 justify-start animate-fade-in">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center flex-shrink-0 mt-1 shadow-md shadow-primary-500/10">
+              <Bot className="w-4 h-4 text-white" />
             </div>
-            <div className="p-4 rounded-2xl bg-surface-800/60 border border-surface-700/50 rounded-tl-sm flex items-center gap-2">
+            <div className="p-4 rounded-2xl bg-surface-800/50 border border-surface-700/40 rounded-tl-sm flex items-center gap-3">
                <Loader2 className="w-4 h-4 animate-spin text-primary-400" />
                <span className="text-sm text-surface-400">Searching educational documents & YouTube...</span>
             </div>
@@ -163,28 +183,49 @@ export default function ChatPage() {
         <div ref={messagesEndRef} />
       </div>
 
+      {/* Suggestion chips */}
+      {messages.length <= 1 && !isTyping && (
+        <div className="mt-3 flex-shrink-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="flex items-center gap-2 mb-2">
+            <Lightbulb className="w-3.5 h-3.5 text-amber-400" />
+            <span className="text-xs text-surface-500 font-medium">Try asking</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {suggestedQuestions.map((q, i) => (
+              <button
+                key={i}
+                onClick={() => handleSuggestion(q)}
+                className="px-3.5 py-2 bg-surface-800/40 hover:bg-surface-800/70 border border-surface-700/20 hover:border-primary-500/20 rounded-xl text-xs text-surface-300 hover:text-surface-100 transition-all cursor-pointer"
+              >
+                {q}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Input area */}
-      <div className="mt-4 pt-4 border-t border-surface-800/50 flex-shrink-0">
+      <div className="mt-4 pt-4 border-t border-surface-800/40 flex-shrink-0">
         <form onSubmit={handleSend} className="relative">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="e.g., Explain gradient descent or What is a linked list?"
-            className="w-full bg-surface-900 border border-surface-700/50 focus:border-primary-500 rounded-2xl py-4 pl-5 pr-14 text-surface-100 placeholder-surface-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all shadow-sm shadow-surface-950"
+            className="w-full bg-surface-900/70 border border-surface-700/40 focus:border-primary-500/50 rounded-2xl py-4 pl-5 pr-14 text-surface-100 placeholder-surface-500 focus:outline-none focus:ring-2 focus:ring-primary-500/15 transition-all"
             disabled={isTyping}
           />
           <button
             type="submit"
             disabled={!input.trim() || isTyping}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-2.5 bg-primary-500 hover:bg-primary-400 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 p-2.5 bg-primary-500 hover:bg-primary-400 text-white rounded-xl disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg shadow-primary-500/15 cursor-pointer"
           >
-            <Send className="w-4 h-4 ml-0.5" />
+            <Send className="w-4 h-4" />
           </button>
         </form>
         <div className="flex items-center justify-center gap-4 mt-3">
-           <p className="text-xs text-surface-500"><Sparkles className="w-3 h-3 inline text-primary-500 mr-1"/> Explanations generated via RAG</p>
-           <p className="text-xs text-surface-500"><Youtube className="w-3 h-3 inline text-red-500 mr-1"/> Videos sourced from YouTube API</p>
+           <p className="text-[10px] text-surface-500"><Sparkles className="w-3 h-3 inline text-primary-500 mr-1"/>Explanations via RAG</p>
+           <p className="text-[10px] text-surface-500"><Youtube className="w-3 h-3 inline text-red-500 mr-1"/>Videos from YouTube</p>
         </div>
       </div>
     </div>

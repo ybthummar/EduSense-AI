@@ -83,9 +83,9 @@ export default function FacultyDashboard() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 animate-fade-in-up">
         <div>
-          <h1 className="text-2xl font-bold text-surface-100">Faculty Dashboard</h1>
+          <h1 className="text-2xl font-extrabold text-surface-100 tracking-tight">Faculty Dashboard</h1>
           <p className="text-surface-400 text-sm mt-1">
             {user?.department || 'Computer Science'} Department · {myStudents.length} students
           </p>
@@ -96,13 +96,15 @@ export default function FacultyDashboard() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-surface-900/50 p-1 rounded-xl border border-surface-800/50 overflow-x-auto">
+      <div className="flex gap-1 bg-surface-900/40 p-1.5 rounded-xl border border-surface-800/30 overflow-x-auto animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${
-              activeTab === tab.id ? 'bg-primary-500/15 text-primary-400' : 'text-surface-400 hover:text-surface-200 hover:bg-surface-800/40'
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${
+              activeTab === tab.id
+                ? 'bg-primary-500/12 text-primary-400 shadow-sm shadow-primary-500/5'
+                : 'text-surface-400 hover:text-surface-200 hover:bg-surface-800/30'
             }`}
           >
             <tab.icon className="w-4 h-4" /> {tab.label}

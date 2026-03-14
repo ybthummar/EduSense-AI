@@ -20,10 +20,20 @@ function ProtectedRoute({ children, allowedRoles }) {
 
 function LoadingScreen() {
   return (
-    <div className="min-h-screen bg-surface-950 flex items-center justify-center">
-      <div className="flex flex-col items-center gap-4">
-        <div className="w-12 h-12 border-3 border-primary-500 border-t-transparent rounded-full animate-spin" />
-        <p className="text-surface-400 text-sm">Loading EduSense AI...</p>
+    <div className="min-h-screen bg-surface-950 flex items-center justify-center bg-gradient-mesh">
+      <div className="flex flex-col items-center gap-5 animate-fade-in-up">
+        <div className="relative">
+          <div className="w-14 h-14 border-[3px] border-primary-500/20 border-t-primary-500 rounded-full animate-spin" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
+              <span className="text-white font-bold text-xs">E</span>
+            </div>
+          </div>
+        </div>
+        <div className="text-center">
+          <p className="text-surface-300 text-sm font-medium">Loading EduSense AI</p>
+          <p className="text-surface-500 text-xs mt-1">Preparing your dashboard...</p>
+        </div>
       </div>
     </div>
   )

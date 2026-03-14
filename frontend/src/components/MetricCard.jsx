@@ -11,12 +11,21 @@ export default function MetricCard({ title, value, change, changeType = 'neutral
   }
 
   const iconBg = {
-    primary: 'bg-primary-500/15 text-primary-400',
-    accent: 'bg-accent-500/15 text-accent-400',
-    success: 'bg-green-500/15 text-green-400',
-    warning: 'bg-amber-500/15 text-amber-400',
-    danger: 'bg-red-500/15 text-red-400',
-    purple: 'bg-purple-500/15 text-purple-400',
+    primary: 'bg-primary-500/12 text-primary-400 ring-1 ring-primary-500/10',
+    accent: 'bg-accent-500/12 text-accent-400 ring-1 ring-accent-500/10',
+    success: 'bg-green-500/12 text-green-400 ring-1 ring-green-500/10',
+    warning: 'bg-amber-500/12 text-amber-400 ring-1 ring-amber-500/10',
+    danger: 'bg-red-500/12 text-red-400 ring-1 ring-red-500/10',
+    purple: 'bg-purple-500/12 text-purple-400 ring-1 ring-purple-500/10',
+  }
+
+  const glowColor = {
+    primary: 'group-hover:shadow-primary-500/5',
+    accent: 'group-hover:shadow-accent-500/5',
+    success: 'group-hover:shadow-green-500/5',
+    warning: 'group-hover:shadow-amber-500/5',
+    danger: 'group-hover:shadow-red-500/5',
+    purple: 'group-hover:shadow-purple-500/5',
   }
 
   const changeIcon = {
@@ -26,28 +35,28 @@ export default function MetricCard({ title, value, change, changeType = 'neutral
   }
 
   const changeColor = {
-    up: 'text-green-400 bg-green-500/10',
-    down: 'text-red-400 bg-red-500/10',
-    neutral: 'text-surface-400 bg-surface-700/30',
+    up: 'text-green-400 bg-green-500/8 ring-1 ring-green-500/10',
+    down: 'text-red-400 bg-red-500/8 ring-1 ring-red-500/10',
+    neutral: 'text-surface-400 bg-surface-700/20',
   }
 
   return (
-    <div className="glass-card glass-card-hover p-5 transition-all duration-300">
+    <div className={`group glass-card glass-card-hover p-5 transition-all duration-300 ${glowColor[color]} group-hover:shadow-lg`}>
       <div className="flex items-start justify-between mb-4">
-        <div className={`p-2.5 rounded-xl ${iconBg[color]}`}>
+        <div className={`p-2.5 rounded-xl ${iconBg[color]} transition-transform duration-300 group-hover:scale-105`}>
           {Icon && <Icon className="w-5 h-5" />}
         </div>
         {change !== undefined && (
-          <div className={`flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-medium ${changeColor[changeType]}`}>
+          <div className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold ${changeColor[changeType]}`}>
             {changeIcon[changeType]}
             <span>{change}</span>
           </div>
         )}
       </div>
       <div>
-        <p className="text-sm text-surface-400 mb-1">{title}</p>
-        <p className="text-2xl font-bold text-surface-100">{value}</p>
-        {subtitle && <p className="text-xs text-surface-500 mt-1">{subtitle}</p>}
+        <p className="text-[13px] text-surface-400 mb-1 font-medium">{title}</p>
+        <p className="text-2xl font-bold text-surface-100 tracking-tight">{value}</p>
+        {subtitle && <p className="text-xs text-surface-500 mt-1.5">{subtitle}</p>}
       </div>
     </div>
   )

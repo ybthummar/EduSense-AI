@@ -116,9 +116,9 @@ export default function StudentDashboard() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 animate-fade-in-up">
         <div>
-          <h1 className="text-2xl font-bold text-surface-100">
+          <h1 className="text-2xl font-extrabold text-surface-100 tracking-tight">
             Welcome back, <span className="gradient-text">{user?.name || 'Student'}</span>
           </h1>
           <p className="text-surface-400 text-sm mt-1">
@@ -131,13 +131,15 @@ export default function StudentDashboard() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-surface-900/50 p-1 rounded-xl border border-surface-800/50 overflow-x-auto">
+      <div className="flex gap-1 bg-surface-900/40 p-1.5 rounded-xl border border-surface-800/30 overflow-x-auto animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${
-              activeTab === tab.id ? 'bg-primary-500/15 text-primary-400' : 'text-surface-400 hover:text-surface-200 hover:bg-surface-800/40'
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${
+              activeTab === tab.id
+                ? 'bg-primary-500/12 text-primary-400 shadow-sm shadow-primary-500/5'
+                : 'text-surface-400 hover:text-surface-200 hover:bg-surface-800/30'
             }`}
           >
             <tab.icon className="w-4 h-4" /> {tab.label}
@@ -163,26 +165,28 @@ export default function StudentDashboard() {
           {/* AI Recommendations */}
           <div className="glass-card p-5">
             <div className="flex items-center gap-2 mb-4">
-              <Sparkles className="w-5 h-5 text-primary-400" />
+              <div className="p-1.5 rounded-lg bg-primary-500/10">
+                <Sparkles className="w-4 h-4 text-primary-400" />
+              </div>
               <h3 className="text-sm font-semibold text-surface-200">AI Study Recommendations</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {aiRecommendations.map((rec, i) => (
-                <div key={i} className={`flex items-start gap-3 p-4 rounded-xl border transition-all duration-200 hover:border-primary-500/30 ${
-                  rec.priority === 'high' ? 'bg-red-500/5 border-red-500/20' :
-                  rec.priority === 'medium' ? 'bg-amber-500/5 border-amber-500/20' :
-                  'bg-green-500/5 border-green-500/20'
+                <div key={i} className={`group flex items-start gap-3 p-4 rounded-xl border transition-all duration-200 hover:border-primary-500/20 cursor-pointer ${
+                  rec.priority === 'high' ? 'bg-red-500/[0.03] border-red-500/15' :
+                  rec.priority === 'medium' ? 'bg-amber-500/[0.03] border-amber-500/15' :
+                  'bg-green-500/[0.03] border-green-500/15'
                 }`}>
-                  <div className={`p-2 rounded-lg ${
-                    rec.priority === 'high' ? 'bg-red-500/15 text-red-400' :
-                    rec.priority === 'medium' ? 'bg-amber-500/15 text-amber-400' :
-                    'bg-green-500/15 text-green-400'
+                  <div className={`p-2 rounded-lg flex-shrink-0 transition-transform group-hover:scale-105 ${
+                    rec.priority === 'high' ? 'bg-red-500/12 text-red-400' :
+                    rec.priority === 'medium' ? 'bg-amber-500/12 text-amber-400' :
+                    'bg-green-500/12 text-green-400'
                   }`}>
                     <rec.icon className="w-4 h-4" />
                   </div>
                   <div>
                     <h4 className="text-sm font-medium text-surface-100">{rec.title}</h4>
-                    <p className="text-xs text-surface-400 mt-1">{rec.description}</p>
+                    <p className="text-xs text-surface-400 mt-1 leading-relaxed">{rec.description}</p>
                   </div>
                 </div>
               ))}
@@ -193,7 +197,9 @@ export default function StudentDashboard() {
           <div className="glass-card p-5">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <Play className="w-5 h-5 text-red-400" />
+                <div className="p-1.5 rounded-lg bg-red-500/10">
+                  <Play className="w-4 h-4 text-red-400" />
+                </div>
                 <h3 className="text-sm font-semibold text-surface-200">Recommended YouTube Videos</h3>
               </div>
             </div>
@@ -204,13 +210,13 @@ export default function StudentDashboard() {
                   href={video.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group p-4 bg-surface-800/30 rounded-xl border border-surface-700/30 hover:border-primary-500/30 hover:bg-surface-800/50 transition-all duration-200"
+                  className="group p-4 bg-surface-800/25 rounded-xl border border-surface-700/20 hover:border-primary-500/20 hover:bg-surface-800/50 transition-all duration-200"
                 >
-                  <div className="text-3xl mb-3">{video.thumbnail}</div>
+                  <div className="text-3xl mb-3 group-hover:scale-110 transition-transform inline-block">{video.thumbnail}</div>
                   <h4 className="text-sm font-medium text-surface-200 group-hover:text-primary-400 transition-colors line-clamp-2 mb-2">{video.title}</h4>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-surface-500">{video.channel}</span>
-                    <span className="text-xs text-surface-500">{video.duration}</span>
+                    <span className="text-[11px] text-surface-500">{video.channel}</span>
+                    <span className="text-[11px] text-surface-500 font-mono">{video.duration}</span>
                   </div>
                 </a>
               ))}
