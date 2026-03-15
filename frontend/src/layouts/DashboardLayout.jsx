@@ -1,6 +1,7 @@
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { notificationsAPI } from '../services/api';
 import {
   LayoutDashboard,
   Users,
@@ -44,6 +45,7 @@ const navByRole = {
   ],
   student: [
     { to: '/student', icon: LayoutDashboard, label: 'Dashboard', end: true },
+    { to: '/student/attendance', icon: BookOpen, label: 'My Attendance' },
     { to: '/student/quizzes', icon: Trophy, label: 'Quizzes' },
     { to: '/student/resources', icon: BookOpen, label: 'Resources' },
     { to: '/student/reviews', icon: Star, label: 'Student Reviews' },
@@ -65,9 +67,52 @@ export default function DashboardLayout() {
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const notifRef = useRef(null);
 
   const role = user?.role || 'student';
   const items = navByRole[role] || navByRole.student;
+  const studentId = user?.student_id || user?.id;
+
+  const loadNotifications = useCallback(async () => {
+    if (!studentId) return;
+    try {
+      const res = await notificationsAPI.get(studentId);
+      setNotifications(res.data?.notifications || []);
+      setUnreadCount(res.data?.unread_count || 0);
+    } catch {
+      // silently fail
+    }
+  }, [studentId]);
+
+  useEffect(() => {
+    loadNotifications();
+    const interval = setInterval(loadNotifications, 30000);
+    return () => clearInterval(interval);
+  }, [loadNotifications]);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handler = (e) => {
+      if (notifRef.current && !notifRef.current.contains(e.target)) {
+        setNotifOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  const handleMarkAllRead = async () => {
+    if (!studentId) return;
+    try {
+      await notificationsAPI.markAllRead(studentId);
+      loadNotifications();
+    } catch {
+      // silently fail
+    }
+  };
 
   const activeItem = useMemo(
     () =>
@@ -208,10 +253,53 @@ export default function DashboardLayout() {
                 <span className={["hidden rounded-full border px-2.5 py-1 text-xs font-medium capitalize md:inline-flex", rolePillStyles[role] || rolePillStyles.student].join(' ')}>
                   {role}
                 </span>
-                <button className="relative rounded-xl border border-slate-700/70 bg-slate-900/70 p-2 text-slate-300 transition-colors hover:border-cyan-400/50 hover:text-cyan-300">
-                  <Bell className="h-5 w-5" />
-                  <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-orange-400" />
-                </button>
+                <div className="relative" ref={notifRef}>
+                  <button
+                    onClick={() => setNotifOpen((v) => !v)}
+                    className="relative rounded-xl border border-slate-700/70 bg-slate-900/70 p-2 text-slate-300 transition-colors hover:border-cyan-400/50 hover:text-cyan-300"
+                  >
+                    <Bell className="h-5 w-5" />
+                    {unreadCount > 0 && (
+                      <span className="absolute -right-1 -top-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-orange-500 px-1 text-[10px] font-bold text-white">
+                        {unreadCount > 9 ? '9+' : unreadCount}
+                      </span>
+                    )}
+                  </button>
+                  {notifOpen && (
+                    <div className="absolute right-0 top-full mt-2 w-80 rounded-xl border border-slate-700/70 bg-slate-900 shadow-2xl z-50 overflow-hidden">
+                      <div className="flex items-center justify-between border-b border-slate-700/50 px-4 py-3">
+                        <p className="text-sm font-semibold text-slate-100">Notifications</p>
+                        {unreadCount > 0 && (
+                          <button onClick={handleMarkAllRead} className="text-xs text-cyan-400 hover:text-cyan-300">
+                            Mark all read
+                          </button>
+                        )}
+                      </div>
+                      <div className="max-h-72 overflow-y-auto">
+                        {notifications.length === 0 ? (
+                          <p className="px-4 py-6 text-center text-sm text-slate-500">No notifications</p>
+                        ) : (
+                          notifications.slice(0, 15).map((n) => (
+                            <div
+                              key={n.id}
+                              className={`border-b border-slate-800/50 px-4 py-3 transition-colors ${
+                                n.is_read ? 'opacity-60' : 'bg-slate-800/30'
+                              }`}
+                            >
+                              <p className="text-sm font-medium text-slate-200">{n.title}</p>
+                              <p className="text-xs text-slate-400 mt-0.5 line-clamp-2">{n.message}</p>
+                              {n.created_at && (
+                                <p className="text-[10px] text-slate-500 mt-1">
+                                  {new Date(n.created_at).toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                                </p>
+                              )}
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
                 <div className="glass-panel-soft flex items-center gap-2 rounded-xl border border-slate-700/70 px-2.5 py-1.5">
                   <Avatar name={user?.name || 'User'} size="sm" />
                   <div className="hidden leading-tight md:block">

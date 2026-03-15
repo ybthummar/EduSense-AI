@@ -16,6 +16,7 @@ import FacultyResourcesPage from './pages/FacultyResourcesPage';
 import WeeklyReportPage from './pages/WeeklyReportPage';
 import SuggestionBoxPage from './pages/SuggestionBoxPage';
 import FacultyCallMessagesPage from './pages/FacultyCallMessagesPage';
+import StudentAttendancePage from './pages/StudentAttendancePage';
 import ChatPage from './pages/ChatPage';
 import ChatAssistantPage from './pages/ChatAssistantPage';
 import FacultyQuizzesPage from './pages/FacultyQuizzesPage';
@@ -95,6 +96,7 @@ export default function App() {
         }
       >
         <Route path="/student" element={<StudentDashboard />} />
+        <Route path="/student/attendance" element={<StudentAttendancePage />} />
         <Route path="/student/quizzes" element={<QuizzesPage />} />
         <Route path="/student/resources" element={<StudentResourcesPage />} />
         <Route path="/student/reviews" element={<StudentReviewsPage />} />

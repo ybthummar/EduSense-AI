@@ -107,6 +107,13 @@ export const attendanceAPI = {
   getSummary: (params = {}) => api.get('/attendance/summary', { params }),
 };
 
+// Notifications
+export const notificationsAPI = {
+  get: (studentId) => api.get(`/notifications/${studentId}`),
+  markRead: (notificationId) => api.put(`/notifications/${notificationId}/read`),
+  markAllRead: (studentId) => api.put(`/notifications/${studentId}/read-all`),
+};
+
 // Dual-mode AI Chat Assistant (RAG + Gemini LLM)
 export const aiChatAPI = {
   query: (data) => api.post('/ai/chat/query', data),
