@@ -1,0 +1,72 @@
+Student_ID,Enrollment_Year,Department,Department_Code,First_Name,Last_Name,Gender,Date_of_Birth,Email,Phone_Number,City,State,Admission_Type,Current_Year,Semester,Status
+23AIML001,2023,Artificial Intelligence and Machine Learning,AIML,Ishita,Soni,Female,10/07/06,23AIML001@charusat.edu.in,7383242583,Anand,Gujarat,Regular,4,7,Active
+23AIML002,2023,Artificial Intelligence and Machine Learning,AIML,Nirav,Patel,Male,03/06/06,23AIML002@charusat.edu.in,9313817756,Indore,Madhya Pradesh,Lateral Entry,4,8,Active
+23AIML003,2023,Artificial Intelligence and Machine Learning,AIML,Riya,Mehta,Female,06/03/05,23AIML003@charusat.edu.in,7622074467,Rajkot,Gujarat,Lateral Entry,4,7,Active
+24AIML001,2024,Artificial Intelligence and Machine Learning,AIML,Meet,Iyer,Male,14/02/04,24AIML001@charusat.edu.in,7383242583,Petlad,Gujarat,Regular,3,6,Active
+24AIML002,2024,Artificial Intelligence and Machine Learning,AIML,Khushi,Shah,Female,29/06/06,24AIML002@charusat.edu.in,9313817756,Bengaluru,Karnataka,Regular,3,6,Active
+24AIML003,2024,Artificial Intelligence and Machine Learning,AIML,Ayaan,Yadav,Male,16/09/04,24AIML003@charusat.edu.in,7622074467,Ahmedabad,Gujarat,Regular,3,5,Active
+25AIML001,2025,Artificial Intelligence and Machine Learning,AIML,Shruti,Joshi,Female,24/12/07,25AIML001@charusat.edu.in,7383242583,Rajkot,Gujarat,Regular,2,4,Active
+25AIML002,2025,Artificial Intelligence and Machine Learning,AIML,Meet,Makwana,Male,29/01/05,25AIML002@charusat.edu.in,9313817756,Jaipur,Rajasthan,Regular,2,4,Active
+25AIML003,2025,Artificial Intelligence and Machine Learning,AIML,Rohan,Desai,Male,14/04/05,25AIML003@charusat.edu.in,7622074467,Bhopal,Madhya Pradesh,Regular,2,3,Active
+25AIML004,2025,Artificial Intelligence and Machine Learning,AIML,Dhruv,Gohil,Male,22/07/06,25AIML004@charusat.edu.in,7383242583,Surat,Gujarat,Regular,2,3,Active
+23CV001,2023,Civil Engineering,CV,Aditya,Jain,Male,01/05/05,23CV001@charusat.edu.in,9313817756,Mumbai,Maharashtra,Regular,4,8,Active
+23CV002,2023,Civil Engineering,CV,Sneha,Gohil,Female,07/01/06,23CV002@charusat.edu.in,7622074467,Mumbai,Maharashtra,Lateral Entry,4,8,Active
+23CV003,2023,Civil Engineering,CV,Parth,Reddy,Male,02/11/05,23CV003@charusat.edu.in,7383242583,Mumbai,Maharashtra,Regular,4,7,Active
+24CV001,2024,Civil Engineering,CV,Ishita,Rathod,Female,25/04/05,-24CV001@charusat.edu.in,9313817756,Pune,Maharashtra,Regular,3,6,Active
+24CV002,2024,Civil Engineering,CV,Aarav,Solanki,Male,03/05/05,24CV002@charusat.edu.in,7622074467,Rajkot,Gujarat,Regular,3,5,Active
+24CV003,2024,Civil Engineering,CV,Arjun,Chauhan,Male,25/03/07,24CV003@charusat.edu.in,7383242583,Vadodara,Gujarat,Regular,3,6,Active
+25CV001,2025,Civil Engineering,CV,Rohan,Trivedi,Male,27/04/08,25CV001@charusat.edu.in,9313817756,Indore,Madhya Pradesh,Regular,2,4,Active
+25CV002,2025,Civil Engineering,CV,Rohan,Yadav,Male,24/07/06,25CV002@charusat.edu.in,7622074467,Petlad,Gujarat,Regular,2,4,Active
+25CV003,2025,Civil Engineering,CV,Manav,Soni,Male,11/08/07,25CV003@charusat.edu.in,7383242583,Anand,Gujarat,Regular,2,4,Active
+25CV004,2025,Civil Engineering,CV,Pooja,Patel,Female,26/09/07,25CV004@charusat.edu.in,9313817756,Pune,Maharashtra,Lateral Entry,2,3,Active
+23CE001,2023,Computer Engineering,CE,Meet,Desai,Male,28/03/06,23CE001@charusat.edu.in,7622074467,Jaipur,Rajasthan,Regular,4,8,Active
+23CE002,2023,Computer Engineering,CE,Kavya,Reddy,Female,11/05/06,23CE002@charusat.edu.in,7383242583,Mysuru,Karnataka,Lateral Entry,4,7,Active
+23CE003,2023,Computer Engineering,CE,Aditya,Dubey,Male,20/09/03,23CE003@charusat.edu.in,9313817756,Pune,Maharashtra,Regular,4,7,Active
+24CE001,2024,Computer Engineering,CE,Khushi,Trivedi,Female,28/07/04,24CE001@charusat.edu.in,7622074467,Rajkot,Gujarat,Lateral Entry,3,6,Active
+24CE002,2024,Computer Engineering,CE,Dhruv,Gohil,Male,08/10/05,24CE002@charusat.edu.in,7383242583,Mysuru,Karnataka,Regular,3,5,Active
+24CE003,2024,Computer Engineering,CE,Pooja,Mehta,Female,07/01/04,24CE003@charusat.edu.in,9313817756,Anand,Gujarat,Regular,3,6,Active
+25CE001,2025,Computer Engineering,CE,Diya,Patel,Female,24/02/08,25CE001@charusat.edu.in,7622074467,Vadodara,Gujarat,Regular,2,3,Active
+25CE002,2025,Computer Engineering,CE,Nidhi,Joshi,Female,08/12/08,25CE002@charusat.edu.in,7383242583,Petlad,Gujarat,Regular,2,4,Active
+25CE003,2025,Computer Engineering,CE,Yash,Trivedi,Male,12/04/08,25CE003@charusat.edu.in,9313817756,Rajkot,Gujarat,Regular,2,4,Active
+25CE004,2025,Computer Engineering,CE,Ishaan,Soni,Male,06/05/08,25CE004@charusat.edu.in,7622074467,Surat,Gujarat,Regular,2,4,Active
+23EE001,2023,Electrical Engineering,EE,Aditi,Makwana,Female,08/04/05,23EE001@charusat.edu.in,7383242583,Ahmedabad,Gujarat,Regular,4,7,Active
+23EE002,2023,Electrical Engineering,EE,Riya,Parmar,Female,11/09/04,23EE002@charusat.edu.in,9313817756,Anand,Gujarat,Regular,4,7,Active
+23EE003,2023,Electrical Engineering,EE,Vaishnavi,Rathod,Female,14/06/03,23EE003@charusat.edu.in,7622074467,Jaipur,Rajasthan,Regular,4,8,Active
+24EE001,2024,Electrical Engineering,EE,Nidhi,Mishra,Female,17/04/05,24EE001@charusat.edu.in,7383242583,Pune,Maharashtra,Regular,3,6,Active
+24EE002,2024,Electrical Engineering,EE,Arjun,Patel,Male,19/08/05,24EE002@charusat.edu.in,9313817756,Mumbai,Maharashtra,Regular,3,6,Active
+24EE003,2024,Electrical Engineering,EE,Yash,Iyer,Male,21/08/06,24EE003@charusat.edu.in,7622074467,Ahmedabad,Gujarat,Regular,3,5,Active
+25EE001,2025,Electrical Engineering,EE,Aarav,Iyer,Male,29/11/06,25EE001@charusat.edu.in,7383242583,Anand,Gujarat,Regular,2,4,Active
+25EE002,2025,Electrical Engineering,EE,Ishaan,Trivedi,Male,24/06/05,25EE002@charusat.edu.in,9313817756,Mysuru,Karnataka,Regular,2,4,Active
+25EE003,2025,Electrical Engineering,EE,Aditi,Chauhan,Female,18/09/06,25EE003@charusat.edu.in,7622074467,Udaipur,Rajasthan,Regular,2,4,Active
+25EE004,2025,Electrical Engineering,EE,Riya,Reddy,Female,19/10/05,25EE004@charusat.edu.in,7383242583,Rajkot,Gujarat,Regular,2,4,Active
+23EC001,2023,Electronics and Communication Engineering,EC,Vaishnavi,Gohil,Female,06/10/04,23EC001@charusat.edu.in,9313817756,Jaipur,Rajasthan,Regular,4,7,Active
+23EC002,2023,Electronics and Communication Engineering,EC,Ananya,Prajapati,Female,04/02/06,23EC002@charusat.edu.in,7622074467,Jaipur,Rajasthan,Regular,4,8,Active
+23EC003,2023,Electronics and Communication Engineering,EC,Tanvi,Shah,Female,10/04/04,23EC003@charusat.edu.in,7383242583,Indore,Madhya Pradesh,Regular,4,8,Active
+24EC001,2024,Electronics and Communication Engineering,EC,Arjun,Chauhan,Male,09/07/04,24EC001@charusat.edu.in,9313817756,Jaipur,Rajasthan,Regular,3,6,Active
+24EC002,2024,Electronics and Communication Engineering,EC,Riddhi,Solanki,Female,25/01/05,24EC002@charusat.edu.in,7622074467,Pune,Maharashtra,Regular,3,6,Active
+24EC003,2024,Electronics and Communication Engineering,EC,Myra,Trivedi,Female,30/07/06,24EC003@charusat.edu.in,7383242583,Rajkot,Gujarat,Regular,3,6,Active
+25EC001,2025,Electronics and Communication Engineering,EC,Manav,Sharma,Male,16/04/05,25EC001@charusat.edu.in,9313817756,Indore,Madhya Pradesh,Regular,2,4,Active
+25EC002,2025,Electronics and Communication Engineering,EC,Riddhi,Mishra,Female,21/09/08,25EC002@charusat.edu.in,7622074467,Nashik,Maharashtra,Regular,2,4,Active
+25EC003,2025,Electronics and Communication Engineering,EC,Aanya,Dubey,Female,03/06/05,25EC003@charusat.edu.in,7383242583,Surat,Gujarat,Regular,2,3,Active
+25EC004,2025,Electronics and Communication Engineering,EC,Harsh,Sharma,Male,24/12/07,25EC004@charusat.edu.in,9313817756,Petlad,Gujarat,Regular,2,3,Active
+23IT001,2023,Information Technology,IT,Dhruv,Patel,Male,15/01/03,23IT001@charusat.edu.in,7622074467,Indore,Madhya Pradesh,Regular,4,7,Active
+23IT002,2023,Information Technology,IT,Mahi,Reddy,Female,12/05/04,23IT002@charusat.edu.in,7383242583,Surat,Gujarat,Regular,4,8,Active
+23IT003,2023,Information Technology,IT,Rohan,Makwana,Male,14/04/03,23IT003@charusat.edu.in,9313817756,Udaipur,Rajasthan,Lateral Entry,4,7,Active
+24IT001,2024,Information Technology,IT,Tushar,Desai,Male,18/06/05,24IT001@charusat.edu.in,7622074467,Mumbai,Maharashtra,Regular,3,6,Active
+24IT002,2024,Information Technology,IT,Rohan,Kumar,Male,06/01/07,24IT002@charusat.edu.in,7383242583,Indore,Madhya Pradesh,Lateral Entry,3,5,Active
+24IT003,2024,Information Technology,IT,Dhruv,Parmar,Male,01/11/06,24IT003@charusat.edu.in,9313817756,Bhopal,Madhya Pradesh,Regular,3,6,Active
+25IT001,2025,Information Technology,IT,Krish,Shah,Male,25/05/06,25IT001@charusat.edu.in,7622074467,Mumbai,Maharashtra,Regular,2,3,Active
+25IT002,2025,Information Technology,IT,Meet,Patel,Male,08/08/06,25IT002@charusat.edu.in,7383242583,Mumbai,Maharashtra,Regular,2,4,Active
+25IT003,2025,Information Technology,IT,Dhruv,Shah,Male,27/04/05,25IT003@charusat.edu.in,9313817756,Ahmedabad,Gujarat,Regular,2,3,Active
+25IT004,2025,Information Technology,IT,Tanvi,Mishra,Female,29/09/08,25IT004@charusat.edu.in,7622074467,Anand,Gujarat,Regular,2,3,Active
+23ME001,2023,Mechanical Engineering,ME,Om,Shah,Male,30/05/05,23ME001@charusat.edu.in,7383242583,Udaipur,Rajasthan,Regular,4,7,Active
+23ME002,2023,Mechanical Engineering,ME,Heena,Gupta,Female,26/02/03,23ME002@charusat.edu.in,9313817756,Bhopal,Madhya Pradesh,Lateral Entry,4,8,Active
+23ME003,2023,Mechanical Engineering,ME,Rohan,Jain,Male,27/11/06,23ME003@charusat.edu.in,7622074467,Nashik,Maharashtra,Regular,4,7,Active
+24ME001,2024,Mechanical Engineering,ME,Shruti,Kumar,Female,05/06/05,24ME001@charusat.edu.in,7383242583,Jaipur,Rajasthan,Regular,3,5,Active
+24ME002,2024,Mechanical Engineering,ME,Riya,Dubey,Female,27/09/07,24ME002@charusat.edu.in,9313817756,Nashik,Maharashtra,Regular,3,6,Active
+24ME003,2024,Mechanical Engineering,ME,Diya,Reddy,Female,23/07/06,24ME003@charusat.edu.in,7622074467,Rajkot,Gujarat,Lateral Entry,3,5,Active
+25ME001,2025,Mechanical Engineering,ME,Sakshi,Dubey,Female,29/11/05,25ME001@charusat.edu.in,7383242583,Surat,Gujarat,Lateral Entry,2,3,Active
+25ME002,2025,Mechanical Engineering,ME,Diya,Patidar,Female,18/12/06,25ME002@charusat.edu.in,9313817756,Rajkot,Gujarat,Regular,2,4,Active
+25ME003,2025,Mechanical Engineering,ME,Vaishnavi,Reddy,Female,07/03/06,25ME003@charusat.edu.in,7622074467,Udaipur,Rajasthan,Regular,2,4,Active
+25ME004,2025,Mechanical Engineering,ME,Aditya,Chauhan,Male,11/07/05,25ME004@charusat.edu.in,7383242583,Jaipur,Rajasthan,Regular,2,4,Active
+23CE011,2023,Computer Engineering,CE,Meet,Desai,Male,20/03/06,23CE011@charusat.edu.in,7622074467,Jaipur,Rajasthan,Regular,4,8,Active

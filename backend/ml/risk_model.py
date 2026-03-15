@@ -4,8 +4,9 @@ from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 import joblib
 import os
+from pathlib import Path
 
-MODEL_PATH = "ml/saved_models/risk_xgb.pkl"
+MODEL_PATH = str(Path(__file__).parent / "saved_models" / "risk_xgb.pkl")
 
 def train_academic_risk_model(df: pd.DataFrame):
     """

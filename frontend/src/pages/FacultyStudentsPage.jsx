@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Users, Phone, Mail, MapPin, ChevronDown, ChevronUp, Search, Filter, X, ExternalLink } from 'lucide-react';
+import { Users, Phone, Mail, MapPin, ChevronDown, ChevronUp, Search, Filter, X, ExternalLink, Pencil, Loader2, CheckCircle } from 'lucide-react';
 import Card, { CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
-import { facultyAPI } from '../services/api';
+import { facultyAPI, pipelineAPI } from '../services/api';
 
 export default function FacultyStudentsPage() {
+  // Helper: API returns "id" field, template was written for "student_id"
+  const sid = (s) => s?.id || s?.student_id || '';
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -15,6 +17,14 @@ export default function FacultyStudentsPage() {
   const [expandedStudent, setExpandedStudent] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
+  // Edit state
+  const [editStudent, setEditStudent] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editForm, setEditForm] = useState({});
+  const [editSaving, setEditSaving] = useState(false);
+  const [pipelineLog, setPipelineLog] = useState([]);
+  const [editSuccess, setEditSuccess] = useState(false);
 
   useEffect(() => {
     loadStudents();
@@ -35,7 +45,7 @@ export default function FacultyStudentsPage() {
 
   const filteredStudents = students.filter(student => {
     const matchesSearch = searchTerm === '' ||
-      student.student_id?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      sid(student)?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       student.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       student.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       student.email?.toLowerCase().includes(searchTerm.toLowerCase());
@@ -54,6 +64,76 @@ export default function FacultyStudentsPage() {
 
   const toggleExpand = (studentId) => {
     setExpandedStudent(expandedStudent === studentId ? null : studentId);
+  };
+
+  const handleOpenEdit = (student) => {
+    setEditStudent(student);
+    setEditForm({
+      first_name: student.first_name || '',
+      last_name: student.last_name || '',
+      email: student.email || '',
+      phone_number: student.phone_number || '',
+      city: student.city || '',
+      state: student.state || '',
+    });
+    setPipelineLog([]);
+    setEditSuccess(false);
+    setShowEditModal(true);
+  };
+
+  const handleEditChange = (field, value) => {
+    setEditForm(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleSaveEdit = async () => {
+    if (!editStudent) return;
+    setEditSaving(true);
+    setPipelineLog([]);
+    setEditSuccess(false);
+    try {
+      // Build the updates (only send changed fields, use original column names)
+      const columnMap = {
+        first_name: 'First_Name',
+        last_name: 'Last_Name',
+        email: 'Email',
+        phone_number: 'Phone_Number',
+        city: 'City',
+        state: 'State',
+      };
+      const updates = {};
+      for (const [field, rawCol] of Object.entries(columnMap)) {
+        if (editForm[field] !== (editStudent[field] || '')) {
+          updates[rawCol] = editForm[field];
+        }
+      }
+      if (Object.keys(updates).length === 0) {
+        setPipelineLog(['No changes detected.']);
+        setEditSaving(false);
+        return;
+      }
+
+      const res = await pipelineAPI.editRecord({
+        table: 'student_master',
+        key_column: 'Student_ID',
+        key_value: editStudent.id || editStudent.student_id,
+        updates,
+      });
+
+      setPipelineLog(res.data.pipeline_log || []);
+      setEditSuccess(true);
+
+      // Reload the students list with fresh gold data
+      setTimeout(async () => {
+        await loadStudents();
+        setShowEditModal(false);
+        setEditStudent(null);
+      }, 2000);
+    } catch (err) {
+      console.error('Edit failed:', err);
+      setPipelineLog([`Error: ${err.response?.data?.detail || err.message}`]);
+    } finally {
+      setEditSaving(false);
+    }
   };
 
   if (loading) {
@@ -128,23 +208,24 @@ export default function FacultyStudentsPage() {
                 <th className="px-4 py-3 text-left font-medium text-slate-300">Phone</th>
                 <th className="px-4 py-3 text-center font-medium text-slate-300">Call</th>
                 <th className="px-4 py-3 text-center font-medium text-slate-300">Details</th>
+                <th className="px-4 py-3 text-center font-medium text-slate-300">Edit</th>
               </tr>
             </thead>
             <tbody>
               {filteredStudents.length === 0 ? (
                 <tr>
-                  <td colSpan={10} className="px-4 py-8 text-center text-slate-400">
+                  <td colSpan={11} className="px-4 py-8 text-center text-slate-400">
                     No students found matching your criteria
                   </td>
                 </tr>
               ) : (
                 filteredStudents.map((student) => (
-                  <React.Fragment key={student.student_id}>
+                  <React.Fragment key={sid(student)}>
                     <tr
                       className="border-b border-slate-700/50 hover:bg-slate-800/30 transition-colors cursor-pointer"
-                      onClick={() => toggleExpand(student.student_id)}
+                      onClick={() => toggleExpand(sid(student))}
                     >
-                      <td className="px-4 py-3 font-mono text-cyan-400 font-medium">{student.student_id}</td>
+                      <td className="px-4 py-3 font-mono text-cyan-400 font-medium">{sid(student)}</td>
                       <td className="px-4 py-3 text-slate-200">{student.current_year || '-'}</td>
                       <td className="px-4 py-3 text-slate-200 max-w-[150px] truncate" title={student.department}>
                         {student.department || '-'}
@@ -171,16 +252,24 @@ export default function FacultyStudentsPage() {
                       </td>
                       <td className="px-4 py-3 text-center">
                         <button
-                          onClick={(e) => { e.stopPropagation(); toggleExpand(student.student_id); }}
+                          onClick={(e) => { e.stopPropagation(); toggleExpand(sid(student)); }}
                           className="inline-flex items-center gap-1 rounded-lg bg-cyan-500/20 px-3 py-1.5 text-xs font-medium text-cyan-400 hover:bg-cyan-500/30 transition-colors"
                         >
-                          More {expandedStudent === student.student_id ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+                          More {expandedStudent === sid(student) ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+                        </button>
+                      </td>
+                      <td className="px-4 py-3 text-center" onClick={(e) => e.stopPropagation()}>
+                        <button
+                          onClick={() => handleOpenEdit(student)}
+                          className="inline-flex items-center gap-1 rounded-lg bg-amber-500/20 px-3 py-1.5 text-xs font-medium text-amber-400 hover:bg-amber-500/30 transition-colors"
+                        >
+                          <Pencil className="h-3 w-3" /> Edit
                         </button>
                       </td>
                     </tr>
-                    {expandedStudent === student.student_id && (
+                    {expandedStudent === sid(student) && (
                       <tr className="bg-slate-800/80 border-b border-slate-700/50">
-                        <td colSpan={10} className="p-0">
+                        <td colSpan={11} className="p-0">
                           <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 animate-in slide-in-from-top-2 duration-200">
                             <div className="space-y-3">
                               <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">Personal Info</h4>
@@ -201,7 +290,7 @@ export default function FacultyStudentsPage() {
                                 {(student.first_name || 'S').charAt(0).toUpperCase()}
                                </div>
                                <h3 className="text-lg font-bold text-slate-100">{student.first_name} {student.last_name}</h3>
-                               <p className="text-cyan-400 font-mono text-sm mb-4">{student.student_id}</p>
+                               <p className="text-cyan-400 font-mono text-sm mb-4">{sid(student)}</p>
                                {student.phone_number && (
                                 <Button variant="success" className="w-full" onClick={() => handleCall(student.phone_number)}>
                                   <Phone className="h-4 w-4 mr-2" /> Call Student
@@ -238,7 +327,7 @@ export default function FacultyStudentsPage() {
                 <h3 className="text-xl font-bold text-slate-100">
                   {selectedStudent.first_name} {selectedStudent.last_name}
                 </h3>
-                <p className="text-cyan-400 font-mono">{selectedStudent.student_id}</p>
+                <p className="text-cyan-400 font-mono">{sid(selectedStudent)}</p>
               </div>
             </div>
 
@@ -288,6 +377,110 @@ export default function FacultyStudentsPage() {
                 </Button>
               )}
               <Button variant="ghost" onClick={() => setShowModal(false)}>Close</Button>
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {/* Edit Student Modal — Pipeline Flow */}
+      {showEditModal && editStudent && (
+        <Modal
+          isOpen={showEditModal}
+          onClose={() => { if (!editSaving) { setShowEditModal(false); setEditStudent(null); } }}
+          title="Edit Student Record"
+          size="lg"
+        >
+          <div className="space-y-5">
+            {/* Student Header */}
+            <div className="flex items-center gap-3 pb-3 border-b border-slate-700">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-orange-600 text-xl font-bold text-white">
+                {(editStudent.first_name || 'S').charAt(0).toUpperCase()}
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-slate-100">{editStudent.first_name} {editStudent.last_name}</h3>
+                <p className="text-amber-400 font-mono text-sm">{sid(editStudent)}</p>
+              </div>
+            </div>
+
+            {/* Pipeline Info Banner */}
+            <div className="rounded-lg bg-slate-800/80 border border-slate-600/50 p-3">
+              <p className="text-xs text-slate-400">
+                Changes flow through the <span className="text-cyan-400 font-semibold">Medallion Pipeline</span>:
+                <span className="text-amber-300"> Raw</span> →
+                <span className="text-orange-300"> Bronze</span> →
+                <span className="text-slate-300"> Silver</span> →
+                <span className="text-yellow-300"> Gold</span>
+              </p>
+            </div>
+
+            {/* Edit Form */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { key: 'first_name', label: 'First Name' },
+                { key: 'last_name', label: 'Last Name' },
+                { key: 'email', label: 'Email' },
+                { key: 'phone_number', label: 'Phone Number' },
+                { key: 'city', label: 'City' },
+                { key: 'state', label: 'State' },
+              ].map(({ key, label }) => (
+                <div key={key}>
+                  <label className="block text-xs font-medium text-slate-400 mb-1">{label}</label>
+                  <input
+                    type="text"
+                    value={editForm[key] || ''}
+                    onChange={(e) => handleEditChange(key, e.target.value)}
+                    disabled={editSaving || editSuccess}
+                    className="w-full rounded-lg border border-slate-600/70 bg-slate-800/50 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:border-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-400/25 disabled:opacity-50"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Pipeline Log */}
+            {pipelineLog.length > 0 && (
+              <div className="rounded-lg bg-slate-900/80 border border-slate-700 p-4 space-y-1.5">
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Pipeline Log</p>
+                {pipelineLog.map((line, i) => (
+                  <div key={i} className="flex items-start gap-2 text-sm">
+                    {editSuccess ? (
+                      <CheckCircle className="h-4 w-4 text-green-400 mt-0.5 flex-shrink-0" />
+                    ) : (
+                      <span className="text-amber-400 mt-0.5 flex-shrink-0">›</span>
+                    )}
+                    <span className={editSuccess ? 'text-green-300' : 'text-slate-300'}>{line}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Actions */}
+            <div className="flex justify-end gap-3 pt-3 border-t border-slate-700">
+              <Button
+                variant="ghost"
+                onClick={() => { setShowEditModal(false); setEditStudent(null); }}
+                disabled={editSaving}
+              >
+                Cancel
+              </Button>
+              <button
+                onClick={handleSaveEdit}
+                disabled={editSaving || editSuccess}
+                className="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white hover:bg-amber-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {editSaving ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" /> Running Pipeline...
+                  </>
+                ) : editSuccess ? (
+                  <>
+                    <CheckCircle className="h-4 w-4" /> Saved
+                  </>
+                ) : (
+                  <>
+                    <Pencil className="h-4 w-4" /> Save & Run Pipeline
+                  </>
+                )}
+              </button>
             </div>
           </div>
         </Modal>

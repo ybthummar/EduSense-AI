@@ -1,0 +1,72 @@
+student_id,first_name,last_name,gender,city,state,department,department_code,admission_type,enrollment_year,current_year,status
+23AIML001,Ishita,Soni,Female,Anand,Gujarat,Artificial Intelligence and Machine Learning,AIML,Regular,2023,4,Active
+23AIML002,Nirav,Patel,Male,Indore,Madhya Pradesh,Artificial Intelligence and Machine Learning,AIML,Lateral Entry,2023,4,Active
+23AIML003,Riya,Mehta,Female,Rajkot,Gujarat,Artificial Intelligence and Machine Learning,AIML,Lateral Entry,2023,4,Active
+24AIML001,Meet,Iyer,Male,Petlad,Gujarat,Artificial Intelligence and Machine Learning,AIML,Regular,2024,3,Active
+24AIML002,Khushi,Shah,Female,Bengaluru,Karnataka,Artificial Intelligence and Machine Learning,AIML,Regular,2024,3,Active
+24AIML003,Ayaan,Yadav,Male,Ahmedabad,Gujarat,Artificial Intelligence and Machine Learning,AIML,Regular,2024,3,Active
+25AIML001,Shruti,Joshi,Female,Rajkot,Gujarat,Artificial Intelligence and Machine Learning,AIML,Regular,2025,2,Active
+25AIML002,Meet,Makwana,Male,Jaipur,Rajasthan,Artificial Intelligence and Machine Learning,AIML,Regular,2025,2,Active
+25AIML003,Rohan,Desai,Male,Bhopal,Madhya Pradesh,Artificial Intelligence and Machine Learning,AIML,Regular,2025,2,Active
+25AIML004,Dhruv,Gohil,Male,Surat,Gujarat,Artificial Intelligence and Machine Learning,AIML,Regular,2025,2,Active
+23CV001,Aditya,Jain,Male,Mumbai,Maharashtra,Civil Engineering,CV,Regular,2023,4,Active
+23CV002,Sneha,Gohil,Female,Mumbai,Maharashtra,Civil Engineering,CV,Lateral Entry,2023,4,Active
+23CV003,Parth,Reddy,Male,Mumbai,Maharashtra,Civil Engineering,CV,Regular,2023,4,Active
+24CV001,Ishita,Rathod,Female,Pune,Maharashtra,Civil Engineering,CV,Regular,2024,3,Active
+24CV002,Aarav,Solanki,Male,Rajkot,Gujarat,Civil Engineering,CV,Regular,2024,3,Active
+24CV003,Arjun,Chauhan,Male,Vadodara,Gujarat,Civil Engineering,CV,Regular,2024,3,Active
+25CV001,Rohan,Trivedi,Male,Indore,Madhya Pradesh,Civil Engineering,CV,Regular,2025,2,Active
+25CV002,Rohan,Yadav,Male,Petlad,Gujarat,Civil Engineering,CV,Regular,2025,2,Active
+25CV003,Manav,Soni,Male,Anand,Gujarat,Civil Engineering,CV,Regular,2025,2,Active
+25CV004,Pooja,Patel,Female,Pune,Maharashtra,Civil Engineering,CV,Lateral Entry,2025,2,Active
+23CE001,Meet,Desai,Male,Jaipur,Rajasthan,Computer Engineering,CE,Regular,2023,4,Active
+23CE002,Kavya,Reddy,Female,Mysuru,Karnataka,Computer Engineering,CE,Lateral Entry,2023,4,Active
+23CE003,Aditya,Dubey,Male,Pune,Maharashtra,Computer Engineering,CE,Regular,2023,4,Active
+24CE001,Khushi,Trivedi,Female,Rajkot,Gujarat,Computer Engineering,CE,Lateral Entry,2024,3,Active
+24CE002,Dhruv,Gohil,Male,Mysuru,Karnataka,Computer Engineering,CE,Regular,2024,3,Active
+24CE003,Pooja,Mehta,Female,Anand,Gujarat,Computer Engineering,CE,Regular,2024,3,Active
+25CE001,Diya,Patel,Female,Vadodara,Gujarat,Computer Engineering,CE,Regular,2025,2,Active
+25CE002,Nidhi,Joshi,Female,Petlad,Gujarat,Computer Engineering,CE,Regular,2025,2,Active
+25CE003,Yash,Trivedi,Male,Rajkot,Gujarat,Computer Engineering,CE,Regular,2025,2,Active
+25CE004,Ishaan,Soni,Male,Surat,Gujarat,Computer Engineering,CE,Regular,2025,2,Active
+23EE001,Aditi,Makwana,Female,Ahmedabad,Gujarat,Electrical Engineering,EE,Regular,2023,4,Active
+23EE002,Riya,Parmar,Female,Anand,Gujarat,Electrical Engineering,EE,Regular,2023,4,Active
+23EE003,Vaishnavi,Rathod,Female,Jaipur,Rajasthan,Electrical Engineering,EE,Regular,2023,4,Active
+24EE001,Nidhi,Mishra,Female,Pune,Maharashtra,Electrical Engineering,EE,Regular,2024,3,Active
+24EE002,Arjun,Patel,Male,Mumbai,Maharashtra,Electrical Engineering,EE,Regular,2024,3,Active
+24EE003,Yash,Iyer,Male,Ahmedabad,Gujarat,Electrical Engineering,EE,Regular,2024,3,Active
+25EE001,Aarav,Iyer,Male,Anand,Gujarat,Electrical Engineering,EE,Regular,2025,2,Active
+25EE002,Ishaan,Trivedi,Male,Mysuru,Karnataka,Electrical Engineering,EE,Regular,2025,2,Active
+25EE003,Aditi,Chauhan,Female,Udaipur,Rajasthan,Electrical Engineering,EE,Regular,2025,2,Active
+25EE004,Riya,Reddy,Female,Rajkot,Gujarat,Electrical Engineering,EE,Regular,2025,2,Active
+23EC001,Vaishnavi,Gohil,Female,Jaipur,Rajasthan,Electronics and Communication Engineering,EC,Regular,2023,4,Active
+23EC002,Ananya,Prajapati,Female,Jaipur,Rajasthan,Electronics and Communication Engineering,EC,Regular,2023,4,Active
+23EC003,Tanvi,Shah,Female,Indore,Madhya Pradesh,Electronics and Communication Engineering,EC,Regular,2023,4,Active
+24EC001,Arjun,Chauhan,Male,Jaipur,Rajasthan,Electronics and Communication Engineering,EC,Regular,2024,3,Active
+24EC002,Riddhi,Solanki,Female,Pune,Maharashtra,Electronics and Communication Engineering,EC,Regular,2024,3,Active
+24EC003,Myra,Trivedi,Female,Rajkot,Gujarat,Electronics and Communication Engineering,EC,Regular,2024,3,Active
+25EC001,Manav,Sharma,Male,Indore,Madhya Pradesh,Electronics and Communication Engineering,EC,Regular,2025,2,Active
+25EC002,Riddhi,Mishra,Female,Nashik,Maharashtra,Electronics and Communication Engineering,EC,Regular,2025,2,Active
+25EC003,Aanya,Dubey,Female,Surat,Gujarat,Electronics and Communication Engineering,EC,Regular,2025,2,Active
+25EC004,Harsh,Sharma,Male,Petlad,Gujarat,Electronics and Communication Engineering,EC,Regular,2025,2,Active
+23IT001,Dhruv,Patel,Male,Indore,Madhya Pradesh,Information Technology,IT,Regular,2023,4,Active
+23IT002,Mahi,Reddy,Female,Surat,Gujarat,Information Technology,IT,Regular,2023,4,Active
+23IT003,Rohan,Makwana,Male,Udaipur,Rajasthan,Information Technology,IT,Lateral Entry,2023,4,Active
+24IT001,Tushar,Desai,Male,Mumbai,Maharashtra,Information Technology,IT,Regular,2024,3,Active
+24IT002,Rohan,Kumar,Male,Indore,Madhya Pradesh,Information Technology,IT,Lateral Entry,2024,3,Active
+24IT003,Dhruv,Parmar,Male,Bhopal,Madhya Pradesh,Information Technology,IT,Regular,2024,3,Active
+25IT001,Krish,Shah,Male,Mumbai,Maharashtra,Information Technology,IT,Regular,2025,2,Active
+25IT002,Meet,Patel,Male,Mumbai,Maharashtra,Information Technology,IT,Regular,2025,2,Active
+25IT003,Dhruv,Shah,Male,Ahmedabad,Gujarat,Information Technology,IT,Regular,2025,2,Active
+25IT004,Tanvi,Mishra,Female,Anand,Gujarat,Information Technology,IT,Regular,2025,2,Active
+23ME001,Om,Shah,Male,Udaipur,Rajasthan,Mechanical Engineering,ME,Regular,2023,4,Active
+23ME002,Heena,Gupta,Female,Bhopal,Madhya Pradesh,Mechanical Engineering,ME,Lateral Entry,2023,4,Active
+23ME003,Rohan,Jain,Male,Nashik,Maharashtra,Mechanical Engineering,ME,Regular,2023,4,Active
+24ME001,Shruti,Kumar,Female,Jaipur,Rajasthan,Mechanical Engineering,ME,Regular,2024,3,Active
+24ME002,Riya,Dubey,Female,Nashik,Maharashtra,Mechanical Engineering,ME,Regular,2024,3,Active
+24ME003,Diya,Reddy,Female,Rajkot,Gujarat,Mechanical Engineering,ME,Lateral Entry,2024,3,Active
+25ME001,Sakshi,Dubey,Female,Surat,Gujarat,Mechanical Engineering,ME,Lateral Entry,2025,2,Active
+25ME002,Diya,Patidar,Female,Rajkot,Gujarat,Mechanical Engineering,ME,Regular,2025,2,Active
+25ME003,Vaishnavi,Reddy,Female,Udaipur,Rajasthan,Mechanical Engineering,ME,Regular,2025,2,Active
+25ME004,Aditya,Chauhan,Male,Jaipur,Rajasthan,Mechanical Engineering,ME,Regular,2025,2,Active
+23CE011,Meet,Desai,Male,Jaipur,Rajasthan,Computer Engineering,CE,Regular,2023,4,Active

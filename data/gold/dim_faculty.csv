@@ -1,0 +1,71 @@
+faculty_id,faculty_name,department,designation,experience_years
+FACCE001,Sanjay Desai,Computer Engineering,Associate Professor,10
+FACCE002,Madhuri Reddy,Computer Engineering,Assistant Professor,8
+FACCE003,Komal Bansal,Computer Engineering,Assistant Professor,3
+FACCE004,Madhuri Shinde,Computer Engineering,Assistant Professor,21
+FACCE005,Ashok Gaikwad,Computer Engineering,Professor,15
+FACCE006,Rekha Reddy,Computer Engineering,Assistant Professor,14
+FACCE007,Manju Joshi,Computer Engineering,Assistant Professor,8
+FACCE008,Bhavna Mukerjee,Computer Engineering,Associate Professor,25
+FACCE009,Shweta Bajaj,Computer Engineering,Assistant Professor,10
+FACCE010,Sapna Kamath,Computer Engineering,Associate Professor,14
+FACIT011,Dinesh Kumar,Information Technology,Associate Professor,10
+FACIT012,Renuka Naik,Information Technology,Associate Professor,25
+FACIT013,Kavita Bansal,Information Technology,Assistant Professor,13
+FACIT014,Manoj Soni,Information Technology,Associate Professor,13
+FACIT015,Chitra Patil,Information Technology,Associate Professor,11
+FACIT016,Kapil Kapoor,Information Technology,Assistant Professor,21
+FACIT017,Rakesh Thakur,Information Technology,Assistant Professor,5
+FACIT018,Swati Tiwari,Information Technology,Assistant Professor,5
+FACIT019,Renuka Chawla,Information Technology,Assistant Professor,3
+FACIT020,Dinesh Sen,Information Technology,Professor,16
+FACME021,Amit Kapoor,Mechanical Engineering,Assistant Professor,8
+FACME022,Mohit Modi,Mechanical Engineering,Associate Professor,10
+FACME023,Madhuri Chawla,Mechanical Engineering,Assistant Professor,13
+FACME024,Sanjay Mukerjee,Mechanical Engineering,Associate Professor,10
+FACME025,Deepak Rao,Mechanical Engineering,Assistant Professor,8
+FACME026,Hemant Dubey,Mechanical Engineering,Assistant Professor,22
+FACME027,Madhuri Parekh,Mechanical Engineering,Assistant Professor,24
+FACME028,Tarun Shetty,Mechanical Engineering,Associate Professor,10
+FACME029,Rajesh Bansal,Mechanical Engineering,Associate Professor,10
+FACME030,Kavita Bansal,Mechanical Engineering,Assistant Professor,13
+FACCIV031,Gaurav Chopra,Civil Engineering,Associate Professor,20
+FACCIV032,Hemant Khanna,Civil Engineering,Assistant Professor,16
+FACCIV033,Arun Sawant,Civil Engineering,Assistant Professor,16
+FACCIV034,Arun Gupta,Civil Engineering,Associate Professor,13
+FACCIV035,Pankaj Trivedi,Civil Engineering,Assistant Professor,7
+FACCIV036,Sapna Bhat,Civil Engineering,Assistant Professor,8
+FACCIV037,Arun Verma,Civil Engineering,Assistant Professor,3
+FACCIV038,Ritu More,Civil Engineering,Assistant Professor,9
+FACCIV039,Ritu Naik,Civil Engineering,Assistant Professor,11
+FACCIV040,Sachin Parmar,Civil Engineering,Associate Professor,12
+FACEE041,Madhuri Gupta,Electrical Engineering,Assistant Professor,8
+FACEE042,Beena Tiwari,Electrical Engineering,Assistant Professor,5
+FACEE043,Manoj Saxena,Electrical Engineering,Assistant Professor,21
+FACEE044,Neha Rao,Electrical Engineering,Associate Professor,21
+FACEE045,Nitin Ghosh,Electrical Engineering,Professor,15
+FACEE046,Mohit Kamath,Electrical Engineering,Assistant Professor,8
+FACEE047,Arun Kumar,Electrical Engineering,Associate Professor,19
+FACEE048,Yogesh Singh,Electrical Engineering,Professor,15
+FACEE049,Madhuri Arora,Electrical Engineering,Assistant Professor,23
+FACEE050,Mohit Pillai,Electrical Engineering,Professor,15
+FACECE051,Swati Bhatia,Electronics and Communication Engineering,Assistant Professor,9
+FACECE052,Manju Modi,Electronics and Communication Engineering,Professor,15
+FACECE053,Sachin Chopra,Electronics and Communication Engineering,Assistant Professor,13
+FACECE054,Manju Tiwari,Electronics and Communication Engineering,Assistant Professor,25
+FACECE055,Priya Iyer,Electronics and Communication Engineering,Associate Professor,10
+FACECE056,Kiran Sawant,Electronics and Communication Engineering,Assistant Professor,12
+FACECE057,Rashmi Kothari,Electronics and Communication Engineering,Associate Professor,10
+FACECE058,Naveen Mishra,Electronics and Communication Engineering,Assistant Professor,8
+FACECE059,Sunita Bhatt,Electronics and Communication Engineering,Assistant Professor,16
+FACECE060,Ashok Pillai,Electronics and Communication Engineering,Assistant Professor,4
+FACAIDS061,Jyoti Kamath,Artificial Intelligence and Data Science,Professor,15
+FACAIDS062,Pankaj Jadhav,Artificial Intelligence and Data Science,Professor,15
+FACAIDS063,Asha Jadhav,Artificial Intelligence and Data Science,Professor,15
+FACAIDS064,Vivek Kapoor,Artificial Intelligence and Data Science,Assistant Professor,22
+FACAIDS065,Harish Sawant,Artificial Intelligence and Data Science,Assistant Professor,8
+FACAIDS066,Pankaj Malhotra,Artificial Intelligence and Data Science,Associate Professor,16
+FACAIDS067,Kapil Parekh,Artificial Intelligence and Data Science,Assistant Professor,8
+FACAIDS068,Harish Menon,Artificial Intelligence and Data Science,Assistant Professor,12
+FACAIDS069,Lata Bajaj,Artificial Intelligence and Data Science,Associate Professor,10
+FACAIDS070,Mukesh Bhatt,Artificial Intelligence and Data Science,Assistant Professor,12

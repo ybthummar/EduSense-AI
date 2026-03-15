@@ -1,0 +1,337 @@
+faculty_id,first_name,last_name,email,phone,department,department_code,qualification,designation,specialization,experience_years,joining_year,subject_code,subject_name,subject_type,year,semester
+FACCE001,Sanjay,Desai,sanjay.desai@edusense.edu.in,9823756669,Computer Engineering,CE,M.Tech,Associate Professor,Computer Networks,10,2014,CE101,Engineering Mathematics I,Core,1,1
+FACCE002,Madhuri,Reddy,madhuri.reddy@edusense.edu.in,9822575562,Computer Engineering,CE,Ph.D,Assistant Professor,Data Structures,8,2016,CE102,Engineering Physics,Core,1,1
+FACCE003,Komal,Bansal,komal.bansal@edusense.edu.in,9897226012,Computer Engineering,CE,M.Tech,Assistant Professor,DBMS,3,2021,CE103,Basic Electrical Engineering,Core,1,1
+FACCE004,Madhuri,Shinde,madhuri.shinde@edusense.edu.in,9810872248,Computer Engineering,CE,Ph.D,Assistant Professor,Software Engineering,21,2003,CE104,Engineering Mechanics,Core,1,1
+FACCE005,Ashok,Gaikwad,ashok.gaikwad@edusense.edu.in,9855176955,Computer Engineering,CE,Ph.D,Professor,DBMS,15,2009,CE105,Programming for Problem Solving,Core,1,1
+FACCE006,Rekha,Reddy,rekha.reddy@edusense.edu.in,9891030736,Computer Engineering,CE,M.E.,Assistant Professor,Operating Systems,14,2010,CE106,Workshop Practice Lab,Lab,1,1
+FACCE007,Manju,Joshi,manju.joshi@edusense.edu.in,9820576383,Computer Engineering,CE,Ph.D,Assistant Professor,Cyber Security,8,2016,CE201,Engineering Mathematics II,Core,1,2
+FACCE008,Bhavna,Mukerjee,bhavna.mukerjee@edusense.edu.in,9816150444,Computer Engineering,CE,Ph.D,Associate Professor,Machine Learning,25,1999,CE202,Engineering Chemistry,Core,1,2
+FACCE009,Shweta,Bajaj,shweta.bajaj@edusense.edu.in,9861019678,Computer Engineering,CE,Ph.D,Assistant Professor,Machine Learning,10,2014,CE203,Basic Electronics Engineering,Core,1,2
+FACCE010,Sapna,Kamath,sapna.kamath@edusense.edu.in,9838119557,Computer Engineering,CE,Ph.D,Associate Professor,Operating Systems,14,2010,CE204,Environmental Studies,Core,1,2
+FACCE001,Sanjay,Desai,sanjay.desai@edusense.edu.in,9823756669,Computer Engineering,CE,M.Tech,Associate Professor,Computer Networks,10,2014,CE205,Engineering Graphics,Core,1,2
+FACCE002,Madhuri,Reddy,madhuri.reddy@edusense.edu.in,9822575562,Computer Engineering,CE,Ph.D,Assistant Professor,Data Structures,8,2016,CE206,Programming Lab,Lab,1,2
+FACCE003,Komal,Bansal,komal.bansal@edusense.edu.in,9897226012,Computer Engineering,CE,M.Tech,Assistant Professor,DBMS,3,2021,CE301,Data Structures,Core,2,3
+FACCE004,Madhuri,Shinde,madhuri.shinde@edusense.edu.in,9810872248,Computer Engineering,CE,Ph.D,Assistant Professor,Software Engineering,21,2003,CE302,Digital Logic Design,Core,2,3
+FACCE005,Ashok,Gaikwad,ashok.gaikwad@edusense.edu.in,9855176955,Computer Engineering,CE,Ph.D,Professor,DBMS,15,2009,CE303,Computer Organization,Core,2,3
+FACCE006,Rekha,Reddy,rekha.reddy@edusense.edu.in,9891030736,Computer Engineering,CE,M.E.,Assistant Professor,Operating Systems,14,2010,CE304,Object Oriented Programming,Core,2,3
+FACCE007,Manju,Joshi,manju.joshi@edusense.edu.in,9820576383,Computer Engineering,CE,Ph.D,Assistant Professor,Cyber Security,8,2016,CE305,Data Structures Lab,Lab,2,3
+FACCE008,Bhavna,Mukerjee,bhavna.mukerjee@edusense.edu.in,9816150444,Computer Engineering,CE,Ph.D,Associate Professor,Machine Learning,25,1999,CE306,Digital Systems Lab,Lab,2,3
+FACCE009,Shweta,Bajaj,shweta.bajaj@edusense.edu.in,9861019678,Computer Engineering,CE,Ph.D,Assistant Professor,Machine Learning,10,2014,CE401,Discrete Mathematics,Core,2,4
+FACCE010,Sapna,Kamath,sapna.kamath@edusense.edu.in,9838119557,Computer Engineering,CE,Ph.D,Associate Professor,Operating Systems,14,2010,CE402,Database Management Systems,Core,2,4
+FACCE001,Sanjay,Desai,sanjay.desai@edusense.edu.in,9823756669,Computer Engineering,CE,M.Tech,Associate Professor,Computer Networks,10,2014,CE403,Microprocessors,Core,2,4
+FACCE002,Madhuri,Reddy,madhuri.reddy@edusense.edu.in,9822575562,Computer Engineering,CE,Ph.D,Assistant Professor,Data Structures,8,2016,CE404,Operating Systems,Core,2,4
+FACCE003,Komal,Bansal,komal.bansal@edusense.edu.in,9897226012,Computer Engineering,CE,M.Tech,Assistant Professor,DBMS,3,2021,CE405,Database Management Systems Lab,Lab,2,4
+FACCE004,Madhuri,Shinde,madhuri.shinde@edusense.edu.in,9810872248,Computer Engineering,CE,Ph.D,Assistant Professor,Software Engineering,21,2003,CE406,Microprocessors Lab,Lab,2,4
+FACCE005,Ashok,Gaikwad,ashok.gaikwad@edusense.edu.in,9855176955,Computer Engineering,CE,Ph.D,Professor,DBMS,15,2009,CE501,Design and Analysis of Algorithms,Core,3,5
+FACCE006,Rekha,Reddy,rekha.reddy@edusense.edu.in,9891030736,Computer Engineering,CE,M.E.,Assistant Professor,Operating Systems,14,2010,CE502,Computer Networks,Core,3,5
+FACCE007,Manju,Joshi,manju.joshi@edusense.edu.in,9820576383,Computer Engineering,CE,Ph.D,Assistant Professor,Cyber Security,8,2016,CE503,Software Engineering,Core,3,5
+FACCE008,Bhavna,Mukerjee,bhavna.mukerjee@edusense.edu.in,9816150444,Computer Engineering,CE,Ph.D,Associate Professor,Machine Learning,25,1999,CE504,Theory of Computation,Core,3,5
+FACCE009,Shweta,Bajaj,shweta.bajaj@edusense.edu.in,9861019678,Computer Engineering,CE,Ph.D,Assistant Professor,Machine Learning,10,2014,CE505,Computer Networks Lab,Lab,3,5
+FACCE010,Sapna,Kamath,sapna.kamath@edusense.edu.in,9838119557,Computer Engineering,CE,Ph.D,Associate Professor,Operating Systems,14,2010,CE506,Elective I: Web Technologies,Elective,3,5
+FACCE001,Sanjay,Desai,sanjay.desai@edusense.edu.in,9823756669,Computer Engineering,CE,M.Tech,Associate Professor,Computer Networks,10,2014,CE601,Compiler Design,Core,3,6
+FACCE002,Madhuri,Reddy,madhuri.reddy@edusense.edu.in,9822575562,Computer Engineering,CE,Ph.D,Assistant Professor,Data Structures,8,2016,CE602,Machine Learning,Core,3,6
+FACCE003,Komal,Bansal,komal.bansal@edusense.edu.in,9897226012,Computer Engineering,CE,M.Tech,Assistant Professor,DBMS,3,2021,CE603,Distributed Systems,Core,3,6
+FACCE004,Madhuri,Shinde,madhuri.shinde@edusense.edu.in,9810872248,Computer Engineering,CE,Ph.D,Assistant Professor,Software Engineering,21,2003,CE604,Information Security,Core,3,6
+FACCE005,Ashok,Gaikwad,ashok.gaikwad@edusense.edu.in,9855176955,Computer Engineering,CE,Ph.D,Professor,DBMS,15,2009,CE605,Information Security Lab,Lab,3,6
+FACCE006,Rekha,Reddy,rekha.reddy@edusense.edu.in,9891030736,Computer Engineering,CE,M.E.,Assistant Professor,Operating Systems,14,2010,CE606,Elective II: Cloud Computing,Elective,3,6
+FACCE007,Manju,Joshi,manju.joshi@edusense.edu.in,9820576383,Computer Engineering,CE,Ph.D,Assistant Professor,Cyber Security,8,2016,CE701,Artificial Intelligence,Core,4,7
+FACCE008,Bhavna,Mukerjee,bhavna.mukerjee@edusense.edu.in,9816150444,Computer Engineering,CE,Ph.D,Associate Professor,Machine Learning,25,1999,CE702,Big Data Analytics,Core,4,7
+FACCE009,Shweta,Bajaj,shweta.bajaj@edusense.edu.in,9861019678,Computer Engineering,CE,Ph.D,Assistant Professor,Machine Learning,10,2014,CE703,Embedded Systems,Core,4,7
+FACCE010,Sapna,Kamath,sapna.kamath@edusense.edu.in,9838119557,Computer Engineering,CE,Ph.D,Associate Professor,Operating Systems,14,2010,CE704,Project Phase I,Core,4,7
+FACCE001,Sanjay,Desai,sanjay.desai@edusense.edu.in,9823756669,Computer Engineering,CE,M.Tech,Associate Professor,Computer Networks,10,2014,CE705,Artificial Intelligence Lab,Lab,4,7
+FACCE002,Madhuri,Reddy,madhuri.reddy@edusense.edu.in,9822575562,Computer Engineering,CE,Ph.D,Assistant Professor,Data Structures,8,2016,CE706,Elective III: Blockchain,Elective,4,7
+FACCE003,Komal,Bansal,komal.bansal@edusense.edu.in,9897226012,Computer Engineering,CE,M.Tech,Assistant Professor,DBMS,3,2021,CE801,DevOps Engineering,Core,4,8
+FACCE004,Madhuri,Shinde,madhuri.shinde@edusense.edu.in,9810872248,Computer Engineering,CE,Ph.D,Assistant Professor,Software Engineering,21,2003,CE802,Cyber Security,Core,4,8
+FACCE005,Ashok,Gaikwad,ashok.gaikwad@edusense.edu.in,9855176955,Computer Engineering,CE,Ph.D,Professor,DBMS,15,2009,CE803,Project Phase II,Core,4,8
+FACCE006,Rekha,Reddy,rekha.reddy@edusense.edu.in,9891030736,Computer Engineering,CE,M.E.,Assistant Professor,Operating Systems,14,2010,CE804,Internship,Core,4,8
+FACCE007,Manju,Joshi,manju.joshi@edusense.edu.in,9820576383,Computer Engineering,CE,Ph.D,Assistant Professor,Cyber Security,8,2016,CE805,Seminar,Core,4,8
+FACCE008,Bhavna,Mukerjee,bhavna.mukerjee@edusense.edu.in,9816150444,Computer Engineering,CE,Ph.D,Associate Professor,Machine Learning,25,1999,CE806,Elective IV: IoT Systems,Elective,4,8
+FACIT011,Dinesh,Kumar,dinesh.kumar@edusense.edu.in,9831931511,Information Technology,IT,Ph.D,Associate Professor,IoT,10,2014,IT101,Engineering Mathematics I,Core,1,1
+FACIT012,Renuka,Naik,renuka.naik@edusense.edu.in,9853524491,Information Technology,IT,M.Tech,Associate Professor,IoT,25,1999,IT102,Engineering Physics,Core,1,1
+FACIT013,Kavita,Bansal,kavita.bansal@edusense.edu.in,9845935572,Information Technology,IT,M.Tech,Assistant Professor,Network Administration,13,2011,IT103,Basic Electrical Engineering,Core,1,1
+FACIT014,Manoj,Soni,manoj.soni@edusense.edu.in,9897971488,Information Technology,IT,Ph.D,Associate Professor,IoT,13,2011,IT104,Engineering Mechanics,Core,1,1
+FACIT015,Chitra,Patil,chitra.patil@edusense.edu.in,9843101783,Information Technology,IT,Ph.D,Associate Professor,Data Analytics,11,2013,IT105,Programming for Problem Solving,Core,1,1
+FACIT016,Kapil,Kapoor,kapil.kapoor@edusense.edu.in,9858586340,Information Technology,IT,Ph.D,Assistant Professor,Network Administration,21,2003,IT106,Workshop Practice Lab,Lab,1,1
+FACIT017,Rakesh,Thakur,rakesh.thakur@edusense.edu.in,9824716857,Information Technology,IT,M.Tech,Assistant Professor,Web Technologies,5,2019,IT201,Engineering Mathematics II,Core,1,2
+FACIT018,Swati,Tiwari,swati.tiwari@edusense.edu.in,9861220073,Information Technology,IT,M.E.,Assistant Professor,Network Administration,5,2019,IT202,Engineering Chemistry,Core,1,2
+FACIT019,Renuka,Chawla,renuka.chawla@edusense.edu.in,9882070937,Information Technology,IT,M.Tech,Assistant Professor,Information Security,3,2021,IT203,Basic Electronics Engineering,Core,1,2
+FACIT020,Dinesh,Sen,dinesh.sen@edusense.edu.in,9870897765,Information Technology,IT,Ph.D,Professor,Data Analytics,16,2008,IT204,Environmental Studies,Core,1,2
+FACIT011,Dinesh,Kumar,dinesh.kumar@edusense.edu.in,9831931511,Information Technology,IT,Ph.D,Associate Professor,IoT,10,2014,IT205,Engineering Graphics,Core,1,2
+FACIT012,Renuka,Naik,renuka.naik@edusense.edu.in,9853524491,Information Technology,IT,M.Tech,Associate Professor,IoT,25,1999,IT206,Programming Lab,Lab,1,2
+FACIT013,Kavita,Bansal,kavita.bansal@edusense.edu.in,9845935572,Information Technology,IT,M.Tech,Assistant Professor,Network Administration,13,2011,IT301,Data Structures,Core,2,3
+FACIT014,Manoj,Soni,manoj.soni@edusense.edu.in,9897971488,Information Technology,IT,Ph.D,Associate Professor,IoT,13,2011,IT302,Discrete Mathematics,Core,2,3
+FACIT015,Chitra,Patil,chitra.patil@edusense.edu.in,9843101783,Information Technology,IT,Ph.D,Associate Professor,Data Analytics,11,2013,IT303,Web Technologies,Core,2,3
+FACIT016,Kapil,Kapoor,kapil.kapoor@edusense.edu.in,9858586340,Information Technology,IT,Ph.D,Assistant Professor,Network Administration,21,2003,IT304,Database Systems,Core,2,3
+FACIT017,Rakesh,Thakur,rakesh.thakur@edusense.edu.in,9824716857,Information Technology,IT,M.Tech,Assistant Professor,Web Technologies,5,2019,IT305,Web Technologies Lab,Lab,2,3
+FACIT018,Swati,Tiwari,swati.tiwari@edusense.edu.in,9861220073,Information Technology,IT,M.E.,Assistant Professor,Network Administration,5,2019,IT306,Database Systems Lab,Lab,2,3
+FACIT019,Renuka,Chawla,renuka.chawla@edusense.edu.in,9882070937,Information Technology,IT,M.Tech,Assistant Professor,Information Security,3,2021,IT401,Operating Systems,Core,2,4
+FACIT020,Dinesh,Sen,dinesh.sen@edusense.edu.in,9870897765,Information Technology,IT,Ph.D,Professor,Data Analytics,16,2008,IT402,Computer Organization,Core,2,4
+FACIT011,Dinesh,Kumar,dinesh.kumar@edusense.edu.in,9831931511,Information Technology,IT,Ph.D,Associate Professor,IoT,10,2014,IT403,Statistics for IT,Core,2,4
+FACIT012,Renuka,Naik,renuka.naik@edusense.edu.in,9853524491,Information Technology,IT,M.Tech,Associate Professor,IoT,25,1999,IT404,Software Engineering,Core,2,4
+FACIT013,Kavita,Bansal,kavita.bansal@edusense.edu.in,9845935572,Information Technology,IT,M.Tech,Assistant Professor,Network Administration,13,2011,IT405,Operating Systems Lab,Lab,2,4
+FACIT014,Manoj,Soni,manoj.soni@edusense.edu.in,9897971488,Information Technology,IT,Ph.D,Associate Professor,IoT,13,2011,IT406,Python Programming Lab,Lab,2,4
+FACIT015,Chitra,Patil,chitra.patil@edusense.edu.in,9843101783,Information Technology,IT,Ph.D,Associate Professor,Data Analytics,11,2013,IT501,Computer Networks,Core,3,5
+FACIT016,Kapil,Kapoor,kapil.kapoor@edusense.edu.in,9858586340,Information Technology,IT,Ph.D,Assistant Professor,Network Administration,21,2003,IT502,Java Programming,Core,3,5
+FACIT017,Rakesh,Thakur,rakesh.thakur@edusense.edu.in,9824716857,Information Technology,IT,M.Tech,Assistant Professor,Web Technologies,5,2019,IT503,Data Mining,Core,3,5
+FACIT018,Swati,Tiwari,swati.tiwari@edusense.edu.in,9861220073,Information Technology,IT,M.E.,Assistant Professor,Network Administration,5,2019,IT504,Information Security,Core,3,5
+FACIT019,Renuka,Chawla,renuka.chawla@edusense.edu.in,9882070937,Information Technology,IT,M.Tech,Assistant Professor,Information Security,3,2021,IT505,Computer Networks Lab,Lab,3,5
+FACIT020,Dinesh,Sen,dinesh.sen@edusense.edu.in,9870897765,Information Technology,IT,Ph.D,Professor,Data Analytics,16,2008,IT506,Elective I: Mobile Application Development,Elective,3,5
+FACIT011,Dinesh,Kumar,dinesh.kumar@edusense.edu.in,9831931511,Information Technology,IT,Ph.D,Associate Professor,IoT,10,2014,IT601,Cloud Computing,Core,3,6
+FACIT012,Renuka,Naik,renuka.naik@edusense.edu.in,9853524491,Information Technology,IT,M.Tech,Associate Professor,IoT,25,1999,IT602,Machine Learning,Core,3,6
+FACIT013,Kavita,Bansal,kavita.bansal@edusense.edu.in,9845935572,Information Technology,IT,M.Tech,Assistant Professor,Network Administration,13,2011,IT603,Data Warehousing,Core,3,6
+FACIT014,Manoj,Soni,manoj.soni@edusense.edu.in,9897971488,Information Technology,IT,Ph.D,Associate Professor,IoT,13,2011,IT604,Cyber Security,Core,3,6
+FACIT015,Chitra,Patil,chitra.patil@edusense.edu.in,9843101783,Information Technology,IT,Ph.D,Associate Professor,Data Analytics,11,2013,IT605,Cloud Computing Lab,Lab,3,6
+FACIT016,Kapil,Kapoor,kapil.kapoor@edusense.edu.in,9858586340,Information Technology,IT,Ph.D,Assistant Professor,Network Administration,21,2003,IT606,Elective II: UI/UX Design,Elective,3,6
+FACIT017,Rakesh,Thakur,rakesh.thakur@edusense.edu.in,9824716857,Information Technology,IT,M.Tech,Assistant Professor,Web Technologies,5,2019,IT701,Big Data Analytics,Core,4,7
+FACIT018,Swati,Tiwari,swati.tiwari@edusense.edu.in,9861220073,Information Technology,IT,M.E.,Assistant Professor,Network Administration,5,2019,IT702,DevOps,Core,4,7
+FACIT019,Renuka,Chawla,renuka.chawla@edusense.edu.in,9882070937,Information Technology,IT,M.Tech,Assistant Professor,Information Security,3,2021,IT703,Enterprise Systems,Core,4,7
+FACIT020,Dinesh,Sen,dinesh.sen@edusense.edu.in,9870897765,Information Technology,IT,Ph.D,Professor,Data Analytics,16,2008,IT704,Project Phase I,Core,4,7
+FACIT011,Dinesh,Kumar,dinesh.kumar@edusense.edu.in,9831931511,Information Technology,IT,Ph.D,Associate Professor,IoT,10,2014,IT705,Big Data Lab,Lab,4,7
+FACIT012,Renuka,Naik,renuka.naik@edusense.edu.in,9853524491,Information Technology,IT,M.Tech,Associate Professor,IoT,25,1999,IT706,Elective III: Internet of Things,Elective,4,7
+FACIT013,Kavita,Bansal,kavita.bansal@edusense.edu.in,9845935572,Information Technology,IT,M.Tech,Assistant Professor,Network Administration,13,2011,IT801,IT Service Management,Core,4,8
+FACIT014,Manoj,Soni,manoj.soni@edusense.edu.in,9897971488,Information Technology,IT,Ph.D,Associate Professor,IoT,13,2011,IT802,Blockchain Applications,Core,4,8
+FACIT015,Chitra,Patil,chitra.patil@edusense.edu.in,9843101783,Information Technology,IT,Ph.D,Associate Professor,Data Analytics,11,2013,IT803,Project Phase II,Core,4,8
+FACIT016,Kapil,Kapoor,kapil.kapoor@edusense.edu.in,9858586340,Information Technology,IT,Ph.D,Assistant Professor,Network Administration,21,2003,IT804,Internship,Core,4,8
+FACIT017,Rakesh,Thakur,rakesh.thakur@edusense.edu.in,9824716857,Information Technology,IT,M.Tech,Assistant Professor,Web Technologies,5,2019,IT805,Seminar,Core,4,8
+FACIT018,Swati,Tiwari,swati.tiwari@edusense.edu.in,9861220073,Information Technology,IT,M.E.,Assistant Professor,Network Administration,5,2019,IT806,Elective IV: AR/VR Systems,Elective,4,8
+FACME021,Amit,Kapoor,amit.kapoor@edusense.edu.in,9893926371,Mechanical Engineering,ME,M.Tech,Assistant Professor,Manufacturing,8,2016,ME101,Engineering Mathematics I,Core,1,1
+FACME022,Mohit,Modi,mohit.modi@edusense.edu.in,9831682744,Mechanical Engineering,ME,Ph.D,Associate Professor,CAD/CAM,10,2014,ME102,Engineering Physics,Core,1,1
+FACME023,Madhuri,Chawla,madhuri.chawla@edusense.edu.in,9812614124,Mechanical Engineering,ME,M.Tech,Assistant Professor,Industrial Engineering,13,2011,ME103,Basic Electrical Engineering,Core,1,1
+FACME024,Sanjay,Mukerjee,sanjay.mukerjee@edusense.edu.in,9886149359,Mechanical Engineering,ME,M.Tech,Associate Professor,Machine Design,10,2014,ME104,Engineering Mechanics,Core,1,1
+FACME025,Deepak,Rao,deepak.rao@edusense.edu.in,9827232410,Mechanical Engineering,ME,Ph.D,Assistant Professor,Fluid Mechanics,8,2016,ME105,Programming for Problem Solving,Core,1,1
+FACME026,Hemant,Dubey,hemant.dubey@edusense.edu.in,9838427073,Mechanical Engineering,ME,M.Tech,Assistant Professor,Heat Transfer,22,2002,ME106,Workshop Practice Lab,Lab,1,1
+FACME027,Madhuri,Parekh,madhuri.parekh@edusense.edu.in,9868800797,Mechanical Engineering,ME,M.Tech,Assistant Professor,CAD/CAM,24,2000,ME201,Engineering Mathematics II,Core,1,2
+FACME028,Tarun,Shetty,tarun.shetty@edusense.edu.in,9855377076,Mechanical Engineering,ME,Ph.D,Associate Professor,Manufacturing,10,2014,ME202,Engineering Chemistry,Core,1,2
+FACME029,Rajesh,Bansal,rajesh.bansal@edusense.edu.in,9894705205,Mechanical Engineering,ME,Ph.D,Associate Professor,Manufacturing,10,2014,ME203,Basic Electronics Engineering,Core,1,2
+FACME030,Kavita,Bansal,kavita.bansal@edusense.edu.in,9879008866,Mechanical Engineering,ME,Ph.D,Assistant Professor,Manufacturing,13,2011,ME204,Environmental Studies,Core,1,2
+FACME021,Amit,Kapoor,amit.kapoor@edusense.edu.in,9893926371,Mechanical Engineering,ME,M.Tech,Assistant Professor,Manufacturing,8,2016,ME205,Engineering Graphics,Core,1,2
+FACME022,Mohit,Modi,mohit.modi@edusense.edu.in,9831682744,Mechanical Engineering,ME,Ph.D,Associate Professor,CAD/CAM,10,2014,ME206,Programming Lab,Lab,1,2
+FACME023,Madhuri,Chawla,madhuri.chawla@edusense.edu.in,9812614124,Mechanical Engineering,ME,M.Tech,Assistant Professor,Industrial Engineering,13,2011,ME301,Thermodynamics,Core,2,3
+FACME024,Sanjay,Mukerjee,sanjay.mukerjee@edusense.edu.in,9886149359,Mechanical Engineering,ME,M.Tech,Associate Professor,Machine Design,10,2014,ME302,Manufacturing Processes,Core,2,3
+FACME025,Deepak,Rao,deepak.rao@edusense.edu.in,9827232410,Mechanical Engineering,ME,Ph.D,Assistant Professor,Fluid Mechanics,8,2016,ME303,Strength of Materials,Core,2,3
+FACME026,Hemant,Dubey,hemant.dubey@edusense.edu.in,9838427073,Mechanical Engineering,ME,M.Tech,Assistant Professor,Heat Transfer,22,2002,ME304,Engineering Materials,Core,2,3
+FACME027,Madhuri,Parekh,madhuri.parekh@edusense.edu.in,9868800797,Mechanical Engineering,ME,M.Tech,Assistant Professor,CAD/CAM,24,2000,ME305,Manufacturing Lab,Lab,2,3
+FACME028,Tarun,Shetty,tarun.shetty@edusense.edu.in,9855377076,Mechanical Engineering,ME,Ph.D,Associate Professor,Manufacturing,10,2014,ME306,Material Testing Lab,Lab,2,3
+FACME029,Rajesh,Bansal,rajesh.bansal@edusense.edu.in,9894705205,Mechanical Engineering,ME,Ph.D,Associate Professor,Manufacturing,10,2014,ME401,Fluid Mechanics,Core,2,4
+FACME030,Kavita,Bansal,kavita.bansal@edusense.edu.in,9879008866,Mechanical Engineering,ME,Ph.D,Assistant Professor,Manufacturing,13,2011,ME402,Theory of Machines,Core,2,4
+FACME021,Amit,Kapoor,amit.kapoor@edusense.edu.in,9893926371,Mechanical Engineering,ME,M.Tech,Assistant Professor,Manufacturing,8,2016,ME403,Machine Drawing,Core,2,4
+FACME022,Mohit,Modi,mohit.modi@edusense.edu.in,9831682744,Mechanical Engineering,ME,Ph.D,Associate Professor,CAD/CAM,10,2014,ME404,Heat Transfer,Core,2,4
+FACME023,Madhuri,Chawla,madhuri.chawla@edusense.edu.in,9812614124,Mechanical Engineering,ME,M.Tech,Assistant Professor,Industrial Engineering,13,2011,ME405,CAD Lab,Lab,2,4
+FACME024,Sanjay,Mukerjee,sanjay.mukerjee@edusense.edu.in,9886149359,Mechanical Engineering,ME,M.Tech,Associate Professor,Machine Design,10,2014,ME406,Thermal Engineering Lab,Lab,2,4
+FACME025,Deepak,Rao,deepak.rao@edusense.edu.in,9827232410,Mechanical Engineering,ME,Ph.D,Assistant Professor,Fluid Mechanics,8,2016,ME501,Design of Machine Elements,Core,3,5
+FACME026,Hemant,Dubey,hemant.dubey@edusense.edu.in,9838427073,Mechanical Engineering,ME,M.Tech,Assistant Professor,Heat Transfer,22,2002,ME502,Internal Combustion Engines,Core,3,5
+FACME027,Madhuri,Parekh,madhuri.parekh@edusense.edu.in,9868800797,Mechanical Engineering,ME,M.Tech,Assistant Professor,CAD/CAM,24,2000,ME503,Metrology and Instrumentation,Core,3,5
+FACME028,Tarun,Shetty,tarun.shetty@edusense.edu.in,9855377076,Mechanical Engineering,ME,Ph.D,Associate Professor,Manufacturing,10,2014,ME504,Industrial Engineering,Core,3,5
+FACME029,Rajesh,Bansal,rajesh.bansal@edusense.edu.in,9894705205,Mechanical Engineering,ME,Ph.D,Associate Professor,Manufacturing,10,2014,ME505,Dynamics Lab,Lab,3,5
+FACME030,Kavita,Bansal,kavita.bansal@edusense.edu.in,9879008866,Mechanical Engineering,ME,Ph.D,Assistant Professor,Manufacturing,13,2011,ME506,Elective I: CNC Programming,Elective,3,5
+FACME021,Amit,Kapoor,amit.kapoor@edusense.edu.in,9893926371,Mechanical Engineering,ME,M.Tech,Assistant Professor,Manufacturing,8,2016,ME601,Refrigeration and Air Conditioning,Core,3,6
+FACME022,Mohit,Modi,mohit.modi@edusense.edu.in,9831682744,Mechanical Engineering,ME,Ph.D,Associate Professor,CAD/CAM,10,2014,ME602,Finite Element Methods,Core,3,6
+FACME023,Madhuri,Chawla,madhuri.chawla@edusense.edu.in,9812614124,Mechanical Engineering,ME,M.Tech,Assistant Professor,Industrial Engineering,13,2011,ME603,Mechatronics,Core,3,6
+FACME024,Sanjay,Mukerjee,sanjay.mukerjee@edusense.edu.in,9886149359,Mechanical Engineering,ME,M.Tech,Associate Professor,Machine Design,10,2014,ME604,Production Planning and Control,Core,3,6
+FACME025,Deepak,Rao,deepak.rao@edusense.edu.in,9827232410,Mechanical Engineering,ME,Ph.D,Assistant Professor,Fluid Mechanics,8,2016,ME605,CAM Lab,Lab,3,6
+FACME026,Hemant,Dubey,hemant.dubey@edusense.edu.in,9838427073,Mechanical Engineering,ME,M.Tech,Assistant Professor,Heat Transfer,22,2002,ME606,Elective II: Renewable Energy Systems,Elective,3,6
+FACME027,Madhuri,Parekh,madhuri.parekh@edusense.edu.in,9868800797,Mechanical Engineering,ME,M.Tech,Assistant Professor,CAD/CAM,24,2000,ME701,Automobile Engineering,Core,4,7
+FACME028,Tarun,Shetty,tarun.shetty@edusense.edu.in,9855377076,Mechanical Engineering,ME,Ph.D,Associate Professor,Manufacturing,10,2014,ME702,Robotics in Manufacturing,Core,4,7
+FACME029,Rajesh,Bansal,rajesh.bansal@edusense.edu.in,9894705205,Mechanical Engineering,ME,Ph.D,Associate Professor,Manufacturing,10,2014,ME703,Operations Research,Core,4,7
+FACME030,Kavita,Bansal,kavita.bansal@edusense.edu.in,9879008866,Mechanical Engineering,ME,Ph.D,Assistant Professor,Manufacturing,13,2011,ME704,Project Phase I,Core,4,7
+FACME021,Amit,Kapoor,amit.kapoor@edusense.edu.in,9893926371,Mechanical Engineering,ME,M.Tech,Assistant Professor,Manufacturing,8,2016,ME705,Mechatronics Lab,Lab,4,7
+FACME022,Mohit,Modi,mohit.modi@edusense.edu.in,9831682744,Mechanical Engineering,ME,Ph.D,Associate Professor,CAD/CAM,10,2014,ME706,Elective III: Additive Manufacturing,Elective,4,7
+FACME023,Madhuri,Chawla,madhuri.chawla@edusense.edu.in,9812614124,Mechanical Engineering,ME,M.Tech,Assistant Professor,Industrial Engineering,13,2011,ME801,Power Plant Engineering,Core,4,8
+FACME024,Sanjay,Mukerjee,sanjay.mukerjee@edusense.edu.in,9886149359,Mechanical Engineering,ME,M.Tech,Associate Professor,Machine Design,10,2014,ME802,Quality Engineering,Core,4,8
+FACME025,Deepak,Rao,deepak.rao@edusense.edu.in,9827232410,Mechanical Engineering,ME,Ph.D,Assistant Professor,Fluid Mechanics,8,2016,ME803,Project Phase II,Core,4,8
+FACME026,Hemant,Dubey,hemant.dubey@edusense.edu.in,9838427073,Mechanical Engineering,ME,M.Tech,Assistant Professor,Heat Transfer,22,2002,ME804,Internship,Core,4,8
+FACME027,Madhuri,Parekh,madhuri.parekh@edusense.edu.in,9868800797,Mechanical Engineering,ME,M.Tech,Assistant Professor,CAD/CAM,24,2000,ME805,Seminar,Core,4,8
+FACME028,Tarun,Shetty,tarun.shetty@edusense.edu.in,9855377076,Mechanical Engineering,ME,Ph.D,Associate Professor,Manufacturing,10,2014,ME806,Elective IV: Smart Manufacturing,Elective,4,8
+FACCIV031,Gaurav,Chopra,gaurav.chopra@edusense.edu.in,9886644106,Civil Engineering,CIV,Ph.D,Associate Professor,Transportation,20,2004,CV101,Engineering Mathematics I,Core,1,1
+FACCIV032,Hemant,Khanna,hemant.khanna@edusense.edu.in,9822660194,Civil Engineering,CIV,Ph.D,Assistant Professor,Environmental Engg,16,2008,CV102,Engineering Physics,Core,1,1
+FACCIV033,Arun,Sawant,arun.sawant@edusense.edu.in,9817270733,Civil Engineering,CIV,Ph.D,Assistant Professor,Concrete Technology,16,2008,CV103,Basic Electrical Engineering,Core,1,1
+FACCIV034,Arun,Gupta,arun.gupta@edusense.edu.in,9843374088,Civil Engineering,CIV,M.E.,Associate Professor,Geotechnical,13,2011,CV104,Engineering Mechanics,Core,1,1
+FACCIV035,Pankaj,Trivedi,pankaj.trivedi@edusense.edu.in,9834627347,Civil Engineering,CIV,M.Tech,Assistant Professor,Water Resources,7,2017,CV105,Programming for Problem Solving,Core,1,1
+FACCIV036,Sapna,Bhat,sapna.bhat@edusense.edu.in,9883863413,Civil Engineering,CIV,Ph.D,Assistant Professor,Concrete Technology,8,2016,CV106,Workshop Practice Lab,Lab,1,1
+FACCIV037,Arun,Verma,arun.verma@edusense.edu.in,9841726318,Civil Engineering,CIV,M.Tech,Assistant Professor,Geotechnical,3,2021,CV201,Engineering Mathematics II,Core,1,2
+FACCIV038,Ritu,More,ritu.more@edusense.edu.in,9817869910,Civil Engineering,CIV,Ph.D,Assistant Professor,Water Resources,9,2015,CV202,Engineering Chemistry,Core,1,2
+FACCIV039,Ritu,Naik,ritu.naik@edusense.edu.in,9848285503,Civil Engineering,CIV,M.Tech,Assistant Professor,Concrete Technology,11,2013,CV203,Basic Electronics Engineering,Core,1,2
+FACCIV040,Sachin,Parmar,sachin.parmar@edusense.edu.in,9817849494,Civil Engineering,CIV,M.E.,Associate Professor,Environmental Engg,12,2012,CV204,Environmental Studies,Core,1,2
+FACCIV031,Gaurav,Chopra,gaurav.chopra@edusense.edu.in,9886644106,Civil Engineering,CIV,Ph.D,Associate Professor,Transportation,20,2004,CV205,Engineering Graphics,Core,1,2
+FACCIV032,Hemant,Khanna,hemant.khanna@edusense.edu.in,9822660194,Civil Engineering,CIV,Ph.D,Assistant Professor,Environmental Engg,16,2008,CV206,Programming Lab,Lab,1,2
+FACCIV033,Arun,Sawant,arun.sawant@edusense.edu.in,9817270733,Civil Engineering,CIV,Ph.D,Assistant Professor,Concrete Technology,16,2008,CV301,Surveying,Core,2,3
+FACCIV034,Arun,Gupta,arun.gupta@edusense.edu.in,9843374088,Civil Engineering,CIV,M.E.,Associate Professor,Geotechnical,13,2011,CV302,Strength of Materials,Core,2,3
+FACCIV035,Pankaj,Trivedi,pankaj.trivedi@edusense.edu.in,9834627347,Civil Engineering,CIV,M.Tech,Assistant Professor,Water Resources,7,2017,CV303,Building Materials,Core,2,3
+FACCIV036,Sapna,Bhat,sapna.bhat@edusense.edu.in,9883863413,Civil Engineering,CIV,Ph.D,Assistant Professor,Concrete Technology,8,2016,CV304,Fluid Mechanics,Core,2,3
+FACCIV037,Arun,Verma,arun.verma@edusense.edu.in,9841726318,Civil Engineering,CIV,M.Tech,Assistant Professor,Geotechnical,3,2021,CV305,Surveying Lab,Lab,2,3
+FACCIV038,Ritu,More,ritu.more@edusense.edu.in,9817869910,Civil Engineering,CIV,Ph.D,Assistant Professor,Water Resources,9,2015,CV306,Material Testing Lab,Lab,2,3
+FACCIV039,Ritu,Naik,ritu.naik@edusense.edu.in,9848285503,Civil Engineering,CIV,M.Tech,Assistant Professor,Concrete Technology,11,2013,CV401,Structural Analysis,Core,2,4
+FACCIV040,Sachin,Parmar,sachin.parmar@edusense.edu.in,9817849494,Civil Engineering,CIV,M.E.,Associate Professor,Environmental Engg,12,2012,CV402,Geotechnical Engineering,Core,2,4
+FACCIV031,Gaurav,Chopra,gaurav.chopra@edusense.edu.in,9886644106,Civil Engineering,CIV,Ph.D,Associate Professor,Transportation,20,2004,CV403,Transportation Engineering I,Core,2,4
+FACCIV032,Hemant,Khanna,hemant.khanna@edusense.edu.in,9822660194,Civil Engineering,CIV,Ph.D,Assistant Professor,Environmental Engg,16,2008,CV404,Concrete Technology,Core,2,4
+FACCIV033,Arun,Sawant,arun.sawant@edusense.edu.in,9817270733,Civil Engineering,CIV,Ph.D,Assistant Professor,Concrete Technology,16,2008,CV405,Geotechnical Lab,Lab,2,4
+FACCIV034,Arun,Gupta,arun.gupta@edusense.edu.in,9843374088,Civil Engineering,CIV,M.E.,Associate Professor,Geotechnical,13,2011,CV406,Concrete Lab,Lab,2,4
+FACCIV035,Pankaj,Trivedi,pankaj.trivedi@edusense.edu.in,9834627347,Civil Engineering,CIV,M.Tech,Assistant Professor,Water Resources,7,2017,CV501,Design of Reinforced Concrete Structures,Core,3,5
+FACCIV036,Sapna,Bhat,sapna.bhat@edusense.edu.in,9883863413,Civil Engineering,CIV,Ph.D,Assistant Professor,Concrete Technology,8,2016,CV502,Environmental Engineering I,Core,3,5
+FACCIV037,Arun,Verma,arun.verma@edusense.edu.in,9841726318,Civil Engineering,CIV,M.Tech,Assistant Professor,Geotechnical,3,2021,CV503,Hydrology and Water Resources,Core,3,5
+FACCIV038,Ritu,More,ritu.more@edusense.edu.in,9817869910,Civil Engineering,CIV,Ph.D,Assistant Professor,Water Resources,9,2015,CV504,Transportation Engineering II,Core,3,5
+FACCIV039,Ritu,Naik,ritu.naik@edusense.edu.in,9848285503,Civil Engineering,CIV,M.Tech,Assistant Professor,Concrete Technology,11,2013,CV505,CAD for Civil Lab,Lab,3,5
+FACCIV040,Sachin,Parmar,sachin.parmar@edusense.edu.in,9817849494,Civil Engineering,CIV,M.E.,Associate Professor,Environmental Engg,12,2012,CV506,Elective I: Urban Planning,Elective,3,5
+FACCIV031,Gaurav,Chopra,gaurav.chopra@edusense.edu.in,9886644106,Civil Engineering,CIV,Ph.D,Associate Professor,Transportation,20,2004,CV601,Steel Structure Design,Core,3,6
+FACCIV032,Hemant,Khanna,hemant.khanna@edusense.edu.in,9822660194,Civil Engineering,CIV,Ph.D,Assistant Professor,Environmental Engg,16,2008,CV602,Environmental Engineering II,Core,3,6
+FACCIV033,Arun,Sawant,arun.sawant@edusense.edu.in,9817270733,Civil Engineering,CIV,Ph.D,Assistant Professor,Concrete Technology,16,2008,CV603,Foundation Engineering,Core,3,6
+FACCIV034,Arun,Gupta,arun.gupta@edusense.edu.in,9843374088,Civil Engineering,CIV,M.E.,Associate Professor,Geotechnical,13,2011,CV604,Estimation and Costing,Core,3,6
+FACCIV035,Pankaj,Trivedi,pankaj.trivedi@edusense.edu.in,9834627347,Civil Engineering,CIV,M.Tech,Assistant Professor,Water Resources,7,2017,CV605,Environmental Lab,Lab,3,6
+FACCIV036,Sapna,Bhat,sapna.bhat@edusense.edu.in,9883863413,Civil Engineering,CIV,Ph.D,Assistant Professor,Concrete Technology,8,2016,CV606,Elective II: GIS for Civil Engineering,Elective,3,6
+FACCIV037,Arun,Verma,arun.verma@edusense.edu.in,9841726318,Civil Engineering,CIV,M.Tech,Assistant Professor,Geotechnical,3,2021,CV701,Construction Management,Core,4,7
+FACCIV038,Ritu,More,ritu.more@edusense.edu.in,9817869910,Civil Engineering,CIV,Ph.D,Assistant Professor,Water Resources,9,2015,CV702,Pavement Engineering,Core,4,7
+FACCIV039,Ritu,Naik,ritu.naik@edusense.edu.in,9848285503,Civil Engineering,CIV,M.Tech,Assistant Professor,Concrete Technology,11,2013,CV703,Irrigation Engineering,Core,4,7
+FACCIV040,Sachin,Parmar,sachin.parmar@edusense.edu.in,9817849494,Civil Engineering,CIV,M.E.,Associate Professor,Environmental Engg,12,2012,CV704,Project Phase I,Core,4,7
+FACCIV031,Gaurav,Chopra,gaurav.chopra@edusense.edu.in,9886644106,Civil Engineering,CIV,Ph.D,Associate Professor,Transportation,20,2004,CV705,Transportation Lab,Lab,4,7
+FACCIV032,Hemant,Khanna,hemant.khanna@edusense.edu.in,9822660194,Civil Engineering,CIV,Ph.D,Assistant Professor,Environmental Engg,16,2008,CV706,Elective III: Earthquake Engineering,Elective,4,7
+FACCIV033,Arun,Sawant,arun.sawant@edusense.edu.in,9817270733,Civil Engineering,CIV,Ph.D,Assistant Professor,Concrete Technology,16,2008,CV801,Advanced Structural Design,Core,4,8
+FACCIV034,Arun,Gupta,arun.gupta@edusense.edu.in,9843374088,Civil Engineering,CIV,M.E.,Associate Professor,Geotechnical,13,2011,CV802,Quantity Surveying,Core,4,8
+FACCIV035,Pankaj,Trivedi,pankaj.trivedi@edusense.edu.in,9834627347,Civil Engineering,CIV,M.Tech,Assistant Professor,Water Resources,7,2017,CV803,Project Phase II,Core,4,8
+FACCIV036,Sapna,Bhat,sapna.bhat@edusense.edu.in,9883863413,Civil Engineering,CIV,Ph.D,Assistant Professor,Concrete Technology,8,2016,CV804,Internship,Core,4,8
+FACCIV037,Arun,Verma,arun.verma@edusense.edu.in,9841726318,Civil Engineering,CIV,M.Tech,Assistant Professor,Geotechnical,3,2021,CV805,Seminar,Core,4,8
+FACCIV038,Ritu,More,ritu.more@edusense.edu.in,9817869910,Civil Engineering,CIV,Ph.D,Assistant Professor,Water Resources,9,2015,CV806,Elective IV: Smart Cities,Elective,4,8
+FACEE041,Madhuri,Gupta,madhuri.gupta@edusense.edu.in,9877491435,Electrical Engineering,EE,Ph.D,Assistant Professor,Signal Processing,8,2016,EE101,Engineering Mathematics I,Core,1,1
+FACEE042,Beena,Tiwari,beena.tiwari@edusense.edu.in,9819196777,Electrical Engineering,EE,M.Tech,Assistant Professor,Power Electronics,5,2019,EE102,Engineering Physics,Core,1,1
+FACEE043,Manoj,Saxena,manoj.saxena@edusense.edu.in,9887701200,Electrical Engineering,EE,M.E.,Assistant Professor,Electrical Machines,21,2003,EE103,Basic Electrical Engineering,Core,1,1
+FACEE044,Neha,Rao,neha.rao@edusense.edu.in,9844999379,Electrical Engineering,EE,M.E.,Associate Professor,Renewable Energy,21,2003,EE104,Engineering Mechanics,Core,1,1
+FACEE045,Nitin,Ghosh,nitin.ghosh@edusense.edu.in,9896637649,Electrical Engineering,EE,Ph.D,Professor,Power Electronics,15,2009,EE105,Programming for Problem Solving,Core,1,1
+FACEE046,Mohit,Kamath,mohit.kamath@edusense.edu.in,9871510041,Electrical Engineering,EE,Ph.D,Assistant Professor,Power Systems,8,2016,EE106,Workshop Practice Lab,Lab,1,1
+FACEE047,Arun,Kumar,arun.kumar@edusense.edu.in,9827778019,Electrical Engineering,EE,M.Tech,Associate Professor,Instrumentation,19,2005,EE201,Engineering Mathematics II,Core,1,2
+FACEE048,Yogesh,Singh,yogesh.singh@edusense.edu.in,9868812137,Electrical Engineering,EE,Ph.D,Professor,Power Electronics,15,2009,EE202,Engineering Chemistry,Core,1,2
+FACEE049,Madhuri,Arora,madhuri.arora@edusense.edu.in,9899639081,Electrical Engineering,EE,Ph.D,Assistant Professor,Power Systems,23,2001,EE203,Basic Electronics Engineering,Core,1,2
+FACEE050,Mohit,Pillai,mohit.pillai@edusense.edu.in,9884252420,Electrical Engineering,EE,Ph.D,Professor,Control Systems,15,2009,EE204,Environmental Studies,Core,1,2
+FACEE041,Madhuri,Gupta,madhuri.gupta@edusense.edu.in,9877491435,Electrical Engineering,EE,Ph.D,Assistant Professor,Signal Processing,8,2016,EE205,Engineering Graphics,Core,1,2
+FACEE042,Beena,Tiwari,beena.tiwari@edusense.edu.in,9819196777,Electrical Engineering,EE,M.Tech,Assistant Professor,Power Electronics,5,2019,EE206,Programming Lab,Lab,1,2
+FACEE043,Manoj,Saxena,manoj.saxena@edusense.edu.in,9887701200,Electrical Engineering,EE,M.E.,Assistant Professor,Electrical Machines,21,2003,EE301,Circuit Theory,Core,2,3
+FACEE044,Neha,Rao,neha.rao@edusense.edu.in,9844999379,Electrical Engineering,EE,M.E.,Associate Professor,Renewable Energy,21,2003,EE302,Electrical Machines I,Core,2,3
+FACEE045,Nitin,Ghosh,nitin.ghosh@edusense.edu.in,9896637649,Electrical Engineering,EE,Ph.D,Professor,Power Electronics,15,2009,EE303,Electronic Devices,Core,2,3
+FACEE046,Mohit,Kamath,mohit.kamath@edusense.edu.in,9871510041,Electrical Engineering,EE,Ph.D,Assistant Professor,Power Systems,8,2016,EE304,Network Analysis,Core,2,3
+FACEE047,Arun,Kumar,arun.kumar@edusense.edu.in,9827778019,Electrical Engineering,EE,M.Tech,Associate Professor,Instrumentation,19,2005,EE305,Electrical Machines Lab I,Lab,2,3
+FACEE048,Yogesh,Singh,yogesh.singh@edusense.edu.in,9868812137,Electrical Engineering,EE,Ph.D,Professor,Power Electronics,15,2009,EE306,Circuit Lab,Lab,2,3
+FACEE049,Madhuri,Arora,madhuri.arora@edusense.edu.in,9899639081,Electrical Engineering,EE,Ph.D,Assistant Professor,Power Systems,23,2001,EE401,Control Systems,Core,2,4
+FACEE050,Mohit,Pillai,mohit.pillai@edusense.edu.in,9884252420,Electrical Engineering,EE,Ph.D,Professor,Control Systems,15,2009,EE402,Power Systems I,Core,2,4
+FACEE041,Madhuri,Gupta,madhuri.gupta@edusense.edu.in,9877491435,Electrical Engineering,EE,Ph.D,Assistant Professor,Signal Processing,8,2016,EE403,Analog Electronics,Core,2,4
+FACEE042,Beena,Tiwari,beena.tiwari@edusense.edu.in,9819196777,Electrical Engineering,EE,M.Tech,Assistant Professor,Power Electronics,5,2019,EE404,Measurements and Instrumentation,Core,2,4
+FACEE043,Manoj,Saxena,manoj.saxena@edusense.edu.in,9887701200,Electrical Engineering,EE,M.E.,Assistant Professor,Electrical Machines,21,2003,EE405,Power Systems Lab I,Lab,2,4
+FACEE044,Neha,Rao,neha.rao@edusense.edu.in,9844999379,Electrical Engineering,EE,M.E.,Associate Professor,Renewable Energy,21,2003,EE406,Control Systems Lab,Lab,2,4
+FACEE045,Nitin,Ghosh,nitin.ghosh@edusense.edu.in,9896637649,Electrical Engineering,EE,Ph.D,Professor,Power Electronics,15,2009,EE501,Electrical Machines II,Core,3,5
+FACEE046,Mohit,Kamath,mohit.kamath@edusense.edu.in,9871510041,Electrical Engineering,EE,Ph.D,Assistant Professor,Power Systems,8,2016,EE502,Power Electronics,Core,3,5
+FACEE047,Arun,Kumar,arun.kumar@edusense.edu.in,9827778019,Electrical Engineering,EE,M.Tech,Associate Professor,Instrumentation,19,2005,EE503,Signals and Systems,Core,3,5
+FACEE048,Yogesh,Singh,yogesh.singh@edusense.edu.in,9868812137,Electrical Engineering,EE,Ph.D,Professor,Power Electronics,15,2009,EE504,Microcontrollers,Core,3,5
+FACEE049,Madhuri,Arora,madhuri.arora@edusense.edu.in,9899639081,Electrical Engineering,EE,Ph.D,Assistant Professor,Power Systems,23,2001,EE505,Power Electronics Lab,Lab,3,5
+FACEE050,Mohit,Pillai,mohit.pillai@edusense.edu.in,9884252420,Electrical Engineering,EE,Ph.D,Professor,Control Systems,15,2009,EE506,Elective I: Electric Vehicles,Elective,3,5
+FACEE041,Madhuri,Gupta,madhuri.gupta@edusense.edu.in,9877491435,Electrical Engineering,EE,Ph.D,Assistant Professor,Signal Processing,8,2016,EE601,Power Systems II,Core,3,6
+FACEE042,Beena,Tiwari,beena.tiwari@edusense.edu.in,9819196777,Electrical Engineering,EE,M.Tech,Assistant Professor,Power Electronics,5,2019,EE602,Digital Signal Processing,Core,3,6
+FACEE043,Manoj,Saxena,manoj.saxena@edusense.edu.in,9887701200,Electrical Engineering,EE,M.E.,Assistant Professor,Electrical Machines,21,2003,EE603,Renewable Energy Engineering,Core,3,6
+FACEE044,Neha,Rao,neha.rao@edusense.edu.in,9844999379,Electrical Engineering,EE,M.E.,Associate Professor,Renewable Energy,21,2003,EE604,High Voltage Engineering,Core,3,6
+FACEE045,Nitin,Ghosh,nitin.ghosh@edusense.edu.in,9896637649,Electrical Engineering,EE,Ph.D,Professor,Power Electronics,15,2009,EE605,DSP Lab,Lab,3,6
+FACEE046,Mohit,Kamath,mohit.kamath@edusense.edu.in,9871510041,Electrical Engineering,EE,Ph.D,Assistant Professor,Power Systems,8,2016,EE606,Elective II: Smart Grid Technologies,Elective,3,6
+FACEE047,Arun,Kumar,arun.kumar@edusense.edu.in,9827778019,Electrical Engineering,EE,M.Tech,Associate Professor,Instrumentation,19,2005,EE701,Protection and Switchgear,Core,4,7
+FACEE048,Yogesh,Singh,yogesh.singh@edusense.edu.in,9868812137,Electrical Engineering,EE,Ph.D,Professor,Power Electronics,15,2009,EE702,Industrial Drives,Core,4,7
+FACEE049,Madhuri,Arora,madhuri.arora@edusense.edu.in,9899639081,Electrical Engineering,EE,Ph.D,Assistant Professor,Power Systems,23,2001,EE703,Energy Management,Core,4,7
+FACEE050,Mohit,Pillai,mohit.pillai@edusense.edu.in,9884252420,Electrical Engineering,EE,Ph.D,Professor,Control Systems,15,2009,EE704,Project Phase I,Core,4,7
+FACEE041,Madhuri,Gupta,madhuri.gupta@edusense.edu.in,9877491435,Electrical Engineering,EE,Ph.D,Assistant Professor,Signal Processing,8,2016,EE705,Drives Lab,Lab,4,7
+FACEE042,Beena,Tiwari,beena.tiwari@edusense.edu.in,9819196777,Electrical Engineering,EE,M.Tech,Assistant Professor,Power Electronics,5,2019,EE706,Elective III: Advanced Control Systems,Elective,4,7
+FACEE043,Manoj,Saxena,manoj.saxena@edusense.edu.in,9887701200,Electrical Engineering,EE,M.E.,Assistant Professor,Electrical Machines,21,2003,EE801,Power System Operation,Core,4,8
+FACEE044,Neha,Rao,neha.rao@edusense.edu.in,9844999379,Electrical Engineering,EE,M.E.,Associate Professor,Renewable Energy,21,2003,EE802,Electrical Design and Estimation,Core,4,8
+FACEE045,Nitin,Ghosh,nitin.ghosh@edusense.edu.in,9896637649,Electrical Engineering,EE,Ph.D,Professor,Power Electronics,15,2009,EE803,Project Phase II,Core,4,8
+FACEE046,Mohit,Kamath,mohit.kamath@edusense.edu.in,9871510041,Electrical Engineering,EE,Ph.D,Assistant Professor,Power Systems,8,2016,EE804,Internship,Core,4,8
+FACEE047,Arun,Kumar,arun.kumar@edusense.edu.in,9827778019,Electrical Engineering,EE,M.Tech,Associate Professor,Instrumentation,19,2005,EE805,Seminar,Core,4,8
+FACEE048,Yogesh,Singh,yogesh.singh@edusense.edu.in,9868812137,Electrical Engineering,EE,Ph.D,Professor,Power Electronics,15,2009,EE806,Elective IV: Energy Storage Systems,Elective,4,8
+FACECE051,Swati,Bhatia,swati.bhatia@edusense.edu.in,9837326368,Electronics and Communication Engineering,ECE,M.Tech,Assistant Professor,Antenna Design,9,2015,EC101,Engineering Mathematics I,Core,1,1
+FACECE052,Manju,Modi,manju.modi@edusense.edu.in,9895132217,Electronics and Communication Engineering,ECE,Ph.D,Professor,Communication Systems,15,2009,EC102,Engineering Physics,Core,1,1
+FACECE053,Sachin,Chopra,sachin.chopra@edusense.edu.in,9895511909,Electronics and Communication Engineering,ECE,M.Tech,Assistant Professor,Embedded Systems,13,2011,EC103,Basic Electrical Engineering,Core,1,1
+FACECE054,Manju,Tiwari,manju.tiwari@edusense.edu.in,9885283645,Electronics and Communication Engineering,ECE,Ph.D,Assistant Professor,Wireless Networks,25,1999,EC104,Engineering Mechanics,Core,1,1
+FACECE055,Priya,Iyer,priya.iyer@edusense.edu.in,9859555330,Electronics and Communication Engineering,ECE,Ph.D,Associate Professor,VLSI Design,10,2014,EC105,Programming for Problem Solving,Core,1,1
+FACECE056,Kiran,Sawant,kiran.sawant@edusense.edu.in,9815354599,Electronics and Communication Engineering,ECE,M.E.,Assistant Professor,Antenna Design,12,2012,EC106,Workshop Practice Lab,Lab,1,1
+FACECE057,Rashmi,Kothari,rashmi.kothari@edusense.edu.in,9885146293,Electronics and Communication Engineering,ECE,Ph.D,Associate Professor,Antenna Design,10,2014,EC201,Engineering Mathematics II,Core,1,2
+FACECE058,Naveen,Mishra,naveen.mishra@edusense.edu.in,9865337219,Electronics and Communication Engineering,ECE,Ph.D,Assistant Professor,Embedded Systems,8,2016,EC202,Engineering Chemistry,Core,1,2
+FACECE059,Sunita,Bhatt,sunita.bhatt@edusense.edu.in,9845810056,Electronics and Communication Engineering,ECE,Ph.D,Assistant Professor,Signal Processing,16,2008,EC203,Basic Electronics Engineering,Core,1,2
+FACECE060,Ashok,Pillai,ashok.pillai@edusense.edu.in,9839854548,Electronics and Communication Engineering,ECE,M.E.,Assistant Professor,Digital Electronics,4,2020,EC204,Environmental Studies,Core,1,2
+FACECE051,Swati,Bhatia,swati.bhatia@edusense.edu.in,9837326368,Electronics and Communication Engineering,ECE,M.Tech,Assistant Professor,Antenna Design,9,2015,EC205,Engineering Graphics,Core,1,2
+FACECE052,Manju,Modi,manju.modi@edusense.edu.in,9895132217,Electronics and Communication Engineering,ECE,Ph.D,Professor,Communication Systems,15,2009,EC206,Programming Lab,Lab,1,2
+FACECE053,Sachin,Chopra,sachin.chopra@edusense.edu.in,9895511909,Electronics and Communication Engineering,ECE,M.Tech,Assistant Professor,Embedded Systems,13,2011,EC301,Electronic Devices and Circuits,Core,2,3
+FACECE054,Manju,Tiwari,manju.tiwari@edusense.edu.in,9885283645,Electronics and Communication Engineering,ECE,Ph.D,Assistant Professor,Wireless Networks,25,1999,EC302,Network Theory,Core,2,3
+FACECE055,Priya,Iyer,priya.iyer@edusense.edu.in,9859555330,Electronics and Communication Engineering,ECE,Ph.D,Associate Professor,VLSI Design,10,2014,EC303,Signals and Systems,Core,2,3
+FACECE056,Kiran,Sawant,kiran.sawant@edusense.edu.in,9815354599,Electronics and Communication Engineering,ECE,M.E.,Assistant Professor,Antenna Design,12,2012,EC304,Digital Electronics,Core,2,3
+FACECE057,Rashmi,Kothari,rashmi.kothari@edusense.edu.in,9885146293,Electronics and Communication Engineering,ECE,Ph.D,Associate Professor,Antenna Design,10,2014,EC305,Circuits Lab,Lab,2,3
+FACECE058,Naveen,Mishra,naveen.mishra@edusense.edu.in,9865337219,Electronics and Communication Engineering,ECE,Ph.D,Assistant Professor,Embedded Systems,8,2016,EC306,Digital Electronics Lab,Lab,2,3
+FACECE059,Sunita,Bhatt,sunita.bhatt@edusense.edu.in,9845810056,Electronics and Communication Engineering,ECE,Ph.D,Assistant Professor,Signal Processing,16,2008,EC401,Analog Communication,Core,2,4
+FACECE060,Ashok,Pillai,ashok.pillai@edusense.edu.in,9839854548,Electronics and Communication Engineering,ECE,M.E.,Assistant Professor,Digital Electronics,4,2020,EC402,Microprocessors and Microcontrollers,Core,2,4
+FACECE051,Swati,Bhatia,swati.bhatia@edusense.edu.in,9837326368,Electronics and Communication Engineering,ECE,M.Tech,Assistant Professor,Antenna Design,9,2015,EC403,Electromagnetic Fields,Core,2,4
+FACECE052,Manju,Modi,manju.modi@edusense.edu.in,9895132217,Electronics and Communication Engineering,ECE,Ph.D,Professor,Communication Systems,15,2009,EC404,Linear Integrated Circuits,Core,2,4
+FACECE053,Sachin,Chopra,sachin.chopra@edusense.edu.in,9895511909,Electronics and Communication Engineering,ECE,M.Tech,Assistant Professor,Embedded Systems,13,2011,EC405,Microprocessor Lab,Lab,2,4
+FACECE054,Manju,Tiwari,manju.tiwari@edusense.edu.in,9885283645,Electronics and Communication Engineering,ECE,Ph.D,Assistant Professor,Wireless Networks,25,1999,EC406,Analog Lab,Lab,2,4
+FACECE055,Priya,Iyer,priya.iyer@edusense.edu.in,9859555330,Electronics and Communication Engineering,ECE,Ph.D,Associate Professor,VLSI Design,10,2014,EC501,Digital Communication,Core,3,5
+FACECE056,Kiran,Sawant,kiran.sawant@edusense.edu.in,9815354599,Electronics and Communication Engineering,ECE,M.E.,Assistant Professor,Antenna Design,12,2012,EC502,Control Systems,Core,3,5
+FACECE057,Rashmi,Kothari,rashmi.kothari@edusense.edu.in,9885146293,Electronics and Communication Engineering,ECE,Ph.D,Associate Professor,Antenna Design,10,2014,EC503,VLSI Design,Core,3,5
+FACECE058,Naveen,Mishra,naveen.mishra@edusense.edu.in,9865337219,Electronics and Communication Engineering,ECE,Ph.D,Assistant Professor,Embedded Systems,8,2016,EC504,Antennas and Wave Propagation,Core,3,5
+FACECE059,Sunita,Bhatt,sunita.bhatt@edusense.edu.in,9845810056,Electronics and Communication Engineering,ECE,Ph.D,Assistant Professor,Signal Processing,16,2008,EC505,Communication Lab,Lab,3,5
+FACECE060,Ashok,Pillai,ashok.pillai@edusense.edu.in,9839854548,Electronics and Communication Engineering,ECE,M.E.,Assistant Professor,Digital Electronics,4,2020,EC506,Elective I: Embedded C Programming,Elective,3,5
+FACECE051,Swati,Bhatia,swati.bhatia@edusense.edu.in,9837326368,Electronics and Communication Engineering,ECE,M.Tech,Assistant Professor,Antenna Design,9,2015,EC601,Wireless Communication,Core,3,6
+FACECE052,Manju,Modi,manju.modi@edusense.edu.in,9895132217,Electronics and Communication Engineering,ECE,Ph.D,Professor,Communication Systems,15,2009,EC602,Embedded Systems,Core,3,6
+FACECE053,Sachin,Chopra,sachin.chopra@edusense.edu.in,9895511909,Electronics and Communication Engineering,ECE,M.Tech,Assistant Professor,Embedded Systems,13,2011,EC603,Digital Signal Processing,Core,3,6
+FACECE054,Manju,Tiwari,manju.tiwari@edusense.edu.in,9885283645,Electronics and Communication Engineering,ECE,Ph.D,Assistant Professor,Wireless Networks,25,1999,EC604,Optical Communication,Core,3,6
+FACECE055,Priya,Iyer,priya.iyer@edusense.edu.in,9859555330,Electronics and Communication Engineering,ECE,Ph.D,Associate Professor,VLSI Design,10,2014,EC605,DSP Lab,Lab,3,6
+FACECE056,Kiran,Sawant,kiran.sawant@edusense.edu.in,9815354599,Electronics and Communication Engineering,ECE,M.E.,Assistant Professor,Antenna Design,12,2012,EC606,Elective II: Internet of Things,Elective,3,6
+FACECE057,Rashmi,Kothari,rashmi.kothari@edusense.edu.in,9885146293,Electronics and Communication Engineering,ECE,Ph.D,Associate Professor,Antenna Design,10,2014,EC701,Microwave Engineering,Core,4,7
+FACECE058,Naveen,Mishra,naveen.mishra@edusense.edu.in,9865337219,Electronics and Communication Engineering,ECE,Ph.D,Assistant Professor,Embedded Systems,8,2016,EC702,Satellite Communication,Core,4,7
+FACECE059,Sunita,Bhatt,sunita.bhatt@edusense.edu.in,9845810056,Electronics and Communication Engineering,ECE,Ph.D,Assistant Professor,Signal Processing,16,2008,EC703,CMOS Design,Core,4,7
+FACECE060,Ashok,Pillai,ashok.pillai@edusense.edu.in,9839854548,Electronics and Communication Engineering,ECE,M.E.,Assistant Professor,Digital Electronics,4,2020,EC704,Project Phase I,Core,4,7
+FACECE051,Swati,Bhatia,swati.bhatia@edusense.edu.in,9837326368,Electronics and Communication Engineering,ECE,M.Tech,Assistant Professor,Antenna Design,9,2015,EC705,Embedded Systems Lab,Lab,4,7
+FACECE052,Manju,Modi,manju.modi@edusense.edu.in,9895132217,Electronics and Communication Engineering,ECE,Ph.D,Professor,Communication Systems,15,2009,EC706,Elective III: Robotics,Elective,4,7
+FACECE053,Sachin,Chopra,sachin.chopra@edusense.edu.in,9895511909,Electronics and Communication Engineering,ECE,M.Tech,Assistant Professor,Embedded Systems,13,2011,EC801,5G Communication Systems,Core,4,8
+FACECE054,Manju,Tiwari,manju.tiwari@edusense.edu.in,9885283645,Electronics and Communication Engineering,ECE,Ph.D,Assistant Professor,Wireless Networks,25,1999,EC802,Radar Engineering,Core,4,8
+FACECE055,Priya,Iyer,priya.iyer@edusense.edu.in,9859555330,Electronics and Communication Engineering,ECE,Ph.D,Associate Professor,VLSI Design,10,2014,EC803,Project Phase II,Core,4,8
+FACECE056,Kiran,Sawant,kiran.sawant@edusense.edu.in,9815354599,Electronics and Communication Engineering,ECE,M.E.,Assistant Professor,Antenna Design,12,2012,EC804,Internship,Core,4,8
+FACECE057,Rashmi,Kothari,rashmi.kothari@edusense.edu.in,9885146293,Electronics and Communication Engineering,ECE,Ph.D,Associate Professor,Antenna Design,10,2014,EC805,Seminar,Core,4,8
+FACECE058,Naveen,Mishra,naveen.mishra@edusense.edu.in,9865337219,Electronics and Communication Engineering,ECE,Ph.D,Assistant Professor,Embedded Systems,8,2016,EC806,Elective IV: Biomedical Electronics,Elective,4,8
+FACAIDS061,Jyoti,Kamath,jyoti.kamath@edusense.edu.in,9813176186,Artificial Intelligence and Data Science,AIDS,Ph.D,Professor,Data Science,15,2009,AI101,Engineering Mathematics I,Core,1,1
+FACAIDS062,Pankaj,Jadhav,pankaj.jadhav@edusense.edu.in,9857130035,Artificial Intelligence and Data Science,AIDS,Ph.D,Professor,Big Data,15,2009,AI102,Engineering Physics,Core,1,1
+FACAIDS063,Asha,Jadhav,asha.jadhav@edusense.edu.in,9845059710,Artificial Intelligence and Data Science,AIDS,Ph.D,Professor,NLP,15,2009,AI103,Basic Electrical Engineering,Core,1,1
+FACAIDS064,Vivek,Kapoor,vivek.kapoor@edusense.edu.in,9856397338,Artificial Intelligence and Data Science,AIDS,M.Tech,Assistant Professor,Statistical Learning,22,2002,AI104,Engineering Mechanics,Core,1,1
+FACAIDS065,Harish,Sawant,harish.sawant@edusense.edu.in,9887388337,Artificial Intelligence and Data Science,AIDS,Ph.D,Assistant Professor,Statistical Learning,8,2016,AI105,Programming for Problem Solving,Core,1,1
+FACAIDS066,Pankaj,Malhotra,pankaj.malhotra@edusense.edu.in,9879782527,Artificial Intelligence and Data Science,AIDS,M.Tech,Associate Professor,Deep Learning,16,2008,AI106,Workshop Practice Lab,Lab,1,1
+FACAIDS067,Kapil,Parekh,kapil.parekh@edusense.edu.in,9893638503,Artificial Intelligence and Data Science,AIDS,Ph.D,Assistant Professor,Reinforcement Learning,8,2016,AI201,Engineering Mathematics II,Core,1,2
+FACAIDS068,Harish,Menon,harish.menon@edusense.edu.in,9853779528,Artificial Intelligence and Data Science,AIDS,M.Tech,Assistant Professor,Statistical Learning,12,2012,AI202,Engineering Chemistry,Core,1,2
+FACAIDS069,Lata,Bajaj,lata.bajaj@edusense.edu.in,9899245317,Artificial Intelligence and Data Science,AIDS,M.Tech,Associate Professor,Statistical Learning,10,2014,AI203,Basic Electronics Engineering,Core,1,2
+FACAIDS070,Mukesh,Bhatt,mukesh.bhatt@edusense.edu.in,9883542887,Artificial Intelligence and Data Science,AIDS,Ph.D,Assistant Professor,Statistical Learning,12,2012,AI204,Environmental Studies,Core,1,2
+FACAIDS061,Jyoti,Kamath,jyoti.kamath@edusense.edu.in,9813176186,Artificial Intelligence and Data Science,AIDS,Ph.D,Professor,Data Science,15,2009,AI205,Engineering Graphics,Core,1,2
+FACAIDS062,Pankaj,Jadhav,pankaj.jadhav@edusense.edu.in,9857130035,Artificial Intelligence and Data Science,AIDS,Ph.D,Professor,Big Data,15,2009,AI206,Programming Lab,Lab,1,2
+FACAIDS063,Asha,Jadhav,asha.jadhav@edusense.edu.in,9845059710,Artificial Intelligence and Data Science,AIDS,Ph.D,Professor,NLP,15,2009,AI301,Programming in Python,Core,2,3
+FACAIDS064,Vivek,Kapoor,vivek.kapoor@edusense.edu.in,9856397338,Artificial Intelligence and Data Science,AIDS,M.Tech,Assistant Professor,Statistical Learning,22,2002,AI302,Discrete Mathematics,Core,2,3
+FACAIDS065,Harish,Sawant,harish.sawant@edusense.edu.in,9887388337,Artificial Intelligence and Data Science,AIDS,Ph.D,Assistant Professor,Statistical Learning,8,2016,AI303,Probability and Statistics,Core,2,3
+FACAIDS066,Pankaj,Malhotra,pankaj.malhotra@edusense.edu.in,9879782527,Artificial Intelligence and Data Science,AIDS,M.Tech,Associate Professor,Deep Learning,16,2008,AI304,Data Structures,Core,2,3
+FACAIDS067,Kapil,Parekh,kapil.parekh@edusense.edu.in,9893638503,Artificial Intelligence and Data Science,AIDS,Ph.D,Assistant Professor,Reinforcement Learning,8,2016,AI305,Python Lab,Lab,2,3
+FACAIDS068,Harish,Menon,harish.menon@edusense.edu.in,9853779528,Artificial Intelligence and Data Science,AIDS,M.Tech,Assistant Professor,Statistical Learning,12,2012,AI306,Data Structures Lab,Lab,2,3
+FACAIDS069,Lata,Bajaj,lata.bajaj@edusense.edu.in,9899245317,Artificial Intelligence and Data Science,AIDS,M.Tech,Associate Professor,Statistical Learning,10,2014,AI401,Linear Algebra for AI,Core,2,4
+FACAIDS070,Mukesh,Bhatt,mukesh.bhatt@edusense.edu.in,9883542887,Artificial Intelligence and Data Science,AIDS,Ph.D,Assistant Professor,Statistical Learning,12,2012,AI402,Database Systems,Core,2,4
+FACAIDS061,Jyoti,Kamath,jyoti.kamath@edusense.edu.in,9813176186,Artificial Intelligence and Data Science,AIDS,Ph.D,Professor,Data Science,15,2009,AI403,Machine Learning Foundations,Core,2,4
+FACAIDS062,Pankaj,Jadhav,pankaj.jadhav@edusense.edu.in,9857130035,Artificial Intelligence and Data Science,AIDS,Ph.D,Professor,Big Data,15,2009,AI404,Data Visualization,Core,2,4
+FACAIDS063,Asha,Jadhav,asha.jadhav@edusense.edu.in,9845059710,Artificial Intelligence and Data Science,AIDS,Ph.D,Professor,NLP,15,2009,AI405,Machine Learning Lab,Lab,2,4
+FACAIDS064,Vivek,Kapoor,vivek.kapoor@edusense.edu.in,9856397338,Artificial Intelligence and Data Science,AIDS,M.Tech,Assistant Professor,Statistical Learning,22,2002,AI406,Database Lab,Lab,2,4
+FACAIDS065,Harish,Sawant,harish.sawant@edusense.edu.in,9887388337,Artificial Intelligence and Data Science,AIDS,Ph.D,Assistant Professor,Statistical Learning,8,2016,AI501,Deep Learning,Core,3,5
+FACAIDS066,Pankaj,Malhotra,pankaj.malhotra@edusense.edu.in,9879782527,Artificial Intelligence and Data Science,AIDS,M.Tech,Associate Professor,Deep Learning,16,2008,AI502,Data Mining,Core,3,5
+FACAIDS067,Kapil,Parekh,kapil.parekh@edusense.edu.in,9893638503,Artificial Intelligence and Data Science,AIDS,Ph.D,Assistant Professor,Reinforcement Learning,8,2016,AI503,Natural Language Processing,Core,3,5
+FACAIDS068,Harish,Menon,harish.menon@edusense.edu.in,9853779528,Artificial Intelligence and Data Science,AIDS,M.Tech,Assistant Professor,Statistical Learning,12,2012,AI504,Big Data Technologies,Core,3,5
+FACAIDS069,Lata,Bajaj,lata.bajaj@edusense.edu.in,9899245317,Artificial Intelligence and Data Science,AIDS,M.Tech,Associate Professor,Statistical Learning,10,2014,AI505,Deep Learning Lab,Lab,3,5
+FACAIDS070,Mukesh,Bhatt,mukesh.bhatt@edusense.edu.in,9883542887,Artificial Intelligence and Data Science,AIDS,Ph.D,Assistant Professor,Statistical Learning,12,2012,AI506,Elective I: Computer Vision,Elective,3,5
+FACAIDS061,Jyoti,Kamath,jyoti.kamath@edusense.edu.in,9813176186,Artificial Intelligence and Data Science,AIDS,Ph.D,Professor,Data Science,15,2009,AI601,Reinforcement Learning,Core,3,6
+FACAIDS062,Pankaj,Jadhav,pankaj.jadhav@edusense.edu.in,9857130035,Artificial Intelligence and Data Science,AIDS,Ph.D,Professor,Big Data,15,2009,AI602,Cloud for Data Science,Core,3,6
+FACAIDS063,Asha,Jadhav,asha.jadhav@edusense.edu.in,9845059710,Artificial Intelligence and Data Science,AIDS,Ph.D,Professor,NLP,15,2009,AI603,Time Series Analytics,Core,3,6
+FACAIDS064,Vivek,Kapoor,vivek.kapoor@edusense.edu.in,9856397338,Artificial Intelligence and Data Science,AIDS,M.Tech,Assistant Professor,Statistical Learning,22,2002,AI604,MLOps,Core,3,6
+FACAIDS065,Harish,Sawant,harish.sawant@edusense.edu.in,9887388337,Artificial Intelligence and Data Science,AIDS,Ph.D,Assistant Professor,Statistical Learning,8,2016,AI605,Data Engineering Lab,Lab,3,6
+FACAIDS066,Pankaj,Malhotra,pankaj.malhotra@edusense.edu.in,9879782527,Artificial Intelligence and Data Science,AIDS,M.Tech,Associate Professor,Deep Learning,16,2008,AI606,Elective II: Edge AI,Elective,3,6
+FACAIDS067,Kapil,Parekh,kapil.parekh@edusense.edu.in,9893638503,Artificial Intelligence and Data Science,AIDS,Ph.D,Assistant Professor,Reinforcement Learning,8,2016,AI701,Generative AI,Core,4,7
+FACAIDS068,Harish,Menon,harish.menon@edusense.edu.in,9853779528,Artificial Intelligence and Data Science,AIDS,M.Tech,Assistant Professor,Statistical Learning,12,2012,AI702,Responsible AI,Core,4,7
+FACAIDS069,Lata,Bajaj,lata.bajaj@edusense.edu.in,9899245317,Artificial Intelligence and Data Science,AIDS,M.Tech,Associate Professor,Statistical Learning,10,2014,AI703,AI Systems Design,Core,4,7
+FACAIDS070,Mukesh,Bhatt,mukesh.bhatt@edusense.edu.in,9883542887,Artificial Intelligence and Data Science,AIDS,Ph.D,Assistant Professor,Statistical Learning,12,2012,AI704,Project Phase I,Core,4,7
+FACAIDS061,Jyoti,Kamath,jyoti.kamath@edusense.edu.in,9813176186,Artificial Intelligence and Data Science,AIDS,Ph.D,Professor,Data Science,15,2009,AI705,AI Research Lab,Lab,4,7
+FACAIDS062,Pankaj,Jadhav,pankaj.jadhav@edusense.edu.in,9857130035,Artificial Intelligence and Data Science,AIDS,Ph.D,Professor,Big Data,15,2009,AI706,Elective III: Graph Analytics,Elective,4,7
+FACAIDS063,Asha,Jadhav,asha.jadhav@edusense.edu.in,9845059710,Artificial Intelligence and Data Science,AIDS,Ph.D,Professor,NLP,15,2009,AI801,AI Product Engineering,Core,4,8
+FACAIDS064,Vivek,Kapoor,vivek.kapoor@edusense.edu.in,9856397338,Artificial Intelligence and Data Science,AIDS,M.Tech,Assistant Professor,Statistical Learning,22,2002,AI802,Decision Intelligence,Core,4,8
+FACAIDS065,Harish,Sawant,harish.sawant@edusense.edu.in,9887388337,Artificial Intelligence and Data Science,AIDS,Ph.D,Assistant Professor,Statistical Learning,8,2016,AI803,Project Phase II,Core,4,8
+FACAIDS066,Pankaj,Malhotra,pankaj.malhotra@edusense.edu.in,9879782527,Artificial Intelligence and Data Science,AIDS,M.Tech,Associate Professor,Deep Learning,16,2008,AI804,Internship,Core,4,8
+FACAIDS067,Kapil,Parekh,kapil.parekh@edusense.edu.in,9893638503,Artificial Intelligence and Data Science,AIDS,Ph.D,Assistant Professor,Reinforcement Learning,8,2016,AI805,Seminar,Core,4,8
+FACAIDS068,Harish,Menon,harish.menon@edusense.edu.in,9853779528,Artificial Intelligence and Data Science,AIDS,M.Tech,Assistant Professor,Statistical Learning,12,2012,AI806,Elective IV: Federated Learning,Elective,4,8

@@ -12,7 +12,7 @@ router = APIRouter()
 @router.get("/status")
 def dataset_status():
     return {
-        "dataset_directory": "data/datasets",
+        "dataset_directory": "data/silver + data/gold (medallion architecture)",
         "datasets": get_dataset_status(),
     }
 

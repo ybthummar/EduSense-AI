@@ -52,3 +52,10 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+backend/ai_faiss_index/
+backend/ai_faiss_index/
+*.faiss
+backend/ai_faiss_index/
+*.faiss
+backend/ai_faiss_index/
+*.faiss

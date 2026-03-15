@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
@@ -19,40 +19,33 @@ import {
   Menu,
   Command,
   Star,
+  Zap,
+  Briefcase,
+  Bot,
 } from 'lucide-react';
 import Avatar from '../components/ui/Avatar';
 
 const navByRole = {
   admin: [
-    { to: '/admin', icon: LayoutDashboard, label: 'Dashboard', end: true },
+    { to: '/admin/students', icon: GraduationCap, label: 'Students', end: true },
     { to: '/admin/faculty', icon: Users, label: 'Faculty' },
-    { to: '/admin/students', icon: GraduationCap, label: 'Students' },
-    { to: '/admin/departments', icon: Building2, label: 'Departments' },
-    { to: '/admin/analytics', icon: BarChart3, label: 'Analytics' },
-    { to: '/chat', icon: MessageSquare, label: 'Chat Assistant' },
   ],
   faculty: [
     { to: '/faculty', icon: LayoutDashboard, label: 'Dashboard', end: true },
     { to: '/faculty/students', icon: GraduationCap, label: 'My Students' },
     { to: '/faculty/performance', icon: BarChart3, label: 'Performance' },
     { to: '/faculty/attendance', icon: BookOpen, label: 'Attendance' },
-<<<<<<< HEAD
+    { to: '/faculty/quizzes', icon: Trophy, label: 'Schedule Quizzes' },
     { to: '/faculty/resources', icon: BookOpen, label: 'Share Resources' },
-=======
     { to: '/faculty/suggestions', icon: MessageSquare, label: 'Suggestion Box' },
->>>>>>> 745739c8053737db714011ce747f834db934f586
     { to: '/chat', icon: MessageSquare, label: 'Chat Assistant' },
   ],
   student: [
     { to: '/student', icon: LayoutDashboard, label: 'Dashboard', end: true },
-    { to: '/student/performance', icon: BarChart3, label: 'Performance' },
     { to: '/student/quizzes', icon: Trophy, label: 'Quizzes' },
     { to: '/student/resources', icon: BookOpen, label: 'Resources' },
-<<<<<<< HEAD
     { to: '/student/reviews', icon: Star, label: 'Student Reviews' },
-=======
     { to: '/student/suggestions', icon: MessageSquare, label: 'Suggestion Box' },
->>>>>>> 745739c8053737db714011ce747f834db934f586
     { to: '/chat', icon: MessageSquare, label: 'Chat Assistant' },
     { to: '/student/weekly-report', icon: Brain, label: 'Weekly AI Analyst' },
   ],
@@ -104,26 +97,32 @@ export default function DashboardLayout() {
         </div>
       </div>
 
-      <nav className="flex-1 space-y-1.5 overflow-y-auto px-3 py-4">
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
         {items.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.end}
-            onClick={() => setMobileOpen(false)}
-            className={({ isActive }) =>
-              [
-                'group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200',
-                isActive
-                  ? 'surface-card border-cyan-400/40 text-slate-100 shadow-lg shadow-cyan-900/30'
-                  : 'text-slate-400 hover:bg-slate-800/40 hover:text-slate-100',
-                collapsed && !isMobile ? 'justify-center' : '',
-              ].join(' ')
-            }
-          >
-            <item.icon className="h-[18px] w-[18px] flex-shrink-0" />
-            {(!collapsed || isMobile) && <span>{item.label}</span>}
-          </NavLink>
+          <Fragment key={item.to}>
+            {item.divider && <div className="my-3 border-t border-slate-700/40" />}
+            <NavLink
+              to={item.to}
+              end={item.end}
+              onClick={() => setMobileOpen(false)}
+              className={({ isActive }) =>
+                [
+                  'group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200',
+                  item.highlight
+                    ? isActive
+                      ? 'bg-gradient-to-r from-cyan-500/15 to-orange-500/10 border border-cyan-400/40 text-cyan-200 shadow-lg shadow-cyan-900/30'
+                      : 'bg-gradient-to-r from-cyan-500/5 to-orange-500/5 border border-cyan-400/15 text-cyan-300 hover:from-cyan-500/12 hover:to-orange-500/8 hover:border-cyan-400/30'
+                    : isActive
+                      ? 'surface-card border-cyan-400/40 text-slate-100 shadow-lg shadow-cyan-900/30'
+                      : 'text-slate-400 hover:bg-slate-800/40 hover:text-slate-100',
+                  collapsed && !isMobile ? 'justify-center' : '',
+                ].join(' ')
+              }
+            >
+              <item.icon className={`h-[18px] w-[18px] flex-shrink-0 ${item.highlight ? 'text-cyan-400' : ''}`} />
+              {(!collapsed || isMobile) && <span>{item.label}</span>}
+            </NavLink>
+          </Fragment>
         ))}
       </nav>
 

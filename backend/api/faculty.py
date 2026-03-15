@@ -64,42 +64,36 @@ def get_students_performance(
     department: Optional[str] = None,
     limit: int = 100,
 ) -> List[Dict[str, Any]]:
-    """Get student performance data from enriched and master datasets."""
+    """Get student performance data from silver_student_profile (enriched + master merged)."""
     import pandas as pd
     
     try:
-        # Load enriched dataset which has performance metrics
-        enriched_df = load_dataset("enriched").copy()
-        enriched_df["Student_ID"] = enriched_df["Student_ID"].astype(str).str.upper().str.strip()
-        
-        # Also load master for additional personal info
-        master_df = load_dataset("student_master").copy()
-        master_df["Student_ID"] = master_df["Student_ID"].astype(str).str.upper().str.strip()
+        # silver_student_profile has all enriched + master data in one table
+        profile_df = load_dataset("enriched").copy()
+        profile_df["student_id"] = profile_df["student_id"].astype(str).str.upper().str.strip()
         
         # Filter by department if specified
         if department:
             dept = department.strip()
-            enriched_df = enriched_df[enriched_df["Department"].str.strip() == dept]
-            master_df = master_df[master_df["Department"].str.strip() == dept]
+            profile_df = profile_df[profile_df["department"].str.strip() == dept]
         
         # Limit results
-        enriched_df = enriched_df.head(limit)
-        
-        # Merge with master data for complete info
-        merged = enriched_df.merge(
-            master_df[["Student_ID", "Phone_Number", "Email", "Department_Code"]],
-            on="Student_ID",
-            how="left",
-            suffixes=("", "_master")
-        )
+        profile_df = profile_df.head(limit)
         
         students = []
-        for _, row in merged.iterrows():
+        for _, row in profile_df.iterrows():
             # Parse marks and subjects
-            marks_str = str(row.get("Current_Subject_Marks", ""))
-            codes_str = str(row.get("Current_Subject_Codes", ""))
-            marks = [int(m.strip()) for m in marks_str.split("|") if m.strip()]
-            codes = [c.strip() for c in codes_str.split("|") if c.strip()]
+            marks_str = str(row.get("current_subject_marks", ""))
+            codes_str = str(row.get("current_subject_codes", ""))
+            marks = []
+            for m in marks_str.split("|"):
+                m = m.strip()
+                if m and m.lower() != "nan":
+                    try:
+                        marks.append(int(float(m)))
+                    except (ValueError, OverflowError):
+                        pass
+            codes = [c.strip() for c in codes_str.split("|") if c.strip() and c.strip().lower() != "nan"]
             avg_marks = sum(marks) / len(marks) if marks else 0
 
             subject_marks = []
@@ -108,7 +102,6 @@ def get_students_performance(
                     "subject_code": codes[i],
                     "marks": marks[i],
                 })
-            # if there are extra marks or codes, include them gracefully
             if len(marks) > len(codes):
                 for i in range(len(codes), len(marks)):
                     subject_marks.append({"subject_code": f"MISC-{i+1}", "marks": marks[i]})
@@ -118,7 +111,7 @@ def get_students_performance(
 
             # Calculate SGPA from average marks (10-point scale)
             current_sem_sgpa = round((avg_marks / 10), 2)
-            previous_sem_sgpa = float(row.get("Previous_Sem_SGPA", 0)) if not pd.isna(row.get("Previous_Sem_SGPA")) else 0
+            previous_sem_sgpa = float(row.get("previous_sem_sgpa", 0)) if not pd.isna(row.get("previous_sem_sgpa")) else 0
             
             # Risk calculation
             risk_score = 0
@@ -129,32 +122,32 @@ def get_students_performance(
             elif avg_marks < 60:
                 risk_score += 15
             
-            attendance = float(row.get("Attendance_Percentage", 0)) if not pd.isna(row.get("Attendance_Percentage")) else 0
+            attendance = float(row.get("attendance_percentage", 0)) if not pd.isna(row.get("attendance_percentage")) else 0
             if attendance < 75:
                 risk_score += 30
             elif attendance < 85:
                 risk_score += 10
             
             students.append({
-                "student_id": str(row["Student_ID"]),
-                "name": f"{row.get('First_Name', '')} {row.get('Last_Name', '')}".strip(),
-                "first_name": _clean_value(row.get("First_Name", "")),
-                "last_name": _clean_value(row.get("Last_Name", "")),
-                "email": _clean_value(row.get("Email", "")),
-                "phone_number": str(_clean_value(row.get("Phone_Number", ""))),
-                "department": str(row.get("Department", "")),
-                "department_code": _clean_value(row.get("Department_Code", "")),
-                "year": int(row.get("Current_Year", 1)) if not pd.isna(row.get("Current_Year")) else 1,
-                "semester": int(row.get("Semester", 1)) if not pd.isna(row.get("Semester")) else 1,
+                "student_id": str(row["student_id"]),
+                "name": f"{row.get('first_name', '')} {row.get('last_name', '')}".strip(),
+                "first_name": _clean_value(row.get("first_name", "")),
+                "last_name": _clean_value(row.get("last_name", "")),
+                "email": _clean_value(row.get("email", "")),
+                "phone_number": str(_clean_value(row.get("phone_number", ""))),
+                "department": str(row.get("department", "")),
+                "department_code": _clean_value(row.get("department_code", "")),
+                "year": int(row.get("current_year", 1)) if not pd.isna(row.get("current_year")) else 1,
+                "semester": int(row.get("semester", 1)) if not pd.isna(row.get("semester")) else 1,
                 "attendance_percentage": round(attendance, 2),
                 "average_marks": round(avg_marks, 2),
                 "previous_sem_sgpa": round(previous_sem_sgpa, 2),
-                "current_sem_sgpa": current_sem_sgpa,  # Calculated from current marks
+                "current_sem_sgpa": current_sem_sgpa,
                 "current_subjects": subject_marks,
-                "extracurricular_level": _clean_value(row.get("Extracurricular_Level", "")),
-                "internship": _clean_value(row.get("Internship", "")),
-                "devops_status": _clean_value(row.get("DevOps_Engineering_Status", "")),
-                "project_status": _clean_value(row.get("Project_Phase_II_Status", "")),
+                "extracurricular_level": _clean_value(row.get("extracurricular_level", "")),
+                "internship": _clean_value(row.get("internship", "")),
+                "devops_status": _clean_value(row.get("devops_engineering_status", "")),
+                "project_status": _clean_value(row.get("project_phase_ii_status", "")),
                 "risk_score": round(risk_score, 2),
                 "risk_level": _risk_level(risk_score),
             })
@@ -185,4 +178,59 @@ def list_student_suggestions(student_id: str):
     from services.dataset_service import get_faculty_suggestions
 
     return get_faculty_suggestions(student_id)
+
+
+@router.get("/subject-mapping")
+def get_faculty_subject_mapping(
+    department: Optional[str] = None,
+    faculty_id: Optional[str] = None,
+) -> List[Dict[str, Any]]:
+    """Faculty-subject mapping from gold star-schema (dim_faculty + dim_subject + fact_performance)."""
+    import pandas as pd
+
+    try:
+        fac_df = load_dataset("dim_faculty").copy()
+        subj_df = load_dataset("dim_subject").copy()
+        perf_df = load_dataset("fact_performance").copy()
+
+        # Build faculty-subject mapping by joining dim tables
+        # dim_subject has subject_id; fact_performance links student×subject×faculty
+        # Get unique faculty-subject pairs from fact_performance
+        if not perf_df.empty and "faculty_id" in perf_df.columns and "subject_id" in perf_df.columns:
+            perf_df["total_marks"] = pd.to_numeric(perf_df.get("total_marks"), errors="coerce")
+            # Aggregate per subject
+            subj_stats = perf_df.groupby(["faculty_id", "subject_id"]).agg(
+                avg_marks=("total_marks", "mean"),
+                pass_rate=("result_status", lambda x: (x == "Pass").mean() * 100),
+                student_count=("student_id", "nunique"),
+            ).reset_index().round(2)
+
+            # Merge faculty info
+            result = subj_stats.merge(fac_df, on="faculty_id", how="left")
+            # Merge subject info (rename department to avoid collision)
+            subj_renamed = subj_df.rename(columns={"department": "subject_department"})
+            result = result.merge(subj_renamed, on="subject_id", how="left")
+            # Use faculty department as the canonical one, drop the duplicate
+            if "subject_department" in result.columns:
+                result = result.drop(columns=["subject_department"])
+            # Teaching load
+            result["teaching_load"] = result.groupby("faculty_id")["subject_id"].transform("count")
+        else:
+            # Fallback: just return dim_faculty with subject info
+            result = fac_df.copy()
+
+        if department:
+            dept = department.strip()
+            result = result[result["department"].str.strip() == dept]
+
+        if faculty_id:
+            fid = faculty_id.strip().upper()
+            result = result[result["faculty_id"].str.upper() == fid]
+
+        records = []
+        for _, row in result.iterrows():
+            records.append({k: _clean_value(v) for k, v in row.items()})
+        return records
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
 

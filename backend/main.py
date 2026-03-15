@@ -8,7 +8,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database.firebase import init_firestore
-from api import admin, auth, chatbot, datasets, faculty, quizzes, students
+from api import admin, auth, attendance, chat_routes, chatbot, datasets, faculty, faculty_analytics, pipeline, quizzes, students
 
 # Initialize Firestore (gracefully continue if not configured)
 try:
@@ -45,10 +45,14 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
 app.include_router(students.router, prefix="/api/students", tags=["Students"])
 app.include_router(faculty.router, prefix="/api/faculty", tags=["Faculty"])
+app.include_router(faculty_analytics.router, prefix="/api/faculty", tags=["Faculty Analytics"])
 app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
 app.include_router(chatbot.router, prefix="/api/chat", tags=["AI Chatbot"])
 app.include_router(datasets.router, prefix="/api/datasets", tags=["Datasets"])
 app.include_router(quizzes.router, prefix="/api/quizzes", tags=["Quizzes"])
+app.include_router(pipeline.router, prefix="/api/pipeline", tags=["Pipeline"])
+app.include_router(attendance.router, prefix="/api/attendance", tags=["Attendance"])
+app.include_router(chat_routes.router, prefix="/api/ai/chat", tags=["AI Chat Assistant"])
 
 @app.get("/")
 def health_check():

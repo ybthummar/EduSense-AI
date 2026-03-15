@@ -1,0 +1,337 @@
+subject_id,subject_name,department,semester,credits,subject_type
+CE101,Engineering Mathematics I,Computer Engineering,1,4,Core
+CE102,Engineering Physics,Computer Engineering,1,4,Core
+CE103,Basic Electrical Engineering,Computer Engineering,1,4,Core
+CE104,Engineering Mechanics,Computer Engineering,1,4,Core
+CE105,Programming for Problem Solving,Computer Engineering,1,4,Core
+CE106,Workshop Practice Lab,Computer Engineering,1,4,Lab
+CE201,Engineering Mathematics II,Computer Engineering,2,4,Core
+CE202,Engineering Chemistry,Computer Engineering,2,4,Core
+CE203,Basic Electronics Engineering,Computer Engineering,2,4,Core
+CE204,Environmental Studies,Computer Engineering,2,4,Core
+CE205,Engineering Graphics,Computer Engineering,2,4,Core
+CE206,Programming Lab,Computer Engineering,2,4,Lab
+CE301,Data Structures,Computer Engineering,3,4,Core
+CE302,Digital Logic Design,Computer Engineering,3,4,Core
+CE303,Computer Organization,Computer Engineering,3,4,Core
+CE304,Object Oriented Programming,Computer Engineering,3,4,Core
+CE305,Data Structures Lab,Computer Engineering,3,4,Lab
+CE306,Digital Systems Lab,Computer Engineering,3,4,Lab
+CE401,Discrete Mathematics,Computer Engineering,4,4,Core
+CE402,Database Management Systems,Computer Engineering,4,4,Core
+CE403,Microprocessors,Computer Engineering,4,4,Core
+CE404,Operating Systems,Computer Engineering,4,4,Core
+CE405,Database Management Systems Lab,Computer Engineering,4,4,Lab
+CE406,Microprocessors Lab,Computer Engineering,4,4,Lab
+CE501,Design and Analysis of Algorithms,Computer Engineering,5,4,Core
+CE502,Computer Networks,Computer Engineering,5,4,Core
+CE503,Software Engineering,Computer Engineering,5,4,Core
+CE504,Theory of Computation,Computer Engineering,5,4,Core
+CE505,Computer Networks Lab,Computer Engineering,5,4,Lab
+CE506,Elective I: Web Technologies,Computer Engineering,5,3,Elective
+CE601,Compiler Design,Computer Engineering,6,4,Core
+CE602,Machine Learning,Computer Engineering,6,4,Core
+CE603,Distributed Systems,Computer Engineering,6,4,Core
+CE604,Information Security,Computer Engineering,6,4,Core
+CE605,Information Security Lab,Computer Engineering,6,4,Lab
+CE606,Elective II: Cloud Computing,Computer Engineering,6,3,Elective
+CE701,Artificial Intelligence,Computer Engineering,7,4,Core
+CE702,Big Data Analytics,Computer Engineering,7,4,Core
+CE703,Embedded Systems,Computer Engineering,7,4,Core
+CE704,Project Phase I,Computer Engineering,7,4,Core
+CE705,Artificial Intelligence Lab,Computer Engineering,7,4,Lab
+CE706,Elective III: Blockchain,Computer Engineering,7,3,Elective
+CE801,DevOps Engineering,Computer Engineering,8,4,Core
+CE802,Cyber Security,Computer Engineering,8,4,Core
+CE803,Project Phase II,Computer Engineering,8,4,Core
+CE804,Internship,Computer Engineering,8,4,Core
+CE805,Seminar,Computer Engineering,8,4,Core
+CE806,Elective IV: IoT Systems,Computer Engineering,8,3,Elective
+IT101,Engineering Mathematics I,Information Technology,1,4,Core
+IT102,Engineering Physics,Information Technology,1,4,Core
+IT103,Basic Electrical Engineering,Information Technology,1,4,Core
+IT104,Engineering Mechanics,Information Technology,1,4,Core
+IT105,Programming for Problem Solving,Information Technology,1,4,Core
+IT106,Workshop Practice Lab,Information Technology,1,4,Lab
+IT201,Engineering Mathematics II,Information Technology,2,4,Core
+IT202,Engineering Chemistry,Information Technology,2,4,Core
+IT203,Basic Electronics Engineering,Information Technology,2,4,Core
+IT204,Environmental Studies,Information Technology,2,4,Core
+IT205,Engineering Graphics,Information Technology,2,4,Core
+IT206,Programming Lab,Information Technology,2,4,Lab
+IT301,Data Structures,Information Technology,3,4,Core
+IT302,Discrete Mathematics,Information Technology,3,4,Core
+IT303,Web Technologies,Information Technology,3,4,Core
+IT304,Database Systems,Information Technology,3,4,Core
+IT305,Web Technologies Lab,Information Technology,3,4,Lab
+IT306,Database Systems Lab,Information Technology,3,4,Lab
+IT401,Operating Systems,Information Technology,4,4,Core
+IT402,Computer Organization,Information Technology,4,4,Core
+IT403,Statistics for IT,Information Technology,4,4,Core
+IT404,Software Engineering,Information Technology,4,4,Core
+IT405,Operating Systems Lab,Information Technology,4,4,Lab
+IT406,Python Programming Lab,Information Technology,4,4,Lab
+IT501,Computer Networks,Information Technology,5,4,Core
+IT502,Java Programming,Information Technology,5,4,Core
+IT503,Data Mining,Information Technology,5,4,Core
+IT504,Information Security,Information Technology,5,4,Core
+IT505,Computer Networks Lab,Information Technology,5,4,Lab
+IT506,Elective I: Mobile Application Development,Information Technology,5,3,Elective
+IT601,Cloud Computing,Information Technology,6,4,Core
+IT602,Machine Learning,Information Technology,6,4,Core
+IT603,Data Warehousing,Information Technology,6,4,Core
+IT604,Cyber Security,Information Technology,6,4,Core
+IT605,Cloud Computing Lab,Information Technology,6,4,Lab
+IT606,Elective II: UI/UX Design,Information Technology,6,3,Elective
+IT701,Big Data Analytics,Information Technology,7,4,Core
+IT702,DevOps,Information Technology,7,4,Core
+IT703,Enterprise Systems,Information Technology,7,4,Core
+IT704,Project Phase I,Information Technology,7,4,Core
+IT705,Big Data Lab,Information Technology,7,4,Lab
+IT706,Elective III: Internet of Things,Information Technology,7,3,Elective
+IT801,IT Service Management,Information Technology,8,4,Core
+IT802,Blockchain Applications,Information Technology,8,4,Core
+IT803,Project Phase II,Information Technology,8,4,Core
+IT804,Internship,Information Technology,8,4,Core
+IT805,Seminar,Information Technology,8,4,Core
+IT806,Elective IV: AR/VR Systems,Information Technology,8,3,Elective
+ME101,Engineering Mathematics I,Mechanical Engineering,1,4,Core
+ME102,Engineering Physics,Mechanical Engineering,1,4,Core
+ME103,Basic Electrical Engineering,Mechanical Engineering,1,4,Core
+ME104,Engineering Mechanics,Mechanical Engineering,1,4,Core
+ME105,Programming for Problem Solving,Mechanical Engineering,1,4,Core
+ME106,Workshop Practice Lab,Mechanical Engineering,1,4,Lab
+ME201,Engineering Mathematics II,Mechanical Engineering,2,4,Core
+ME202,Engineering Chemistry,Mechanical Engineering,2,4,Core
+ME203,Basic Electronics Engineering,Mechanical Engineering,2,4,Core
+ME204,Environmental Studies,Mechanical Engineering,2,4,Core
+ME205,Engineering Graphics,Mechanical Engineering,2,4,Core
+ME206,Programming Lab,Mechanical Engineering,2,4,Lab
+ME301,Thermodynamics,Mechanical Engineering,3,4,Core
+ME302,Manufacturing Processes,Mechanical Engineering,3,4,Core
+ME303,Strength of Materials,Mechanical Engineering,3,4,Core
+ME304,Engineering Materials,Mechanical Engineering,3,4,Core
+ME305,Manufacturing Lab,Mechanical Engineering,3,4,Lab
+ME306,Material Testing Lab,Mechanical Engineering,3,4,Lab
+ME401,Fluid Mechanics,Mechanical Engineering,4,4,Core
+ME402,Theory of Machines,Mechanical Engineering,4,4,Core
+ME403,Machine Drawing,Mechanical Engineering,4,4,Core
+ME404,Heat Transfer,Mechanical Engineering,4,4,Core
+ME405,CAD Lab,Mechanical Engineering,4,4,Lab
+ME406,Thermal Engineering Lab,Mechanical Engineering,4,4,Lab
+ME501,Design of Machine Elements,Mechanical Engineering,5,4,Core
+ME502,Internal Combustion Engines,Mechanical Engineering,5,4,Core
+ME503,Metrology and Instrumentation,Mechanical Engineering,5,4,Core
+ME504,Industrial Engineering,Mechanical Engineering,5,4,Core
+ME505,Dynamics Lab,Mechanical Engineering,5,4,Lab
+ME506,Elective I: CNC Programming,Mechanical Engineering,5,3,Elective
+ME601,Refrigeration and Air Conditioning,Mechanical Engineering,6,4,Core
+ME602,Finite Element Methods,Mechanical Engineering,6,4,Core
+ME603,Mechatronics,Mechanical Engineering,6,4,Core
+ME604,Production Planning and Control,Mechanical Engineering,6,4,Core
+ME605,CAM Lab,Mechanical Engineering,6,4,Lab
+ME606,Elective II: Renewable Energy Systems,Mechanical Engineering,6,3,Elective
+ME701,Automobile Engineering,Mechanical Engineering,7,4,Core
+ME702,Robotics in Manufacturing,Mechanical Engineering,7,4,Core
+ME703,Operations Research,Mechanical Engineering,7,4,Core
+ME704,Project Phase I,Mechanical Engineering,7,4,Core
+ME705,Mechatronics Lab,Mechanical Engineering,7,4,Lab
+ME706,Elective III: Additive Manufacturing,Mechanical Engineering,7,3,Elective
+ME801,Power Plant Engineering,Mechanical Engineering,8,4,Core
+ME802,Quality Engineering,Mechanical Engineering,8,4,Core
+ME803,Project Phase II,Mechanical Engineering,8,4,Core
+ME804,Internship,Mechanical Engineering,8,4,Core
+ME805,Seminar,Mechanical Engineering,8,4,Core
+ME806,Elective IV: Smart Manufacturing,Mechanical Engineering,8,3,Elective
+CV101,Engineering Mathematics I,Civil Engineering,1,4,Core
+CV102,Engineering Physics,Civil Engineering,1,4,Core
+CV103,Basic Electrical Engineering,Civil Engineering,1,4,Core
+CV104,Engineering Mechanics,Civil Engineering,1,4,Core
+CV105,Programming for Problem Solving,Civil Engineering,1,4,Core
+CV106,Workshop Practice Lab,Civil Engineering,1,4,Lab
+CV201,Engineering Mathematics II,Civil Engineering,2,4,Core
+CV202,Engineering Chemistry,Civil Engineering,2,4,Core
+CV203,Basic Electronics Engineering,Civil Engineering,2,4,Core
+CV204,Environmental Studies,Civil Engineering,2,4,Core
+CV205,Engineering Graphics,Civil Engineering,2,4,Core
+CV206,Programming Lab,Civil Engineering,2,4,Lab
+CV301,Surveying,Civil Engineering,3,4,Core
+CV302,Strength of Materials,Civil Engineering,3,4,Core
+CV303,Building Materials,Civil Engineering,3,4,Core
+CV304,Fluid Mechanics,Civil Engineering,3,4,Core
+CV305,Surveying Lab,Civil Engineering,3,4,Lab
+CV306,Material Testing Lab,Civil Engineering,3,4,Lab
+CV401,Structural Analysis,Civil Engineering,4,4,Core
+CV402,Geotechnical Engineering,Civil Engineering,4,4,Core
+CV403,Transportation Engineering I,Civil Engineering,4,4,Core
+CV404,Concrete Technology,Civil Engineering,4,4,Core
+CV405,Geotechnical Lab,Civil Engineering,4,4,Lab
+CV406,Concrete Lab,Civil Engineering,4,4,Lab
+CV501,Design of Reinforced Concrete Structures,Civil Engineering,5,4,Core
+CV502,Environmental Engineering I,Civil Engineering,5,4,Core
+CV503,Hydrology and Water Resources,Civil Engineering,5,4,Core
+CV504,Transportation Engineering II,Civil Engineering,5,4,Core
+CV505,CAD for Civil Lab,Civil Engineering,5,4,Lab
+CV506,Elective I: Urban Planning,Civil Engineering,5,3,Elective
+CV601,Steel Structure Design,Civil Engineering,6,4,Core
+CV602,Environmental Engineering II,Civil Engineering,6,4,Core
+CV603,Foundation Engineering,Civil Engineering,6,4,Core
+CV604,Estimation and Costing,Civil Engineering,6,4,Core
+CV605,Environmental Lab,Civil Engineering,6,4,Lab
+CV606,Elective II: GIS for Civil Engineering,Civil Engineering,6,3,Elective
+CV701,Construction Management,Civil Engineering,7,4,Core
+CV702,Pavement Engineering,Civil Engineering,7,4,Core
+CV703,Irrigation Engineering,Civil Engineering,7,4,Core
+CV704,Project Phase I,Civil Engineering,7,4,Core
+CV705,Transportation Lab,Civil Engineering,7,4,Lab
+CV706,Elective III: Earthquake Engineering,Civil Engineering,7,3,Elective
+CV801,Advanced Structural Design,Civil Engineering,8,4,Core
+CV802,Quantity Surveying,Civil Engineering,8,4,Core
+CV803,Project Phase II,Civil Engineering,8,4,Core
+CV804,Internship,Civil Engineering,8,4,Core
+CV805,Seminar,Civil Engineering,8,4,Core
+CV806,Elective IV: Smart Cities,Civil Engineering,8,3,Elective
+EE101,Engineering Mathematics I,Electrical Engineering,1,4,Core
+EE102,Engineering Physics,Electrical Engineering,1,4,Core
+EE103,Basic Electrical Engineering,Electrical Engineering,1,4,Core
+EE104,Engineering Mechanics,Electrical Engineering,1,4,Core
+EE105,Programming for Problem Solving,Electrical Engineering,1,4,Core
+EE106,Workshop Practice Lab,Electrical Engineering,1,4,Lab
+EE201,Engineering Mathematics II,Electrical Engineering,2,4,Core
+EE202,Engineering Chemistry,Electrical Engineering,2,4,Core
+EE203,Basic Electronics Engineering,Electrical Engineering,2,4,Core
+EE204,Environmental Studies,Electrical Engineering,2,4,Core
+EE205,Engineering Graphics,Electrical Engineering,2,4,Core
+EE206,Programming Lab,Electrical Engineering,2,4,Lab
+EE301,Circuit Theory,Electrical Engineering,3,4,Core
+EE302,Electrical Machines I,Electrical Engineering,3,4,Core
+EE303,Electronic Devices,Electrical Engineering,3,4,Core
+EE304,Network Analysis,Electrical Engineering,3,4,Core
+EE305,Electrical Machines Lab I,Electrical Engineering,3,4,Lab
+EE306,Circuit Lab,Electrical Engineering,3,4,Lab
+EE401,Control Systems,Electrical Engineering,4,4,Core
+EE402,Power Systems I,Electrical Engineering,4,4,Core
+EE403,Analog Electronics,Electrical Engineering,4,4,Core
+EE404,Measurements and Instrumentation,Electrical Engineering,4,4,Core
+EE405,Power Systems Lab I,Electrical Engineering,4,4,Lab
+EE406,Control Systems Lab,Electrical Engineering,4,4,Lab
+EE501,Electrical Machines II,Electrical Engineering,5,4,Core
+EE502,Power Electronics,Electrical Engineering,5,4,Core
+EE503,Signals and Systems,Electrical Engineering,5,4,Core
+EE504,Microcontrollers,Electrical Engineering,5,4,Core
+EE505,Power Electronics Lab,Electrical Engineering,5,4,Lab
+EE506,Elective I: Electric Vehicles,Electrical Engineering,5,3,Elective
+EE601,Power Systems II,Electrical Engineering,6,4,Core
+EE602,Digital Signal Processing,Electrical Engineering,6,4,Core
+EE603,Renewable Energy Engineering,Electrical Engineering,6,4,Core
+EE604,High Voltage Engineering,Electrical Engineering,6,4,Core
+EE605,DSP Lab,Electrical Engineering,6,4,Lab
+EE606,Elective II: Smart Grid Technologies,Electrical Engineering,6,3,Elective
+EE701,Protection and Switchgear,Electrical Engineering,7,4,Core
+EE702,Industrial Drives,Electrical Engineering,7,4,Core
+EE703,Energy Management,Electrical Engineering,7,4,Core
+EE704,Project Phase I,Electrical Engineering,7,4,Core
+EE705,Drives Lab,Electrical Engineering,7,4,Lab
+EE706,Elective III: Advanced Control Systems,Electrical Engineering,7,3,Elective
+EE801,Power System Operation,Electrical Engineering,8,4,Core
+EE802,Electrical Design and Estimation,Electrical Engineering,8,4,Core
+EE803,Project Phase II,Electrical Engineering,8,4,Core
+EE804,Internship,Electrical Engineering,8,4,Core
+EE805,Seminar,Electrical Engineering,8,4,Core
+EE806,Elective IV: Energy Storage Systems,Electrical Engineering,8,3,Elective
+EC101,Engineering Mathematics I,Electronics and Communication Engineering,1,4,Core
+EC102,Engineering Physics,Electronics and Communication Engineering,1,4,Core
+EC103,Basic Electrical Engineering,Electronics and Communication Engineering,1,4,Core
+EC104,Engineering Mechanics,Electronics and Communication Engineering,1,4,Core
+EC105,Programming for Problem Solving,Electronics and Communication Engineering,1,4,Core
+EC106,Workshop Practice Lab,Electronics and Communication Engineering,1,4,Lab
+EC201,Engineering Mathematics II,Electronics and Communication Engineering,2,4,Core
+EC202,Engineering Chemistry,Electronics and Communication Engineering,2,4,Core
+EC203,Basic Electronics Engineering,Electronics and Communication Engineering,2,4,Core
+EC204,Environmental Studies,Electronics and Communication Engineering,2,4,Core
+EC205,Engineering Graphics,Electronics and Communication Engineering,2,4,Core
+EC206,Programming Lab,Electronics and Communication Engineering,2,4,Lab
+EC301,Electronic Devices and Circuits,Electronics and Communication Engineering,3,4,Core
+EC302,Network Theory,Electronics and Communication Engineering,3,4,Core
+EC303,Signals and Systems,Electronics and Communication Engineering,3,4,Core
+EC304,Digital Electronics,Electronics and Communication Engineering,3,4,Core
+EC305,Circuits Lab,Electronics and Communication Engineering,3,4,Lab
+EC306,Digital Electronics Lab,Electronics and Communication Engineering,3,4,Lab
+EC401,Analog Communication,Electronics and Communication Engineering,4,4,Core
+EC402,Microprocessors and Microcontrollers,Electronics and Communication Engineering,4,4,Core
+EC403,Electromagnetic Fields,Electronics and Communication Engineering,4,4,Core
+EC404,Linear Integrated Circuits,Electronics and Communication Engineering,4,4,Core
+EC405,Microprocessor Lab,Electronics and Communication Engineering,4,4,Lab
+EC406,Analog Lab,Electronics and Communication Engineering,4,4,Lab
+EC501,Digital Communication,Electronics and Communication Engineering,5,4,Core
+EC502,Control Systems,Electronics and Communication Engineering,5,4,Core
+EC503,VLSI Design,Electronics and Communication Engineering,5,4,Core
+EC504,Antennas and Wave Propagation,Electronics and Communication Engineering,5,4,Core
+EC505,Communication Lab,Electronics and Communication Engineering,5,4,Lab
+EC506,Elective I: Embedded C Programming,Electronics and Communication Engineering,5,3,Elective
+EC601,Wireless Communication,Electronics and Communication Engineering,6,4,Core
+EC602,Embedded Systems,Electronics and Communication Engineering,6,4,Core
+EC603,Digital Signal Processing,Electronics and Communication Engineering,6,4,Core
+EC604,Optical Communication,Electronics and Communication Engineering,6,4,Core
+EC605,DSP Lab,Electronics and Communication Engineering,6,4,Lab
+EC606,Elective II: Internet of Things,Electronics and Communication Engineering,6,3,Elective
+EC701,Microwave Engineering,Electronics and Communication Engineering,7,4,Core
+EC702,Satellite Communication,Electronics and Communication Engineering,7,4,Core
+EC703,CMOS Design,Electronics and Communication Engineering,7,4,Core
+EC704,Project Phase I,Electronics and Communication Engineering,7,4,Core
+EC705,Embedded Systems Lab,Electronics and Communication Engineering,7,4,Lab
+EC706,Elective III: Robotics,Electronics and Communication Engineering,7,3,Elective
+EC801,5G Communication Systems,Electronics and Communication Engineering,8,4,Core
+EC802,Radar Engineering,Electronics and Communication Engineering,8,4,Core
+EC803,Project Phase II,Electronics and Communication Engineering,8,4,Core
+EC804,Internship,Electronics and Communication Engineering,8,4,Core
+EC805,Seminar,Electronics and Communication Engineering,8,4,Core
+EC806,Elective IV: Biomedical Electronics,Electronics and Communication Engineering,8,3,Elective
+AI101,Engineering Mathematics I,Artificial Intelligence and Data Science,1,4,Core
+AI102,Engineering Physics,Artificial Intelligence and Data Science,1,4,Core
+AI103,Basic Electrical Engineering,Artificial Intelligence and Data Science,1,4,Core
+AI104,Engineering Mechanics,Artificial Intelligence and Data Science,1,4,Core
+AI105,Programming for Problem Solving,Artificial Intelligence and Data Science,1,4,Core
+AI106,Workshop Practice Lab,Artificial Intelligence and Data Science,1,4,Lab
+AI201,Engineering Mathematics II,Artificial Intelligence and Data Science,2,4,Core
+AI202,Engineering Chemistry,Artificial Intelligence and Data Science,2,4,Core
+AI203,Basic Electronics Engineering,Artificial Intelligence and Data Science,2,4,Core
+AI204,Environmental Studies,Artificial Intelligence and Data Science,2,4,Core
+AI205,Engineering Graphics,Artificial Intelligence and Data Science,2,4,Core
+AI206,Programming Lab,Artificial Intelligence and Data Science,2,4,Lab
+AI301,Programming in Python,Artificial Intelligence and Data Science,3,4,Core
+AI302,Discrete Mathematics,Artificial Intelligence and Data Science,3,4,Core
+AI303,Probability and Statistics,Artificial Intelligence and Data Science,3,4,Core
+AI304,Data Structures,Artificial Intelligence and Data Science,3,4,Core
+AI305,Python Lab,Artificial Intelligence and Data Science,3,4,Lab
+AI306,Data Structures Lab,Artificial Intelligence and Data Science,3,4,Lab
+AI401,Linear Algebra for AI,Artificial Intelligence and Data Science,4,4,Core
+AI402,Database Systems,Artificial Intelligence and Data Science,4,4,Core
+AI403,Machine Learning Foundations,Artificial Intelligence and Data Science,4,4,Core
+AI404,Data Visualization,Artificial Intelligence and Data Science,4,4,Core
+AI405,Machine Learning Lab,Artificial Intelligence and Data Science,4,4,Lab
+AI406,Database Lab,Artificial Intelligence and Data Science,4,4,Lab
+AI501,Deep Learning,Artificial Intelligence and Data Science,5,4,Core
+AI502,Data Mining,Artificial Intelligence and Data Science,5,4,Core
+AI503,Natural Language Processing,Artificial Intelligence and Data Science,5,4,Core
+AI504,Big Data Technologies,Artificial Intelligence and Data Science,5,4,Core
+AI505,Deep Learning Lab,Artificial Intelligence and Data Science,5,4,Lab
+AI506,Elective I: Computer Vision,Artificial Intelligence and Data Science,5,3,Elective
+AI601,Reinforcement Learning,Artificial Intelligence and Data Science,6,4,Core
+AI602,Cloud for Data Science,Artificial Intelligence and Data Science,6,4,Core
+AI603,Time Series Analytics,Artificial Intelligence and Data Science,6,4,Core
+AI604,MLOps,Artificial Intelligence and Data Science,6,4,Core
+AI605,Data Engineering Lab,Artificial Intelligence and Data Science,6,4,Lab
+AI606,Elective II: Edge AI,Artificial Intelligence and Data Science,6,3,Elective
+AI701,Generative AI,Artificial Intelligence and Data Science,7,4,Core
+AI702,Responsible AI,Artificial Intelligence and Data Science,7,4,Core
+AI703,AI Systems Design,Artificial Intelligence and Data Science,7,4,Core
+AI704,Project Phase I,Artificial Intelligence and Data Science,7,4,Core
+AI705,AI Research Lab,Artificial Intelligence and Data Science,7,4,Lab
+AI706,Elective III: Graph Analytics,Artificial Intelligence and Data Science,7,3,Elective
+AI801,AI Product Engineering,Artificial Intelligence and Data Science,8,4,Core
+AI802,Decision Intelligence,Artificial Intelligence and Data Science,8,4,Core
+AI803,Project Phase II,Artificial Intelligence and Data Science,8,4,Core
+AI804,Internship,Artificial Intelligence and Data Science,8,4,Core
+AI805,Seminar,Artificial Intelligence and Data Science,8,4,Core
+AI806,Elective IV: Federated Learning,Artificial Intelligence and Data Science,8,3,Elective

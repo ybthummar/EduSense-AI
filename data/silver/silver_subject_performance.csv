@@ -1,0 +1,445 @@
+student_id,department,semester,subject_code,marks,subject_name,subject_type
+25CE001,Computer Engineering,2,CE201,49.0,Engineering Mathematics II,Core
+25CE001,Computer Engineering,2,CE202,60.0,Engineering Chemistry,Core
+25CE001,Computer Engineering,2,CE203,82.0,Basic Electronics Engineering,Core
+25CE001,Computer Engineering,2,CE204,79.0,Environmental Studies,Core
+25CE001,Computer Engineering,2,CE205,45.0,Engineering Graphics,Core
+25CE001,Computer Engineering,2,CE206,59.0,Programming Lab,Lab
+24CE002,Computer Engineering,4,CE401,77.0,Discrete Mathematics,Core
+24CE002,Computer Engineering,4,CE402,94.0,Database Management Systems,Core
+24CE002,Computer Engineering,4,CE403,64.0,Microprocessors,Core
+24CE002,Computer Engineering,4,CE404,42.0,Operating Systems,Core
+24CE002,Computer Engineering,4,CE405,40.0,Database Management Systems Lab,Lab
+24CE002,Computer Engineering,4,CE406,57.0,Microprocessors Lab,Lab
+23CE003,Computer Engineering,6,CE601,44.0,Compiler Design,Core
+23CE003,Computer Engineering,6,CE602,40.0,Machine Learning,Core
+23CE003,Computer Engineering,6,CE603,54.0,Distributed Systems,Core
+23CE003,Computer Engineering,6,CE604,68.0,Information Security,Core
+23CE003,Computer Engineering,6,CE605,70.0,Information Security Lab,Lab
+23CE003,Computer Engineering,6,CE606,79.0,Elective II: Cloud Computing,Elective
+25CE004,Computer Engineering,2,CE201,51.0,Engineering Mathematics II,Core
+25CE004,Computer Engineering,2,CE202,42.0,Engineering Chemistry,Core
+25CE004,Computer Engineering,2,CE203,81.0,Basic Electronics Engineering,Core
+25CE004,Computer Engineering,2,CE204,40.0,Environmental Studies,Core
+25CE004,Computer Engineering,2,CE205,55.0,Engineering Graphics,Core
+25CE004,Computer Engineering,2,CE206,84.0,Programming Lab,Lab
+23CE005,Computer Engineering,6,CE601,66.0,Compiler Design,Core
+23CE005,Computer Engineering,6,CE602,73.0,Machine Learning,Core
+23CE005,Computer Engineering,6,CE603,75.0,Distributed Systems,Core
+23CE005,Computer Engineering,6,CE604,93.0,Information Security,Core
+23CE005,Computer Engineering,6,CE605,79.0,Information Security Lab,Lab
+23CE005,Computer Engineering,6,CE606,91.0,Elective II: Cloud Computing,Elective
+25CE006,Computer Engineering,2,CE201,74.0,Engineering Mathematics II,Core
+25CE006,Computer Engineering,2,CE202,68.0,Engineering Chemistry,Core
+25CE006,Computer Engineering,2,CE203,75.0,Basic Electronics Engineering,Core
+25CE006,Computer Engineering,2,CE204,68.0,Environmental Studies,Core
+25CE006,Computer Engineering,2,CE205,94.0,Engineering Graphics,Core
+25CE006,Computer Engineering,2,CE206,61.0,Programming Lab,Lab
+23CE007,Computer Engineering,6,CE601,85.0,Compiler Design,Core
+23CE007,Computer Engineering,6,CE602,94.0,Machine Learning,Core
+23CE007,Computer Engineering,6,CE603,49.0,Distributed Systems,Core
+23CE007,Computer Engineering,6,CE604,76.0,Information Security,Core
+23CE007,Computer Engineering,6,CE605,91.0,Information Security Lab,Lab
+23CE007,Computer Engineering,6,CE606,57.0,Elective II: Cloud Computing,Elective
+24CE008,Computer Engineering,4,CE401,42.0,Discrete Mathematics,Core
+24CE008,Computer Engineering,4,CE402,74.0,Database Management Systems,Core
+24CE008,Computer Engineering,4,CE403,72.0,Microprocessors,Core
+24CE008,Computer Engineering,4,CE404,86.0,Operating Systems,Core
+24CE008,Computer Engineering,4,CE405,75.0,Database Management Systems Lab,Lab
+24CE008,Computer Engineering,4,CE406,61.0,Microprocessors Lab,Lab
+24CE009,Computer Engineering,4,CE401,74.0,Discrete Mathematics,Core
+24CE009,Computer Engineering,4,CE402,73.0,Database Management Systems,Core
+24CE009,Computer Engineering,4,CE403,60.0,Microprocessors,Core
+24CE009,Computer Engineering,4,CE404,54.0,Operating Systems,Core
+24CE009,Computer Engineering,4,CE405,79.0,Database Management Systems Lab,Lab
+24CE009,Computer Engineering,4,CE406,56.0,Microprocessors Lab,Lab
+24CE010,Computer Engineering,4,CE401,41.0,Discrete Mathematics,Core
+24CE010,Computer Engineering,4,CE402,83.0,Database Management Systems,Core
+24CE010,Computer Engineering,4,CE403,99.0,Microprocessors,Core
+24CE010,Computer Engineering,4,CE404,56.0,Operating Systems,Core
+24CE010,Computer Engineering,4,CE405,48.0,Database Management Systems Lab,Lab
+24CE010,Computer Engineering,4,CE406,43.0,Microprocessors Lab,Lab
+24IT001,Information Technology,4,IT401,76.0,Operating Systems,Core
+24IT001,Information Technology,4,IT402,86.0,Computer Organization,Core
+24IT001,Information Technology,4,IT403,74.0,Statistics for IT,Core
+24IT001,Information Technology,4,IT404,83.0,Software Engineering,Core
+24IT001,Information Technology,4,IT405,48.0,Operating Systems Lab,Lab
+24IT001,Information Technology,4,IT406,98.0,Python Programming Lab,Lab
+25IT002,Information Technology,2,IT201,71.0,Engineering Mathematics II,Core
+25IT002,Information Technology,2,IT202,56.0,Engineering Chemistry,Core
+25IT002,Information Technology,2,IT203,78.0,Basic Electronics Engineering,Core
+25IT002,Information Technology,2,IT204,47.0,Environmental Studies,Core
+25IT002,Information Technology,2,IT205,41.0,Engineering Graphics,Core
+25IT002,Information Technology,2,IT206,89.0,Programming Lab,Lab
+23IT003,Information Technology,6,IT601,67.0,Cloud Computing,Core
+23IT003,Information Technology,6,IT602,71.0,Machine Learning,Core
+23IT003,Information Technology,6,IT603,94.0,Data Warehousing,Core
+23IT003,Information Technology,6,IT604,85.0,Cyber Security,Core
+23IT003,Information Technology,6,IT605,91.0,Cloud Computing Lab,Lab
+23IT003,Information Technology,6,IT606,55.0,Elective II: UI/UX Design,Elective
+25IT004,Information Technology,2,IT201,40.0,Engineering Mathematics II,Core
+25IT004,Information Technology,2,IT202,99.0,Engineering Chemistry,Core
+25IT004,Information Technology,2,IT203,94.0,Basic Electronics Engineering,Core
+25IT004,Information Technology,2,IT204,61.0,Environmental Studies,Core
+25IT004,Information Technology,2,IT205,69.0,Engineering Graphics,Core
+25IT004,Information Technology,2,IT206,73.0,Programming Lab,Lab
+24IT005,Information Technology,4,IT401,72.0,Operating Systems,Core
+24IT005,Information Technology,4,IT402,90.0,Computer Organization,Core
+24IT005,Information Technology,4,IT403,58.0,Statistics for IT,Core
+24IT005,Information Technology,4,IT404,92.0,Software Engineering,Core
+24IT005,Information Technology,4,IT405,76.0,Operating Systems Lab,Lab
+24IT005,Information Technology,4,IT406,97.0,Python Programming Lab,Lab
+23IT006,Information Technology,6,IT601,97.0,Cloud Computing,Core
+23IT006,Information Technology,6,IT602,93.0,Machine Learning,Core
+23IT006,Information Technology,6,IT603,55.0,Data Warehousing,Core
+23IT006,Information Technology,6,IT604,50.0,Cyber Security,Core
+23IT006,Information Technology,6,IT605,40.0,Cloud Computing Lab,Lab
+23IT006,Information Technology,6,IT606,93.0,Elective II: UI/UX Design,Elective
+24IT007,Information Technology,4,IT401,67.0,Operating Systems,Core
+24IT007,Information Technology,4,IT402,54.0,Computer Organization,Core
+24IT007,Information Technology,4,IT403,66.0,Statistics for IT,Core
+24IT007,Information Technology,4,IT404,42.0,Software Engineering,Core
+24IT007,Information Technology,4,IT405,72.0,Operating Systems Lab,Lab
+24IT007,Information Technology,4,IT406,66.0,Python Programming Lab,Lab
+25IT008,Information Technology,2,IT201,44.0,Engineering Mathematics II,Core
+25IT008,Information Technology,2,IT202,92.0,Engineering Chemistry,Core
+25IT008,Information Technology,2,IT203,93.0,Basic Electronics Engineering,Core
+25IT008,Information Technology,2,IT204,78.0,Environmental Studies,Core
+25IT008,Information Technology,2,IT205,45.0,Engineering Graphics,Core
+25IT008,Information Technology,2,IT206,82.0,Programming Lab,Lab
+23IT009,Information Technology,6,IT601,94.0,Cloud Computing,Core
+23IT009,Information Technology,6,IT602,73.0,Machine Learning,Core
+23IT009,Information Technology,6,IT603,47.0,Data Warehousing,Core
+23IT009,Information Technology,6,IT604,48.0,Cyber Security,Core
+23IT009,Information Technology,6,IT605,59.0,Cloud Computing Lab,Lab
+23IT009,Information Technology,6,IT606,66.0,Elective II: UI/UX Design,Elective
+24IT010,Information Technology,4,IT401,90.0,Operating Systems,Core
+24IT010,Information Technology,4,IT402,43.0,Computer Organization,Core
+24IT010,Information Technology,4,IT403,92.0,Statistics for IT,Core
+24IT010,Information Technology,4,IT404,77.0,Software Engineering,Core
+24IT010,Information Technology,4,IT405,54.0,Operating Systems Lab,Lab
+24IT010,Information Technology,4,IT406,78.0,Python Programming Lab,Lab
+25ME001,Mechanical Engineering,2,ME201,73.0,Engineering Mathematics II,Core
+25ME001,Mechanical Engineering,2,ME202,65.0,Engineering Chemistry,Core
+25ME001,Mechanical Engineering,2,ME203,81.0,Basic Electronics Engineering,Core
+25ME001,Mechanical Engineering,2,ME204,65.0,Environmental Studies,Core
+25ME001,Mechanical Engineering,2,ME205,89.0,Engineering Graphics,Core
+25ME001,Mechanical Engineering,2,ME206,89.0,Programming Lab,Lab
+25ME002,Mechanical Engineering,2,ME201,90.0,Engineering Mathematics II,Core
+25ME002,Mechanical Engineering,2,ME202,98.0,Engineering Chemistry,Core
+25ME002,Mechanical Engineering,2,ME203,59.0,Basic Electronics Engineering,Core
+25ME002,Mechanical Engineering,2,ME204,97.0,Environmental Studies,Core
+25ME002,Mechanical Engineering,2,ME205,86.0,Engineering Graphics,Core
+25ME002,Mechanical Engineering,2,ME206,82.0,Programming Lab,Lab
+24ME004,Mechanical Engineering,4,ME401,45.0,Fluid Mechanics,Core
+24ME004,Mechanical Engineering,4,ME402,71.0,Theory of Machines,Core
+24ME004,Mechanical Engineering,4,ME403,40.0,Machine Drawing,Core
+24ME004,Mechanical Engineering,4,ME404,94.0,Heat Transfer,Core
+24ME004,Mechanical Engineering,4,ME405,77.0,CAD Lab,Lab
+24ME004,Mechanical Engineering,4,ME406,59.0,Thermal Engineering Lab,Lab
+24ME005,Mechanical Engineering,4,ME401,100.0,Fluid Mechanics,Core
+24ME005,Mechanical Engineering,4,ME402,97.0,Theory of Machines,Core
+24ME005,Mechanical Engineering,4,ME403,96.0,Machine Drawing,Core
+24ME005,Mechanical Engineering,4,ME404,76.0,Heat Transfer,Core
+24ME005,Mechanical Engineering,4,ME405,45.0,CAD Lab,Lab
+24ME005,Mechanical Engineering,4,ME406,74.0,Thermal Engineering Lab,Lab
+24ME006,Mechanical Engineering,4,ME401,45.0,Fluid Mechanics,Core
+24ME006,Mechanical Engineering,4,ME402,70.0,Theory of Machines,Core
+24ME006,Mechanical Engineering,4,ME403,60.0,Machine Drawing,Core
+24ME006,Mechanical Engineering,4,ME404,41.0,Heat Transfer,Core
+24ME006,Mechanical Engineering,4,ME405,78.0,CAD Lab,Lab
+24ME006,Mechanical Engineering,4,ME406,94.0,Thermal Engineering Lab,Lab
+25ME007,Mechanical Engineering,2,ME201,42.0,Engineering Mathematics II,Core
+25ME007,Mechanical Engineering,2,ME202,73.0,Engineering Chemistry,Core
+25ME007,Mechanical Engineering,2,ME203,55.0,Basic Electronics Engineering,Core
+25ME007,Mechanical Engineering,2,ME204,94.0,Environmental Studies,Core
+25ME007,Mechanical Engineering,2,ME205,52.0,Engineering Graphics,Core
+25ME007,Mechanical Engineering,2,ME206,42.0,Programming Lab,Lab
+24ME008,Mechanical Engineering,4,ME401,68.0,Fluid Mechanics,Core
+24ME008,Mechanical Engineering,4,ME402,55.0,Theory of Machines,Core
+24ME008,Mechanical Engineering,4,ME403,86.0,Machine Drawing,Core
+24ME008,Mechanical Engineering,4,ME404,98.0,Heat Transfer,Core
+24ME008,Mechanical Engineering,4,ME405,52.0,CAD Lab,Lab
+24ME008,Mechanical Engineering,4,ME406,89.0,Thermal Engineering Lab,Lab
+23ME009,Mechanical Engineering,6,ME601,88.0,Refrigeration and Air Conditioning,Core
+23ME009,Mechanical Engineering,6,ME602,72.0,Finite Element Methods,Core
+23ME009,Mechanical Engineering,6,ME603,59.0,Mechatronics,Core
+23ME009,Mechanical Engineering,6,ME604,93.0,Production Planning and Control,Core
+23ME009,Mechanical Engineering,6,ME605,96.0,CAM Lab,Lab
+23ME009,Mechanical Engineering,6,ME606,60.0,Elective II: Renewable Energy Systems,Elective
+23ME010,Mechanical Engineering,6,ME601,56.0,Refrigeration and Air Conditioning,Core
+23ME010,Mechanical Engineering,6,ME602,72.0,Finite Element Methods,Core
+23ME010,Mechanical Engineering,6,ME603,96.0,Mechatronics,Core
+23ME010,Mechanical Engineering,6,ME604,76.0,Production Planning and Control,Core
+23ME010,Mechanical Engineering,6,ME605,43.0,CAM Lab,Lab
+23ME010,Mechanical Engineering,6,ME606,56.0,Elective II: Renewable Energy Systems,Elective
+25CV001,Civil Engineering,2,CV201,41.0,Engineering Mathematics II,Core
+25CV001,Civil Engineering,2,CV202,65.0,Engineering Chemistry,Core
+25CV001,Civil Engineering,2,CV203,48.0,Basic Electronics Engineering,Core
+25CV001,Civil Engineering,2,CV204,41.0,Environmental Studies,Core
+25CV001,Civil Engineering,2,CV205,41.0,Engineering Graphics,Core
+25CV001,Civil Engineering,2,CV206,82.0,Programming Lab,Lab
+24CV002,Civil Engineering,4,CV401,71.0,Structural Analysis,Core
+24CV002,Civil Engineering,4,CV402,55.0,Geotechnical Engineering,Core
+24CV002,Civil Engineering,4,CV403,99.0,Transportation Engineering I,Core
+24CV002,Civil Engineering,4,CV404,74.0,Concrete Technology,Core
+24CV002,Civil Engineering,4,CV405,76.0,Geotechnical Lab,Lab
+24CV002,Civil Engineering,4,CV406,55.0,Concrete Lab,Lab
+23CV003,Civil Engineering,6,CV601,45.0,Steel Structure Design,Core
+23CV003,Civil Engineering,6,CV602,63.0,Environmental Engineering II,Core
+23CV003,Civil Engineering,6,CV603,56.0,Foundation Engineering,Core
+23CV003,Civil Engineering,6,CV604,90.0,Estimation and Costing,Core
+23CV003,Civil Engineering,6,CV605,80.0,Environmental Lab,Lab
+23CV003,Civil Engineering,6,CV606,85.0,Elective II: GIS for Civil Engineering,Elective
+23CV004,Civil Engineering,6,CV601,94.0,Steel Structure Design,Core
+23CV004,Civil Engineering,6,CV602,82.0,Environmental Engineering II,Core
+23CV004,Civil Engineering,6,CV603,56.0,Foundation Engineering,Core
+23CV004,Civil Engineering,6,CV604,45.0,Estimation and Costing,Core
+23CV004,Civil Engineering,6,CV605,59.0,Environmental Lab,Lab
+23CV004,Civil Engineering,6,CV606,71.0,Elective II: GIS for Civil Engineering,Elective
+23CV005,Civil Engineering,6,CV601,99.0,Steel Structure Design,Core
+23CV005,Civil Engineering,6,CV602,48.0,Environmental Engineering II,Core
+23CV005,Civil Engineering,6,CV603,59.0,Foundation Engineering,Core
+23CV005,Civil Engineering,6,CV604,71.0,Estimation and Costing,Core
+23CV005,Civil Engineering,6,CV605,46.0,Environmental Lab,Lab
+23CV005,Civil Engineering,6,CV606,60.0,Elective II: GIS for Civil Engineering,Elective
+25CV006,Civil Engineering,2,CV201,54.0,Engineering Mathematics II,Core
+25CV006,Civil Engineering,2,CV202,55.0,Engineering Chemistry,Core
+25CV006,Civil Engineering,2,CV203,71.0,Basic Electronics Engineering,Core
+25CV006,Civil Engineering,2,CV204,95.0,Environmental Studies,Core
+25CV006,Civil Engineering,2,CV205,73.0,Engineering Graphics,Core
+25CV006,Civil Engineering,2,CV206,63.0,Programming Lab,Lab
+24CV007,Civil Engineering,4,CV401,63.0,Structural Analysis,Core
+24CV007,Civil Engineering,4,CV402,65.0,Geotechnical Engineering,Core
+24CV007,Civil Engineering,4,CV403,45.0,Transportation Engineering I,Core
+24CV007,Civil Engineering,4,CV404,93.0,Concrete Technology,Core
+24CV007,Civil Engineering,4,CV405,54.0,Geotechnical Lab,Lab
+24CV007,Civil Engineering,4,CV406,54.0,Concrete Lab,Lab
+23CV008,Civil Engineering,6,CV601,82.0,Steel Structure Design,Core
+23CV008,Civil Engineering,6,CV602,80.0,Environmental Engineering II,Core
+23CV008,Civil Engineering,6,CV603,68.0,Foundation Engineering,Core
+23CV008,Civil Engineering,6,CV604,87.0,Estimation and Costing,Core
+23CV008,Civil Engineering,6,CV605,54.0,Environmental Lab,Lab
+23CV008,Civil Engineering,6,CV606,96.0,Elective II: GIS for Civil Engineering,Elective
+23CV009,Civil Engineering,6,CV601,55.0,Steel Structure Design,Core
+23CV009,Civil Engineering,6,CV602,93.0,Environmental Engineering II,Core
+23CV009,Civil Engineering,6,CV603,45.0,Foundation Engineering,Core
+23CV009,Civil Engineering,6,CV604,77.0,Estimation and Costing,Core
+23CV009,Civil Engineering,6,CV605,83.0,Environmental Lab,Lab
+23CV009,Civil Engineering,6,CV606,93.0,Elective II: GIS for Civil Engineering,Elective
+23CV010,Civil Engineering,6,CV601,62.0,Steel Structure Design,Core
+23CV010,Civil Engineering,6,CV602,61.0,Environmental Engineering II,Core
+23CV010,Civil Engineering,6,CV603,92.0,Foundation Engineering,Core
+23CV010,Civil Engineering,6,CV604,60.0,Estimation and Costing,Core
+23CV010,Civil Engineering,6,CV605,76.0,Environmental Lab,Lab
+23CV010,Civil Engineering,6,CV606,60.0,Elective II: GIS for Civil Engineering,Elective
+24EE001,Electrical Engineering,4,EE401,44.0,Control Systems,Core
+24EE001,Electrical Engineering,4,EE402,81.0,Power Systems I,Core
+24EE001,Electrical Engineering,4,EE403,87.0,Analog Electronics,Core
+24EE001,Electrical Engineering,4,EE404,74.0,Measurements and Instrumentation,Core
+24EE001,Electrical Engineering,4,EE405,89.0,Power Systems Lab I,Lab
+24EE001,Electrical Engineering,4,EE406,94.0,Control Systems Lab,Lab
+25EE002,Electrical Engineering,2,EE201,46.0,Engineering Mathematics II,Core
+25EE002,Electrical Engineering,2,EE202,42.0,Engineering Chemistry,Core
+25EE002,Electrical Engineering,2,EE203,97.0,Basic Electronics Engineering,Core
+25EE002,Electrical Engineering,2,EE204,53.0,Environmental Studies,Core
+25EE002,Electrical Engineering,2,EE205,72.0,Engineering Graphics,Core
+25EE002,Electrical Engineering,2,EE206,78.0,Programming Lab,Lab
+23EE003,Electrical Engineering,6,EE601,96.0,Power Systems II,Core
+23EE003,Electrical Engineering,6,EE602,97.0,Digital Signal Processing,Core
+23EE003,Electrical Engineering,6,EE603,99.0,Renewable Energy Engineering,Core
+23EE003,Electrical Engineering,6,EE604,68.0,High Voltage Engineering,Core
+23EE003,Electrical Engineering,6,EE605,44.0,DSP Lab,Lab
+23EE003,Electrical Engineering,6,EE606,96.0,Elective II: Smart Grid Technologies,Elective
+25EE004,Electrical Engineering,2,EE201,72.0,Engineering Mathematics II,Core
+25EE004,Electrical Engineering,2,EE202,92.0,Engineering Chemistry,Core
+25EE004,Electrical Engineering,2,EE203,82.0,Basic Electronics Engineering,Core
+25EE004,Electrical Engineering,2,EE204,93.0,Environmental Studies,Core
+25EE004,Electrical Engineering,2,EE205,100.0,Engineering Graphics,Core
+25EE004,Electrical Engineering,2,EE206,83.0,Programming Lab,Lab
+23EE005,Electrical Engineering,6,EE601,53.0,Power Systems II,Core
+23EE005,Electrical Engineering,6,EE602,60.0,Digital Signal Processing,Core
+23EE005,Electrical Engineering,6,EE603,71.0,Renewable Energy Engineering,Core
+23EE005,Electrical Engineering,6,EE604,71.0,High Voltage Engineering,Core
+23EE005,Electrical Engineering,6,EE605,74.0,DSP Lab,Lab
+23EE005,Electrical Engineering,6,EE606,93.0,Elective II: Smart Grid Technologies,Elective
+25EE006,Electrical Engineering,2,EE201,51.0,Engineering Mathematics II,Core
+25EE006,Electrical Engineering,2,EE202,41.0,Engineering Chemistry,Core
+25EE006,Electrical Engineering,2,EE203,73.0,Basic Electronics Engineering,Core
+25EE006,Electrical Engineering,2,EE204,92.0,Environmental Studies,Core
+25EE006,Electrical Engineering,2,EE205,55.0,Engineering Graphics,Core
+25EE006,Electrical Engineering,2,EE206,72.0,Programming Lab,Lab
+25EE007,Electrical Engineering,2,EE201,56.0,Engineering Mathematics II,Core
+25EE007,Electrical Engineering,2,EE202,70.0,Engineering Chemistry,Core
+25EE007,Electrical Engineering,2,EE203,56.0,Basic Electronics Engineering,Core
+25EE007,Electrical Engineering,2,EE204,68.0,Environmental Studies,Core
+25EE007,Electrical Engineering,2,EE205,75.0,Engineering Graphics,Core
+25EE007,Electrical Engineering,2,EE206,63.0,Programming Lab,Lab
+23EE008,Electrical Engineering,6,EE601,86.0,Power Systems II,Core
+23EE008,Electrical Engineering,6,EE602,47.0,Digital Signal Processing,Core
+23EE008,Electrical Engineering,6,EE603,81.0,Renewable Energy Engineering,Core
+23EE008,Electrical Engineering,6,EE604,68.0,High Voltage Engineering,Core
+23EE008,Electrical Engineering,6,EE605,51.0,DSP Lab,Lab
+23EE008,Electrical Engineering,6,EE606,89.0,Elective II: Smart Grid Technologies,Elective
+25EE009,Electrical Engineering,2,EE201,86.0,Engineering Mathematics II,Core
+25EE009,Electrical Engineering,2,EE202,95.0,Engineering Chemistry,Core
+25EE009,Electrical Engineering,2,EE203,69.0,Basic Electronics Engineering,Core
+25EE009,Electrical Engineering,2,EE204,50.0,Environmental Studies,Core
+25EE009,Electrical Engineering,2,EE205,82.0,Engineering Graphics,Core
+25EE009,Electrical Engineering,2,EE206,63.0,Programming Lab,Lab
+23EE010,Electrical Engineering,6,EE601,52.0,Power Systems II,Core
+23EE010,Electrical Engineering,6,EE602,69.0,Digital Signal Processing,Core
+23EE010,Electrical Engineering,6,EE603,83.0,Renewable Energy Engineering,Core
+23EE010,Electrical Engineering,6,EE604,81.0,High Voltage Engineering,Core
+23EE010,Electrical Engineering,6,EE605,68.0,DSP Lab,Lab
+23EE010,Electrical Engineering,6,EE606,91.0,Elective II: Smart Grid Technologies,Elective
+24EC001,Electronics and Communication Engineering,4,EC401,71.0,Analog Communication,Core
+24EC001,Electronics and Communication Engineering,4,EC402,52.0,Microprocessors and Microcontrollers,Core
+24EC001,Electronics and Communication Engineering,4,EC403,71.0,Electromagnetic Fields,Core
+24EC001,Electronics and Communication Engineering,4,EC404,40.0,Linear Integrated Circuits,Core
+24EC001,Electronics and Communication Engineering,4,EC405,87.0,Microprocessor Lab,Lab
+24EC001,Electronics and Communication Engineering,4,EC406,42.0,Analog Lab,Lab
+23EC002,Electronics and Communication Engineering,6,EC601,76.0,Wireless Communication,Core
+23EC002,Electronics and Communication Engineering,6,EC602,94.0,Embedded Systems,Core
+23EC002,Electronics and Communication Engineering,6,EC603,75.0,Digital Signal Processing,Core
+23EC002,Electronics and Communication Engineering,6,EC604,100.0,Optical Communication,Core
+23EC002,Electronics and Communication Engineering,6,EC605,60.0,DSP Lab,Lab
+23EC002,Electronics and Communication Engineering,6,EC606,80.0,Elective II: Internet of Things,Elective
+24EC003,Electronics and Communication Engineering,4,EC401,99.0,Analog Communication,Core
+24EC003,Electronics and Communication Engineering,4,EC402,89.0,Microprocessors and Microcontrollers,Core
+24EC003,Electronics and Communication Engineering,4,EC403,83.0,Electromagnetic Fields,Core
+24EC003,Electronics and Communication Engineering,4,EC404,92.0,Linear Integrated Circuits,Core
+24EC003,Electronics and Communication Engineering,4,EC405,53.0,Microprocessor Lab,Lab
+24EC003,Electronics and Communication Engineering,4,EC406,50.0,Analog Lab,Lab
+24EC004,Electronics and Communication Engineering,4,EC401,60.0,Analog Communication,Core
+24EC004,Electronics and Communication Engineering,4,EC402,53.0,Microprocessors and Microcontrollers,Core
+24EC004,Electronics and Communication Engineering,4,EC403,64.0,Electromagnetic Fields,Core
+24EC004,Electronics and Communication Engineering,4,EC404,47.0,Linear Integrated Circuits,Core
+24EC004,Electronics and Communication Engineering,4,EC405,62.0,Microprocessor Lab,Lab
+24EC004,Electronics and Communication Engineering,4,EC406,51.0,Analog Lab,Lab
+24EC005,Electronics and Communication Engineering,4,EC401,55.0,Analog Communication,Core
+24EC005,Electronics and Communication Engineering,4,EC402,57.0,Microprocessors and Microcontrollers,Core
+24EC005,Electronics and Communication Engineering,4,EC403,48.0,Electromagnetic Fields,Core
+24EC005,Electronics and Communication Engineering,4,EC404,64.0,Linear Integrated Circuits,Core
+24EC005,Electronics and Communication Engineering,4,EC405,99.0,Microprocessor Lab,Lab
+24EC005,Electronics and Communication Engineering,4,EC406,78.0,Analog Lab,Lab
+25EC006,Electronics and Communication Engineering,2,EC201,51.0,Engineering Mathematics II,Core
+25EC006,Electronics and Communication Engineering,2,EC202,99.0,Engineering Chemistry,Core
+25EC006,Electronics and Communication Engineering,2,EC203,90.0,Basic Electronics Engineering,Core
+25EC006,Electronics and Communication Engineering,2,EC204,83.0,Environmental Studies,Core
+25EC006,Electronics and Communication Engineering,2,EC205,84.0,Engineering Graphics,Core
+25EC006,Electronics and Communication Engineering,2,EC206,86.0,Programming Lab,Lab
+25EC007,Electronics and Communication Engineering,2,EC201,85.0,Engineering Mathematics II,Core
+25EC007,Electronics and Communication Engineering,2,EC202,78.0,Engineering Chemistry,Core
+25EC007,Electronics and Communication Engineering,2,EC203,86.0,Basic Electronics Engineering,Core
+25EC007,Electronics and Communication Engineering,2,EC204,83.0,Environmental Studies,Core
+25EC007,Electronics and Communication Engineering,2,EC205,94.0,Engineering Graphics,Core
+25EC007,Electronics and Communication Engineering,2,EC206,99.0,Programming Lab,Lab
+23EC008,Electronics and Communication Engineering,6,EC601,97.0,Wireless Communication,Core
+23EC008,Electronics and Communication Engineering,6,EC602,75.0,Embedded Systems,Core
+23EC008,Electronics and Communication Engineering,6,EC603,56.0,Digital Signal Processing,Core
+23EC008,Electronics and Communication Engineering,6,EC604,86.0,Optical Communication,Core
+23EC008,Electronics and Communication Engineering,6,EC605,88.0,DSP Lab,Lab
+23EC008,Electronics and Communication Engineering,6,EC606,88.0,Elective II: Internet of Things,Elective
+23EC009,Electronics and Communication Engineering,6,EC601,100.0,Wireless Communication,Core
+23EC009,Electronics and Communication Engineering,6,EC602,69.0,Embedded Systems,Core
+23EC009,Electronics and Communication Engineering,6,EC603,62.0,Digital Signal Processing,Core
+23EC009,Electronics and Communication Engineering,6,EC604,64.0,Optical Communication,Core
+23EC009,Electronics and Communication Engineering,6,EC605,45.0,DSP Lab,Lab
+23EC009,Electronics and Communication Engineering,6,EC606,95.0,Elective II: Internet of Things,Elective
+25EC010,Electronics and Communication Engineering,2,EC201,95.0,Engineering Mathematics II,Core
+25EC010,Electronics and Communication Engineering,2,EC202,73.0,Engineering Chemistry,Core
+25EC010,Electronics and Communication Engineering,2,EC203,91.0,Basic Electronics Engineering,Core
+25EC010,Electronics and Communication Engineering,2,EC204,46.0,Environmental Studies,Core
+25EC010,Electronics and Communication Engineering,2,EC205,93.0,Engineering Graphics,Core
+25EC010,Electronics and Communication Engineering,2,EC206,40.0,Programming Lab,Lab
+25AIML001,Artificial Intelligence and Machine Learning,2,AIML201,53.0,,
+25AIML001,Artificial Intelligence and Machine Learning,2,AIML202,65.0,,
+25AIML001,Artificial Intelligence and Machine Learning,2,AIML203,45.0,,
+25AIML001,Artificial Intelligence and Machine Learning,2,AIML204,41.0,,
+25AIML001,Artificial Intelligence and Machine Learning,2,AIML205,46.0,,
+25AIML001,Artificial Intelligence and Machine Learning,2,AIML206,47.0,,
+25AIML002,Artificial Intelligence and Machine Learning,2,AIML201,71.0,,
+25AIML002,Artificial Intelligence and Machine Learning,2,AIML202,53.0,,
+25AIML002,Artificial Intelligence and Machine Learning,2,AIML203,51.0,,
+25AIML002,Artificial Intelligence and Machine Learning,2,AIML204,80.0,,
+25AIML002,Artificial Intelligence and Machine Learning,2,AIML205,86.0,,
+25AIML002,Artificial Intelligence and Machine Learning,2,AIML206,80.0,,
+25AIML003,Artificial Intelligence and Machine Learning,2,AIML201,96.0,,
+25AIML003,Artificial Intelligence and Machine Learning,2,AIML202,95.0,,
+25AIML003,Artificial Intelligence and Machine Learning,2,AIML203,41.0,,
+25AIML003,Artificial Intelligence and Machine Learning,2,AIML204,68.0,,
+25AIML003,Artificial Intelligence and Machine Learning,2,AIML205,82.0,,
+25AIML003,Artificial Intelligence and Machine Learning,2,AIML206,97.0,,
+24AIML004,Artificial Intelligence and Machine Learning,4,AIML401,99.0,,
+24AIML004,Artificial Intelligence and Machine Learning,4,AIML402,93.0,,
+24AIML004,Artificial Intelligence and Machine Learning,4,AIML403,63.0,,
+24AIML004,Artificial Intelligence and Machine Learning,4,AIML404,52.0,,
+24AIML004,Artificial Intelligence and Machine Learning,4,AIML405,50.0,,
+24AIML004,Artificial Intelligence and Machine Learning,4,AIML406,56.0,,
+25AIML005,Artificial Intelligence and Machine Learning,2,AIML201,43.0,,
+25AIML005,Artificial Intelligence and Machine Learning,2,AIML202,78.0,,
+25AIML005,Artificial Intelligence and Machine Learning,2,AIML203,68.0,,
+25AIML005,Artificial Intelligence and Machine Learning,2,AIML204,80.0,,
+25AIML005,Artificial Intelligence and Machine Learning,2,AIML205,70.0,,
+25AIML005,Artificial Intelligence and Machine Learning,2,AIML206,100.0,,
+24AIML006,Artificial Intelligence and Machine Learning,4,AIML401,80.0,,
+24AIML006,Artificial Intelligence and Machine Learning,4,AIML402,84.0,,
+24AIML006,Artificial Intelligence and Machine Learning,4,AIML403,78.0,,
+24AIML006,Artificial Intelligence and Machine Learning,4,AIML404,84.0,,
+24AIML006,Artificial Intelligence and Machine Learning,4,AIML405,52.0,,
+24AIML006,Artificial Intelligence and Machine Learning,4,AIML406,56.0,,
+24AIML007,Artificial Intelligence and Machine Learning,4,AIML401,78.0,,
+24AIML007,Artificial Intelligence and Machine Learning,4,AIML402,76.0,,
+24AIML007,Artificial Intelligence and Machine Learning,4,AIML403,88.0,,
+24AIML007,Artificial Intelligence and Machine Learning,4,AIML404,84.0,,
+24AIML007,Artificial Intelligence and Machine Learning,4,AIML405,97.0,,
+24AIML007,Artificial Intelligence and Machine Learning,4,AIML406,89.0,,
+25AIML008,Artificial Intelligence and Machine Learning,2,AIML201,79.0,,
+25AIML008,Artificial Intelligence and Machine Learning,2,AIML202,43.0,,
+25AIML008,Artificial Intelligence and Machine Learning,2,AIML203,97.0,,
+25AIML008,Artificial Intelligence and Machine Learning,2,AIML204,59.0,,
+25AIML008,Artificial Intelligence and Machine Learning,2,AIML205,88.0,,
+25AIML008,Artificial Intelligence and Machine Learning,2,AIML206,77.0,,
+23AIML009,Artificial Intelligence and Machine Learning,6,AIML601,96.0,,
+23AIML009,Artificial Intelligence and Machine Learning,6,AIML602,50.0,,
+23AIML009,Artificial Intelligence and Machine Learning,6,AIML603,78.0,,
+23AIML009,Artificial Intelligence and Machine Learning,6,AIML604,77.0,,
+23AIML009,Artificial Intelligence and Machine Learning,6,AIML605,62.0,,
+23AIML009,Artificial Intelligence and Machine Learning,6,AIML606,86.0,,
+23AIML010,Artificial Intelligence and Machine Learning,6,AIML601,82.0,,
+23AIML010,Artificial Intelligence and Machine Learning,6,AIML602,60.0,,
+23AIML010,Artificial Intelligence and Machine Learning,6,AIML603,50.0,,
+23AIML010,Artificial Intelligence and Machine Learning,6,AIML604,71.0,,
+23AIML010,Artificial Intelligence and Machine Learning,6,AIML605,69.0,,
+23AIML010,Artificial Intelligence and Machine Learning,6,AIML606,75.0,,
+23AIML001,Artificial Intelligence and Machine Learning,7,AIML701,85.0,,
+23AIML001,Artificial Intelligence and Machine Learning,7,AIML702,78.0,,
+23AIML001,Artificial Intelligence and Machine Learning,7,AIML703,92.0,,
+23AIML001,Artificial Intelligence and Machine Learning,7,AIML704,88.0,,
+23AIML001,Artificial Intelligence and Machine Learning,7,AIML705,76.0,,
+23AIML001,Artificial Intelligence and Machine Learning,7,AIML706,90.0,,
+23CE001,Computer Engineering,8,CE801,78.0,DevOps Engineering,Core
+23CE001,Computer Engineering,8,CE802,82.0,Cyber Security,Core
+23CE001,Computer Engineering,8,CE803,95.0,Project Phase II,Core
+23CE001,Computer Engineering,8,CE804,88.0,Internship,Core
+23CE001,Computer Engineering,8,CE805,85.0,Seminar,Core
+23CE001,Computer Engineering,8,CE806,79.0,Elective IV: IoT Systems,Elective
+25EC001,Electronics and Communication Engineering,4,EC401,72.0,Analog Communication,Core
+25EC001,Electronics and Communication Engineering,4,EC402,68.0,Microprocessors and Microcontrollers,Core
+25EC001,Electronics and Communication Engineering,4,EC403,85.0,Electromagnetic Fields,Core
+25EC001,Electronics and Communication Engineering,4,EC404,78.0,Linear Integrated Circuits,Core
+25EC001,Electronics and Communication Engineering,4,EC405,80.0,Microprocessor Lab,Lab
+25EC001,Electronics and Communication Engineering,4,EC406,75.0,Analog Lab,Lab
+23IT002,Information Technology,8,IT801,88.0,IT Service Management,Core
+23IT002,Information Technology,8,IT802,92.0,Blockchain Applications,Core
+23IT002,Information Technology,8,IT803,96.0,Project Phase II,Core
+23IT002,Information Technology,8,IT804,90.0,Internship,Core
+23IT002,Information Technology,8,IT805,87.0,Seminar,Core
+23IT002,Information Technology,8,IT806,84.0,Elective IV: AR/VR Systems,Elective
+25ME003,Mechanical Engineering,4,ME401,65.0,Fluid Mechanics,Core
+25ME003,Mechanical Engineering,4,ME402,72.0,Theory of Machines,Core
+25ME003,Mechanical Engineering,4,ME403,70.0,Machine Drawing,Core
+25ME003,Mechanical Engineering,4,ME404,68.0,Heat Transfer,Core
+25ME003,Mechanical Engineering,4,ME405,75.0,CAD Lab,Lab
+25ME003,Mechanical Engineering,4,ME406,62.0,Thermal Engineering Lab,Lab
