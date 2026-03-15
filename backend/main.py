@@ -8,7 +8,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database.firebase import init_firestore
-from api import admin, auth, attendance, chat_routes, chatbot, datasets, faculty, faculty_analytics, pipeline, quizzes, students
+from api import admin, auth, attendance, calls, chat_routes, chatbot, datasets, faculty, faculty_analytics, pipeline, quizzes, students
 
 # Initialize Firestore (gracefully continue if not configured)
 try:
@@ -52,6 +52,7 @@ app.include_router(datasets.router, prefix="/api/datasets", tags=["Datasets"])
 app.include_router(quizzes.router, prefix="/api/quizzes", tags=["Quizzes"])
 app.include_router(pipeline.router, prefix="/api/pipeline", tags=["Pipeline"])
 app.include_router(attendance.router, prefix="/api/attendance", tags=["Attendance"])
+app.include_router(calls.router, prefix="/api/calls", tags=["Call Messages"])
 app.include_router(chat_routes.router, prefix="/api/ai/chat", tags=["AI Chat Assistant"])
 
 @app.get("/")

@@ -115,3 +115,17 @@ class QuizAttempt(Base):
     total_questions = Column(Integer)
     correct_answers = Column(Integer)
     submitted_at = Column(String)
+
+
+class StudentCall(Base):
+    __tablename__ = "student_calls"
+    id = Column(Integer, primary_key=True, index=True)
+    student_name = Column(String)
+    call_type = Column(String)           # outbound | inbound
+    user_message = Column(String)
+    summary = Column(String)
+    sentiment = Column(String)           # positive | neutral | negative
+    keywords = Column(JSON)              # list of keyword strings
+    status = Column(String)              # completed | missed
+    call_duration = Column(Integer)      # seconds
+    created_at = Column(String)

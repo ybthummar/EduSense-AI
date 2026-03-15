@@ -15,6 +15,7 @@ import StudentReviewsPage from './pages/StudentReviewsPage';
 import FacultyResourcesPage from './pages/FacultyResourcesPage';
 import WeeklyReportPage from './pages/WeeklyReportPage';
 import SuggestionBoxPage from './pages/SuggestionBoxPage';
+import FacultyCallMessagesPage from './pages/FacultyCallMessagesPage';
 import ChatPage from './pages/ChatPage';
 import ChatAssistantPage from './pages/ChatAssistantPage';
 import FacultyQuizzesPage from './pages/FacultyQuizzesPage';
@@ -82,6 +83,7 @@ export default function App() {
         <Route path="/faculty/quizzes" element={<FacultyQuizzesPage />} />
         <Route path="/faculty/resources" element={<FacultyResourcesPage />} />
         <Route path="/faculty/suggestions" element={<SuggestionBoxPage />} />
+        <Route path="/faculty/calls" element={<FacultyCallMessagesPage />} />
       </Route>
 
       {/* Student Routes */}

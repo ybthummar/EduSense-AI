@@ -63,6 +63,11 @@ export const facultyAPI = {
   getSubjectMapping: () => api.get('/faculty/subject-mapping'),
 };
 
+// Calls
+export const callsAPI = {
+  getCallMessages: (params = {}) => api.get('/calls', { params }),
+};
+
 // Chat
 export const chatAPI = {
   sendMessage: (data) => api.post('/chat/message', data),

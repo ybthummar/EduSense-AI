@@ -22,6 +22,7 @@ import {
   Zap,
   Briefcase,
   Bot,
+  Phone,
 } from 'lucide-react';
 import Avatar from '../components/ui/Avatar';
 
@@ -38,6 +39,7 @@ const navByRole = {
     { to: '/faculty/quizzes', icon: Trophy, label: 'Schedule Quizzes' },
     { to: '/faculty/resources', icon: BookOpen, label: 'Share Resources' },
     { to: '/faculty/suggestions', icon: MessageSquare, label: 'Suggestion Box' },
+    { to: '/faculty/calls', icon: Phone, label: 'Call Messages' },
     { to: '/chat', icon: MessageSquare, label: 'Chat Assistant' },
   ],
   student: [
